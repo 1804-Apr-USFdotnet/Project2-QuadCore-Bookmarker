@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27428.2043
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bookmarker.API", "Bookmarker.API\Bookmarker.API.csproj", "{E8D5CF18-D1C6-43D0-A45B-602B5D4E114E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E8D5CF18-D1C6-43D0-A45B-602B5D4E114E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E8D5CF18-D1C6-43D0-A45B-602B5D4E114E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E8D5CF18-D1C6-43D0-A45B-602B5D4E114E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E8D5CF18-D1C6-43D0-A45B-602B5D4E114E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3675972A-1E77-4283-826E-B06CFAAB9066}
+	EndGlobalSection
+EndGlobal
