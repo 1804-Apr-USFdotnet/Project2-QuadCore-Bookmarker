@@ -4,8 +4,8 @@ namespace Bookmarker.Models
 {
     public abstract class ABaseEntity
     {
-        Guid Id { get; set; }
-        DateTime Created { get; set; }
-        DateTime? Modified { get; set; }
+        public Guid Id { get; set; }
+        public DateTime Created { get; set; }
+        public DateTime? Modified { get; set; }
     }
 }

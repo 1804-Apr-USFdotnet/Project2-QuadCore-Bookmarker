@@ -6,6 +6,8 @@ namespace Bookmarker.Models
     {
         public User(string username, string password, string email)
         {
+            Id = System.Guid.NewGuid();
+            Created = System.DateTime.UtcNow;
             Username = username;
             Password = password;
             Email = email;

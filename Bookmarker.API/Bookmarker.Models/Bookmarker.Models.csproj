@@ -43,6 +43,7 @@
     <Compile Include="ABaseEntity.cs" />
     <Compile Include="Bookmark.cs" />
     <Compile Include="Collection.cs" />
+    <Compile Include="IRatable.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="User.cs" />
   </ItemGroup>
