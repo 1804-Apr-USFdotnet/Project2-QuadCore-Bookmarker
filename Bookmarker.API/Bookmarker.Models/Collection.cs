@@ -6,6 +6,7 @@ namespace Bookmarker.Models
     {
         public Collection(string name, string description, User owner)
         {
+            if(owner == null) { owner = new User("", "", ""); }
             Id = System.Guid.NewGuid();
             Created = System.DateTime.UtcNow;
             Name = name;
@@ -13,6 +14,7 @@ namespace Bookmarker.Models
             Private = true;
             Rating = 0;
             Owner = owner;
+            owner.Collections.Add(this);
             Bookmarks = new HashSet<Bookmark>();
         }
 

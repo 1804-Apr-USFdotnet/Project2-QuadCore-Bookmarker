@@ -5,10 +5,12 @@ namespace Bookmarker.Models
     {
         public Bookmark(string name, Collection collection, string url)
         {
+            if(collection == null) { collection = new Collection("", "", null); }
             Id = System.Guid.NewGuid();
             Created = System.DateTime.UtcNow;
             Name = name;
             Collection = collection;
+            collection.Bookmarks.Add(this);
             URL = url;
             Rating = 0;
         }

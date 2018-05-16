@@ -35,27 +35,37 @@ namespace Bookmarker.Test
         }
 
         [TestMethod]
-        public void TestBookmark()
-        {
-            Assert.AreEqual(0, 1);
-        }
-
-        [TestMethod]
-        public void TestCollection()
-        {
-            Assert.AreEqual(0, 1);
-        }
-
-        [TestMethod]
-        public void TestUser()
-        {
-            Assert.AreEqual(0, 1);
-        }
-
-        [TestMethod]
         public void ModelsIntegrationTest()
         {
-            Assert.AreEqual(0, 1);
+            // Arrange
+            User u1 = new User("u1", "p1", "p1@mail.com");
+            User u2 = new User("u2", "p2", "p2@mail.com");
+            Collection c1 = new Collection("c1", "d1", u1);
+            Collection c2 = new Collection("c2", "d2", u2);
+            Bookmark b1 = new Bookmark("b1", c1, "b1.com");
+            Bookmark b2 = new Bookmark("b2", c1, "b2.com");
+            Bookmark b3 = new Bookmark("b3", c2, "b3.com");
+            Bookmark b4 = new Bookmark("b4", c2, "b4.com");
+
+            // Act
+            int u1NumColls = u1.Collections.Count;
+            int u1ExpectedNumColls = 1;
+
+            int c1NumBms = c1.Bookmarks.Count;
+            int c1ExpectedNumBms = 2;
+
+            // Assert
+            // Unique Guids
+            Assert.AreNotEqual(u1.Id, u2.Id);
+            Assert.AreNotEqual(u2.Id, c1.Id);
+            Assert.AreNotEqual(c1.Id, c2.Id);
+            Assert.AreNotEqual(c2.Id, b1.Id);
+            Assert.AreNotEqual(b1.Id, b2.Id);
+            Assert.AreNotEqual(b2.Id, b3.Id);
+            Assert.AreNotEqual(b3.Id, b4.Id);
+
+            Assert.AreEqual(u1ExpectedNumColls, u1NumColls);
+            Assert.AreEqual(c1ExpectedNumBms, c1NumBms);
         }
 
         [TestMethod]
