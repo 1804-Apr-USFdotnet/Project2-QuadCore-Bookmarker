@@ -6,7 +6,7 @@ namespace Repositories.Repositories
 {
     public class BookmarkerContext : DbContext, IDbContext
     {
-        public BookmarkerContext()
+        public BookmarkerContext() : base("BookmarkerDb")
         {
 
         }
@@ -14,5 +14,10 @@ namespace Repositories.Repositories
         public DbSet<User> Users { get; set; }
         public DbSet<Collection> Collections { get; set; }
         public DbSet<Bookmark> Bookmarks { get; set; }
+
+        IDbSet<T> IDbContext.Set<T>()
+        {
+            return base.Set<T>();
+        }
     }
 }

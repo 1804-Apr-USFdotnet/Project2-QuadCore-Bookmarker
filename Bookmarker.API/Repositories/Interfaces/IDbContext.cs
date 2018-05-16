@@ -1,4 +1,5 @@
-﻿using Models.Models;
+﻿using Models.Abstracts;
+using Models.Models;
 using System.Data.Entity;
 
 namespace Repositories.Interfaces
@@ -6,6 +7,7 @@ namespace Repositories.Interfaces
     public interface IDbContext
     {
         int SaveChanges();
+        IDbSet<T> Set<T>() where T : ABaseEntity;
 
         DbSet<User> Users { get; set; }
         DbSet<Collection> Collections { get; set; }
