@@ -1,8 +1,7 @@
-﻿using Models.Models;
-using Repositories.Interfaces;
+﻿using Models;
 using System.Data.Entity;
 
-namespace Repositories.Repositories
+namespace Repositories
 {
     public class BookmarkerContext : DbContext, IDbContext
     {

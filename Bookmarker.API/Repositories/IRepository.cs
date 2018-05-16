@@ -1,7 +1,7 @@
-﻿using Models.Abstracts;
+﻿using Models;
 using System.Linq;
 
-namespace Repositories.Interfaces
+namespace Repositories
 {
     public interface IRepository<T> where T : ABaseEntity
     {

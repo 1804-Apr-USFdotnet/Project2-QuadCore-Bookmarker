@@ -1,10 +1,10 @@
-﻿using Models.Abstracts;
-using Repositories.Interfaces;
+﻿using Models;
+using Repositories;
 using System;
 using System.Data.Entity;
 using System.Linq;
 
-namespace Repositories.Repositories
+namespace Repositories
 {
     public class Repository<T> : IRepository<T> where T : ABaseEntity
     {

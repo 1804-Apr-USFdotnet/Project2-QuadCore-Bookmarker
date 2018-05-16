@@ -1,8 +1,6 @@
-﻿using Models.Abstracts;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
-namespace Models.Models
+namespace Models
 {
     public class Collection : ABaseEntity
     {

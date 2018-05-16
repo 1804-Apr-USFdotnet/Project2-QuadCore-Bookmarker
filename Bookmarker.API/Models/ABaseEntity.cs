@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Models.Abstracts
+namespace Models
 {
     public abstract class ABaseEntity
     {

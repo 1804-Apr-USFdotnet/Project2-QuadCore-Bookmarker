@@ -1,6 +1,5 @@
-﻿using Models.Abstracts;
-
-namespace Models.Models
+﻿
+namespace Models
 {
     public class Bookmark : ABaseEntity
     {

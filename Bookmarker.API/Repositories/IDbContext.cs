@@ -1,8 +1,7 @@
-﻿using Models.Abstracts;
-using Models.Models;
+﻿using Models;
 using System.Data.Entity;
 
-namespace Repositories.Interfaces
+namespace Repositories
 {
     public interface IDbContext
     {

@@ -1,8 +1,8 @@
-﻿using Models.Models;
-using Repositories.Interfaces;
+﻿using Models;
+using Repositories;
 using System.Data.Entity;
 
-namespace Repositories.Repositories
+namespace Test.Repositories
 {
     public class BookmarkerTestContext : DbContext, IDbContext
     {
