@@ -10,7 +10,7 @@ namespace Bookmarker.Test
     [TestClass]
     public class TestBookmarkerTestContext
     {
-        private BookmarkerTestContext _testContext;
+        private readonly BookmarkerTestContext _testContext;
 
         public TestBookmarkerTestContext()
         {
@@ -60,6 +60,23 @@ namespace Bookmarker.Test
             IEnumerator<Bookmark> bmEnum = bookmarks.Table.GetEnumerator();
             bmEnum.MoveNext();
             string actualName = bmEnum.Current.Name;
+
+            // Assert
+            Assert.AreEqual(expectedName, actualName);
+        }
+
+        [TestMethod]
+        public void TestUserGetById()
+        {
+            // Arrange
+            Repository<User> userRepo = new Repository<User>(_testContext);
+            IEnumerator<User> userEnum = userRepo.Table.GetEnumerator();
+            userEnum.MoveNext();
+            Guid actualGuid = userEnum.Current.Id;
+            string expectedName = userEnum.Current.Username;
+
+            // Act
+            string actualName = userRepo.GetById(actualGuid).Username;
 
             // Assert
             Assert.AreEqual(expectedName, actualName);

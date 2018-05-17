@@ -10,68 +10,69 @@ using System.Linq.Expressions;
 
 namespace Bookmarker.Test
 {
+    public class MockDbSet<T> : IDbSet<T> where T : ABaseEntity
+    {
+        private readonly List<T> _entities;
+
+        public MockDbSet()
+        {
+            _entities = new List<T>();
+        }
+
+        public ObservableCollection<T> Local => throw new NotImplementedException();
+
+        public Expression Expression => _entities.AsQueryable().Expression;
+
+        public Type ElementType => _entities.AsQueryable().ElementType;
+
+        public IQueryProvider Provider => _entities.AsQueryable().Provider;
+
+        public T Add(T entity)
+        {
+            _entities.Add(entity);
+            return entity;
+        }
+
+        public T Attach(T entity)
+        {
+            _entities.Add(entity);
+            return entity;
+        }
+
+        public T Create()
+        {
+            throw new NotImplementedException();
+        }
+
+        public T Find(params object[] keyValues)
+        {
+            return _entities.First(x => x.Id == (Guid) keyValues[0]);
+        }
+
+        public IEnumerator<T> GetEnumerator()
+        {
+            return _entities.GetEnumerator();
+        }
+
+        public T Remove(T entity)
+        {
+            _entities.Remove(entity);
+            return entity;
+        }
+
+        TDerivedEntity IDbSet<T>.Create<TDerivedEntity>()
+        {
+            throw new NotImplementedException();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return _entities.GetEnumerator();
+        }
+    }
+
     public class BookmarkerTestContext : DbContext, IDbContext
     {
-        public class MockDbSet<T> : IDbSet<T> where T : ABaseEntity
-        {
-            private readonly List<T> _entities;
-
-            public MockDbSet()
-            {
-                _entities = new List<T>();
-            }
-
-            public ObservableCollection<T> Local => throw new NotImplementedException();
-
-            public Expression Expression => _entities.AsQueryable().Expression;
-
-            public Type ElementType => _entities.AsQueryable().ElementType;
-
-            public IQueryProvider Provider => _entities.AsQueryable().Provider;
-
-            public T Add(T entity)
-            {
-                _entities.Add(entity);
-                return entity;
-            }
-
-            public T Attach(T entity)
-            {
-                _entities.Add(entity);
-                return entity;
-            }
-
-            public T Create()
-            {
-                throw new NotImplementedException();
-            }
-
-            public T Find(params object[] keyValues)
-            {
-                throw new NotImplementedException();
-            }
-
-            public IEnumerator<T> GetEnumerator()
-            {
-                return _entities.GetEnumerator();
-            }
-
-            public T Remove(T entity)
-            {
-                _entities.Remove(entity);
-                return entity;
-            }
-
-            TDerivedEntity IDbSet<T>.Create<TDerivedEntity>()
-            {
-                throw new NotImplementedException();
-            }
-
-            IEnumerator IEnumerable.GetEnumerator()
-            {
-                return _entities.GetEnumerator();
-            }
-        }
 
         public BookmarkerTestContext()
         {
