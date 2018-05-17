@@ -1,27 +1,106 @@
 ﻿using Bookmarker.Models;
 using Bookmarker.Repositories;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data.Entity;
+using System.Linq;
+using System.Linq.Expressions;
 
 namespace Bookmarker.Test
 {
     public class BookmarkerTestContext : DbContext, IDbContext
     {
-        public BookmarkerTestContext()
+        public class MockDbSet<T> : IDbSet<T> where T : ABaseEntity
         {
-            Users.Add(new User("smith", "password", "smith@mail.com"));
-            Users.Add(new User("frank", "password", "frank@mail.com"));
-            Collections.Add(new Collection("c#", ".net framework", Users.SingleAsync(x=>x.Username=="smith").Result));
-            Collections.Add(new Collection("recipes", "my favorites", Users.SingleAsync(x=>x.Username=="smith").Result));
-            Collections.Add(new Collection("c#", "c# tutorials", Users.SingleAsync(x=>x.Username=="frank").Result));
-            Bookmarks.Add(new Bookmark("c# intro", Collections.SingleAsync(x => x.Description == "c# tutorials").Result, "csharpintro.com"));
-            Bookmarks.Add(new Bookmark("c# keywords", Collections.SingleAsync(x => x.Description == "c# tutorials").Result, "csharpkeywords.com"));
-            Bookmarks.Add(new Bookmark(".net overview", Collections.SingleAsync(x => x.Description == "c# tutorials").Result, "dotnet.com"));
-            Bookmarks.Add(new Bookmark(".net summary", Collections.SingleAsync(x => x.Description == ".net framework").Result, "dotnet.com"));
+            private List<T> _entities;
+
+            public MockDbSet()
+            {
+                _entities = new List<T>();
+            }
+
+            public ObservableCollection<T> Local => null;
+
+            public Expression Expression => _entities.AsQueryable().Expression;
+
+            public Type ElementType => typeof(T);
+
+            public IQueryProvider Provider => _entities.AsQueryable().Provider;
+
+            public T Add(T entity)
+            {
+                _entities.Add(entity);
+                return entity;
+            }
+
+            public T Attach(T entity)
+            {
+                return null;
+            }
+
+            public T Create()
+            {
+                return null;
+            }
+
+            public T Find(params object[] keyValues)
+            {
+                return null;
+            }
+
+            public IEnumerator<T> GetEnumerator()
+            {
+                return _entities.GetEnumerator();
+            }
+
+            public T Remove(T entity)
+            {
+                return null;
+            }
+
+            TDerivedEntity IDbSet<T>.Create<TDerivedEntity>()
+            {
+                return null;
+            }
+
+            IEnumerator IEnumerable.GetEnumerator()
+            {
+                return _entities.GetEnumerator();
+            }
         }
 
-        public DbSet<User> Users { get; set; }
-        public DbSet<Collection> Collections { get; set; }
-        public DbSet<Bookmark> Bookmarks { get; set; }
+        public BookmarkerTestContext()
+        {
+            Users = new MockDbSet<User>();
+            Collections = new MockDbSet<Collection>();
+            Bookmarks = new MockDbSet<Bookmark>();
+
+            User u1 = new User("smith", "password", "smith@mail.com");
+            User u2 = new User("frank", "password", "frank@mail.com");
+            Collection c1 = new Collection("c#", ".net framework", u1);
+            Collection c2 = new Collection("recipes", "my favorites", u2);
+            Collection c3 = new Collection("c#", "c# tutorials", u2);
+            Bookmark b1 = new Bookmark("c# intro", c1, "csharpintro.com");
+            Bookmark b2 = new Bookmark("c# intro", c3, "csharpintro.com");
+            Bookmark b3 = new Bookmark("c# keywords", c3, "cskeywords.com");
+            Bookmark b4 = new Bookmark("recipes", c2, "food.com");
+
+            Users.Add(u1);
+            Users.Add(u2);
+            Collections.Add(c1);
+            Collections.Add(c2);
+            Collections.Add(c3);
+            Bookmarks.Add(b1);
+            Bookmarks.Add(b2);
+            Bookmarks.Add(b3);
+            Bookmarks.Add(b4);
+        }
+
+        public IDbSet<User> Users { get; set; }
+        public IDbSet<Collection> Collections { get; set; }
+        public IDbSet<Bookmark> Bookmarks { get; set; }
 
         public override int SaveChanges()
         {
@@ -30,7 +109,22 @@ namespace Bookmarker.Test
 
         IDbSet<T> IDbContext.Set<T>()
         {
-            return base.Set<T>();
+            if(typeof(T) == typeof(User))
+            {
+                return (IDbSet<T>) Users;
+            }
+            if(typeof(T) == typeof(Collection))
+            {
+                return (IDbSet<T>) Collections;
+            }
+            if(typeof(T) == typeof(Bookmark))
+            {
+                return (IDbSet<T>) Bookmarks;
+            }
+            else
+            {
+                return null;
+            }
         }
     }
 }
