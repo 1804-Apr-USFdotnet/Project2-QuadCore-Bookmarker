@@ -31,6 +31,8 @@ namespace Bookmarker.Test
 
             // Assert
             Assert.AreEqual(expectedName, actualName);
+
+            userEnum.Dispose();
         }
 
         [TestMethod]
@@ -47,6 +49,8 @@ namespace Bookmarker.Test
 
             // Assert
             Assert.AreEqual(expectedName, actualName);
+
+            collEnum.Dispose();
         }
 
         [TestMethod]
@@ -63,6 +67,8 @@ namespace Bookmarker.Test
 
             // Assert
             Assert.AreEqual(expectedName, actualName);
+
+            bmEnum.Dispose();
         }
 
         [TestMethod]
@@ -80,6 +86,44 @@ namespace Bookmarker.Test
 
             // Assert
             Assert.AreEqual(expectedName, actualName);
+
+            userEnum.Dispose();
+        }
+
+        [TestMethod]
+        public void TestUserInsert()
+        {
+            // Arrange
+            Repository<User> userRepo = new Repository<User>(_testContext);
+            IEnumerator<User> userEnum = userRepo.Table.GetEnumerator();
+
+            // Act
+            int userCount = 0;
+            while(userEnum.MoveNext())
+            {
+                userCount++;
+            }
+
+            // Assert
+            Assert.AreEqual(2, userCount);
+
+            //////////////////////////////////////////////////////////////////
+
+            // Arrange
+            userRepo.Insert(new User("john the third", "mypw", "john3@mail.com"));
+            userEnum = userRepo.Table.GetEnumerator();
+
+            // Act
+            userCount = 0;
+            while(userEnum.MoveNext())
+            {
+                userCount++;
+            }
+
+            // Assert
+            Assert.AreEqual(3, userCount);
+
+            userEnum.Dispose();
         }
     }
 }
