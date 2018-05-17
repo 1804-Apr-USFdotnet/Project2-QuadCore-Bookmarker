@@ -125,5 +125,43 @@ namespace Bookmarker.Test
 
             userEnum.Dispose();
         }
+
+        [TestMethod]
+        public void TestUserDelete()
+        {
+            // Arrange
+            Repository<User> userRepo = new Repository<User>(_testContext);
+            IEnumerator<User> userEnum = userRepo.Table.GetEnumerator();
+
+            // Act
+            int userCount = 0;
+            while(userEnum.MoveNext())
+            {
+                userCount++;
+            }
+
+            // Assert
+            Assert.AreEqual(2, userCount);
+
+            //////////////////////////////////////////////////////////////////
+
+            // Arrange
+            userEnum = userRepo.Table.GetEnumerator();
+            userEnum.MoveNext();
+
+            // Act
+            userRepo.Delete(userEnum.Current);
+            userEnum = userRepo.Table.GetEnumerator();
+            userCount = 0;
+            while(userEnum.MoveNext())
+            {
+                userCount++;
+            }
+
+            // Assert
+            Assert.AreEqual(1, userCount);
+            
+            userEnum.Dispose();
+        }
     }
 }
