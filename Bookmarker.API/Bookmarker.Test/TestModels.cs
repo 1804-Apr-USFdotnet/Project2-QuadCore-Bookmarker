@@ -45,7 +45,7 @@ namespace Bookmarker.Test
             Bookmark b1 = new Bookmark("b1", c1, "b1.com");
             Bookmark b2 = new Bookmark("b2", c1, "b2.com");
             Bookmark b3 = new Bookmark("b3", c2, "b3.com");
-            Bookmark b4 = new Bookmark("b4", c2, "b4.com");
+            Bookmark b4 = new Bookmark("b4", null, "b4.com");
 
             // Act
             int u1NumColls = u1.Collections.Count;
@@ -66,6 +66,10 @@ namespace Bookmarker.Test
 
             Assert.AreEqual(u1ExpectedNumColls, u1NumColls);
             Assert.AreEqual(c1ExpectedNumBms, c1NumBms);
+
+            Assert.AreEqual(36, b4.Collection.Owner.Id.ToString().Length);
+            Assert.AreEqual(1, b4.Collection.Owner.Collections.Count);
+            Assert.AreEqual(1, b4.Collection.Bookmarks.Count);
         }
 
         [TestMethod]

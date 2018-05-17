@@ -1,5 +1,4 @@
 ﻿using Bookmarker.Models;
-using Bookmarker.Repositories;
 using System;
 using System.Data.Entity;
 using System.Linq;
