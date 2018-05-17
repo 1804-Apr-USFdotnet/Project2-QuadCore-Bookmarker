@@ -14,18 +14,18 @@ namespace Bookmarker.Test
     {
         public class MockDbSet<T> : IDbSet<T> where T : ABaseEntity
         {
-            private List<T> _entities;
+            private readonly List<T> _entities;
 
             public MockDbSet()
             {
                 _entities = new List<T>();
             }
 
-            public ObservableCollection<T> Local => null;
+            public ObservableCollection<T> Local => throw new NotImplementedException();
 
             public Expression Expression => _entities.AsQueryable().Expression;
 
-            public Type ElementType => typeof(T);
+            public Type ElementType => _entities.AsQueryable().ElementType;
 
             public IQueryProvider Provider => _entities.AsQueryable().Provider;
 
@@ -37,17 +37,18 @@ namespace Bookmarker.Test
 
             public T Attach(T entity)
             {
-                return null;
+                _entities.Add(entity);
+                return entity;
             }
 
             public T Create()
             {
-                return null;
+                throw new NotImplementedException();
             }
 
             public T Find(params object[] keyValues)
             {
-                return null;
+                throw new NotImplementedException();
             }
 
             public IEnumerator<T> GetEnumerator()
@@ -57,12 +58,13 @@ namespace Bookmarker.Test
 
             public T Remove(T entity)
             {
-                return null;
+                _entities.Remove(entity);
+                return entity;
             }
 
             TDerivedEntity IDbSet<T>.Create<TDerivedEntity>()
             {
-                return null;
+                throw new NotImplementedException();
             }
 
             IEnumerator IEnumerable.GetEnumerator()
