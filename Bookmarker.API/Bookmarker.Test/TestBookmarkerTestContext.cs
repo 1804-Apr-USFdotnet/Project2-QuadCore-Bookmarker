@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using Bookmarker.Models;
 using Bookmarker.Repositories;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -23,7 +25,9 @@ namespace Bookmarker.Test
             string expectedName = "smith";
 
             // Act
-            string actualName = users.Table.GetEnumerator().Current.Username;
+            IEnumerator<User> userEnum = users.Table.GetEnumerator();
+            userEnum.MoveNext();
+            string actualName = userEnum.Current.Username;
 
             // Assert
             Assert.AreEqual(expectedName, actualName);
