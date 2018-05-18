@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Bookmarker.Models
@@ -30,6 +31,7 @@ namespace Bookmarker.Models
         public int Rating { get; private set; }
 
         // TODO: Doesn't this need a link to an OwnerId?
+        public Guid OwnerId { get; set; }
         public virtual User Owner { get; set; }
         public virtual ICollection<Bookmark> Bookmarks { get; set; }
 

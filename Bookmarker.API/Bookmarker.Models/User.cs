@@ -5,6 +5,11 @@ namespace Bookmarker.Models
 {
     public class User : ABaseEntity
     {
+        public User()
+        {
+
+        }
+
         public User(string username, string password, string email)
         {
             Id = System.Guid.NewGuid();

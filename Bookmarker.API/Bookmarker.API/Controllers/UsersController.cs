@@ -27,11 +27,12 @@ namespace Bookmarker.API.Controllers
             try
             {
                 var users = _userRepository.Table;
-                return users != null ? Ok(users) : throw new NullReferenceException();
+                var user = users.ToList();
+                return users != null ? Ok(user) : throw new NullReferenceException();
             }
-            catch
+            catch (Exception ex)
             {
-                return InternalServerError();
+                return InternalServerError(ex);
             }
         }
 
