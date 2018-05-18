@@ -26,7 +26,6 @@ namespace Bookmarker.Models
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
 
-
         public virtual ICollection<Collection> Collections { get; set; }
     }
 }
