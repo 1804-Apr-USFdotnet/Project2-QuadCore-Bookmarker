@@ -99,7 +99,7 @@ namespace Bookmarker.Test
 
             // Act
             int userCount = 0;
-            while(userEnum.MoveNext())
+            while (userEnum.MoveNext())
             {
                 userCount++;
             }
@@ -115,7 +115,7 @@ namespace Bookmarker.Test
 
             // Act
             userCount = 0;
-            while(userEnum.MoveNext())
+            while (userEnum.MoveNext())
             {
                 userCount++;
             }
@@ -135,7 +135,7 @@ namespace Bookmarker.Test
 
             // Act
             int userCount = 0;
-            while(userEnum.MoveNext())
+            while (userEnum.MoveNext())
             {
                 userCount++;
             }
@@ -153,15 +153,38 @@ namespace Bookmarker.Test
             userRepo.Delete(userEnum.Current);
             userEnum = userRepo.Table.GetEnumerator();
             userCount = 0;
-            while(userEnum.MoveNext())
+            while (userEnum.MoveNext())
             {
                 userCount++;
             }
 
             // Assert
             Assert.AreEqual(1, userCount);
-            
+
             userEnum.Dispose();
+        }
+
+        [TestMethod]
+        public void TestUserUpdate()
+        {
+            // Arrange
+            Repository<User> userRepo = new Repository<User>(_testContext);
+            IEnumerator<User> userEnum = userRepo.Table.GetEnumerator();
+            userEnum.MoveNext();
+            User u1 = userEnum.Current;
+            string oldName = u1.Username;
+
+            // Act
+            u1.Username = oldName + " the great";
+            userRepo.Update(u1);
+
+            userEnum = userRepo.Table.GetEnumerator();
+            userEnum.MoveNext();
+            User u2 = userEnum.Current;
+            string newName = u2.Username;
+
+            // Assert
+            Assert.AreNotEqual(oldName, newName);
         }
     }
 }

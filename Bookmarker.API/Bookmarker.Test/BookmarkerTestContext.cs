@@ -5,6 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Linq.Expressions;
 
@@ -104,6 +105,11 @@ namespace Bookmarker.Test
         public IDbSet<User> Users { get; set; }
         public IDbSet<Collection> Collections { get; set; }
         public IDbSet<Bookmark> Bookmarks { get; set; }
+
+        DbEntityEntry IDbContext.Entry<T>(T entity)
+        {
+            return base.Entry(entity);
+        }
 
         public override int SaveChanges()
         {
