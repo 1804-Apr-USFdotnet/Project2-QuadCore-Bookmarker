@@ -14,7 +14,7 @@ namespace Bookmarker.API.Controllers
     [EnableCors("*", "*", "*")]
     public class UsersController : ApiController
     {
-        private static readonly IDbContext _context = new BookmarkerTestContext();
+        private static readonly IDbContext _context = new BookmarkerContext();
         private static readonly Repository<User> _userRepository = new Repository<User>(_context);
 
         public UsersController()
