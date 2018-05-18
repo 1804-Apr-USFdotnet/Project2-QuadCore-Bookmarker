@@ -5,20 +5,20 @@ namespace Bookmarker.Models
 {
     public class User : ABaseEntity
     {
-        public User()
-        {
+        //public User()
+        //{
 
-        }
+        //}
 
-        public User(string username, string password, string email)
-        {
-            Id = System.Guid.NewGuid();
-            Created = System.DateTime.UtcNow;
-            Username = username;
-            Password = password;
-            Email = email;
-            Collections = new HashSet<Collection>();
-        }
+        //public User(string username, string password, string email = "")
+        //{
+        //    Id = System.Guid.NewGuid();
+        //    Created = System.DateTime.UtcNow;
+        //    Username = username;
+        //    Password = password;
+        //    Email = email;
+        //    Collections = new HashSet<Collection>();
+        //}
         
         [Required]
         [StringLength(20)]

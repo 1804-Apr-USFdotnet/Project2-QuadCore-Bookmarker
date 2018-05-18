@@ -6,17 +6,17 @@ namespace Bookmarker.Models
 {
     public class Bookmark : ABaseEntity, IRatable
     {
-        public Bookmark(string name, Collection collection, string url)
-        {
-            if(collection == null) { collection = new Collection("", "", null); }
-            Id = System.Guid.NewGuid();
-            Created = System.DateTime.UtcNow;
-            Name = name;
-            Collection = collection;
-            collection.Bookmarks.Add(this);
-            URL = url;
-            Rating = 0;
-        }
+        //public Bookmark(string name, Collection collection, string url)
+        //{
+        //    if(collection == null) { collection = new Collection("", "", null); }
+        //    Id = System.Guid.NewGuid();
+        //    Created = System.DateTime.UtcNow;
+        //    Name = name;
+        //    Collection = collection;
+        //    collection.Bookmarks.Add(this);
+        //    URL = url;
+        //    Rating = 0;
+        //}
 
         [Required]
         public string Name { get; set; }
