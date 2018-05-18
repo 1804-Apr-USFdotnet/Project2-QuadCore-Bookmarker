@@ -2,11 +2,14 @@
 using System;
 using System.Data.Entity;
 using System.Linq;
+using NLog;
 
 namespace Bookmarker.Repositories
 {
     public class Repository<T> : IRepository<T> where T : ABaseEntity
     {
+        private static Logger log = LogManager.GetCurrentClassLogger();
+
         private readonly IDbContext _dbContext;
         private IDbSet<T> _entities;
 
@@ -30,7 +33,7 @@ namespace Bookmarker.Repositories
             }
             catch (Exception e)
             {
-                // log
+                log.Error(e);
                 throw e;
             }
         }
@@ -53,7 +56,7 @@ namespace Bookmarker.Repositories
             }
             catch (Exception e)
             {
-                // log
+                log.Error(e);
                 throw e;
             }
         }
@@ -71,7 +74,7 @@ namespace Bookmarker.Repositories
             }
             catch (Exception e)
             {
-                // log
+                log.Error(e);
                 throw e;
             }
         }
