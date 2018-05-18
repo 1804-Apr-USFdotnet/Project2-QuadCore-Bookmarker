@@ -102,6 +102,11 @@ namespace Bookmarker.Test
             Bookmarks.Add(b4);
         }
 
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            Database.SetInitializer<BookmarkerTestContext>(null);
+        }
+
         public IDbSet<User> Users { get; set; }
         public IDbSet<Collection> Collections { get; set; }
         public IDbSet<Bookmark> Bookmarks { get; set; }
