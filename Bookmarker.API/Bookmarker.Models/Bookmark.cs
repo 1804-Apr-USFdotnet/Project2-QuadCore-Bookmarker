@@ -1,4 +1,6 @@
 ﻿
+using System.ComponentModel.DataAnnotations;
+
 namespace Bookmarker.Models
 {
     public class Bookmark : ABaseEntity, IRatable
@@ -15,8 +17,14 @@ namespace Bookmarker.Models
             Rating = 0;
         }
 
+        [Required]
         public string Name { get; set; }
+
+        // TODO: Probably needs CollectionId property to link
         public virtual Collection Collection { get; set; }
+
+        [Required]
+        [DataType(DataType.Url)]
         public string URL { get; set; }
         public int Rating { get; private set; }
 

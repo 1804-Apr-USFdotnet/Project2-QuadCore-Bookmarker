@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Bookmarker.Models
 {
@@ -18,10 +19,17 @@ namespace Bookmarker.Models
             Bookmarks = new HashSet<Bookmark>();
         }
 
+        [Required]
+        [StringLength(100)]
         public string Name { get; set; }
+
+        [DataType(DataType.MultilineText)]
         public string Description { get; set; }
+
         public bool Private { get; set; }
         public int Rating { get; private set; }
+
+        // TODO: Doesn't this need a link to an OwnerId?
         public virtual User Owner { get; set; }
         public virtual ICollection<Bookmark> Bookmarks { get; set; }
 
