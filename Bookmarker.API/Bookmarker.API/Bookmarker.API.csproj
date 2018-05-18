@@ -276,10 +276,6 @@
       <Project>{CB0C1047-54FC-4B30-867B-5BF352D157E6}</Project>
       <Name>Bookmarker.Repositories</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Bookmarker.Test\Bookmarker.Test.csproj">
-      <Project>{4BAE8603-66C8-4B2B-9639-F049B83265F3}</Project>
-      <Name>Bookmarker.Test</Name>
-    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

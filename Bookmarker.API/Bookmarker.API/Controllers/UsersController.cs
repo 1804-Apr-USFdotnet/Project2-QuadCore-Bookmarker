@@ -1,6 +1,5 @@
 ﻿using Bookmarker.Models;
 using Bookmarker.Repositories;
-using Bookmarker.Test;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,11 +26,12 @@ namespace Bookmarker.API.Controllers
             try
             {
                 var users = _userRepository.Table;
-                return users != null ? Ok(users) : throw new NullReferenceException();
+                var user = users.ToList();
+                return users != null ? Ok(user) : throw new NullReferenceException();
             }
-            catch
+            catch (Exception ex)
             {
-                return InternalServerError();
+                return InternalServerError(ex);
             }
         }
 
@@ -50,15 +50,35 @@ namespace Bookmarker.API.Controllers
         }
 
         // POST: api/Users
-        public void Post([FromBody]User user)
+        public IHttpActionResult Post([FromBody]User user)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
             _userRepository.Insert(user);
+            return Ok();
         }
 
-        // PUT: api/Users/5
-        public void Put([FromBody]User user)
+        // PUT: api/Users
+        public IHttpActionResult Put([FromBody]User user)
         {
-            _userRepository.Update(user);
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            try
+            {
+                _userRepository.Update(user);
+            }
+            catch (Exception ex)
+            {
+                // TODO: Log errors
+                return InternalServerError(ex);
+            }
+            
+            return Ok();
         }
 
         // DELETE: api/Users/5
