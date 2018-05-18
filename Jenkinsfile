@@ -46,7 +46,7 @@ node('master') {
     }
     stage('package') {
         try {
-            dir('Bookmarker.MVC') {
+            dir('Bookmarker.MVC/Bookmarker.MVC') {
                 bat 'msbuild /t:package /p:Configuration=Debug;PackageFileName=..\\Package.zip'
             }
         }
@@ -58,7 +58,7 @@ node('master') {
     stage('deploy') {
         try {
             dir('Bookmarker.MVC') {
-                bat "msdeploy -verb:sync -source:package=\"%CD%\\Package.zip\" -dest:auto,computerName=\"ec2-18-205-198-149.compute-1.amazonaws.com\",userName=\"Administrator\",password=\"${env.Deploy_Password}\",authtype=\"basic\",includeAcls=\"False\" -disableLink:AppPoolExtension -disableLink:ContentExtension -disableLink:CertificateExtension -setParam:\"IIS Web Application Name\"=\"Default Web Site/Bookmarker\" -enableRule:AppOffline -allowUntrusted"
+                bat "msdeploy -verb:sync -source:package=\"%CD%\\Package.zip\" -dest:auto,computerName=\"https://ec2-18-205-198-149.compute-1.amazonaws.com:8172/msdeploy.axd\",userName=\"Administrator\",password=\"${env.Deploy_Password}\",authtype=\"basic\",includeAcls=\"False\" -disableLink:AppPoolExtension -disableLink:ContentExtension -disableLink:CertificateExtension -setParam:\"IIS Web Application Name\"=\"Default Web Site/Bookmarker\" -enableRule:AppOffline -allowUntrusted"
             }
         }
         catch (exc) {
