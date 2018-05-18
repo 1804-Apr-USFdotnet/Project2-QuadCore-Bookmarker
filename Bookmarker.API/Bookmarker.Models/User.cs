@@ -20,6 +20,7 @@ namespace Bookmarker.Models
         public string Username { get; set; }
 
         [Required]
+        [DataType(DataType.Password)]
         [StringLength(40, MinimumLength = 8)]
         public string Password { get; set; }
 
