@@ -66,6 +66,7 @@ namespace Bookmarker.Repositories
                 {
                     throw new ArgumentNullException("entity");
                 }
+                _dbContext.Entry(entity).State = EntityState.Modified;
                 _dbContext.SaveChanges();
             }
             catch (Exception e)

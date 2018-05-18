@@ -1,5 +1,6 @@
 ﻿using Bookmarker.Models;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 
 namespace Bookmarker.Repositories
 {
@@ -7,9 +8,10 @@ namespace Bookmarker.Repositories
     {
         int SaveChanges();
         IDbSet<T> Set<T>() where T : ABaseEntity;
+        DbEntityEntry Entry<T>(T entity) where T : ABaseEntity;
 
-        DbSet<User> Users { get; set; }
-        DbSet<Collection> Collections { get; set; }
-        DbSet<Bookmark> Bookmarks { get; set; }
+        IDbSet<User> Users { get; set; }
+        IDbSet<Collection> Collections { get; set; }
+        IDbSet<Bookmark> Bookmarks { get; set; }
     }
 }
