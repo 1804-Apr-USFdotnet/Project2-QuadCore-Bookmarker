@@ -50,15 +50,35 @@ namespace Bookmarker.API.Controllers
         }
 
         // POST: api/Users
-        public void Post([FromBody]User user)
+        public IHttpActionResult Post([FromBody]User user)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
             _userRepository.Insert(user);
+            return Ok();
         }
 
-        // PUT: api/Users/5
-        public void Put([FromBody]User user)
+        // PUT: api/Users
+        public IHttpActionResult Put([FromBody]User user)
         {
-            _userRepository.Update(user);
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            try
+            {
+                _userRepository.Update(user);
+            }
+            catch (Exception ex)
+            {
+                // TODO: Log errors
+                return InternalServerError(ex);
+            }
+            
+            return Ok();
         }
 
         // DELETE: api/Users/5
