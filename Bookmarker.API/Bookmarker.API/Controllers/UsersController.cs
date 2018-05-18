@@ -27,26 +27,26 @@ namespace Bookmarker.API.Controllers
             try
             {
                 var users = _userRepository.Table;
-
-                if (users != null)
-                {
-                    return Ok(users);
-                }
-                else
-                {
-                    return NotFound();
-                }
+                return users != null ? Ok(users) : throw new NullReferenceException();
             }
             catch
             {
-                return NotFound();
+                return InternalServerError();
             }
         }
 
         // GET: api/Users/5
-        public User Get(Guid id)
+        public IHttpActionResult Get(Guid id)
         {
-            return _userRepository.GetById(id);
+            try
+            {
+                var user = _userRepository.GetById(id);
+                return user != null ? Ok(user) : (IHttpActionResult) NotFound();
+            }
+            catch
+            {
+                return InternalServerError();
+            }
         }
 
         // POST: api/Users
