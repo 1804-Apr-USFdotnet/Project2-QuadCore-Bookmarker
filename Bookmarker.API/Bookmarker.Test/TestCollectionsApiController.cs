@@ -47,11 +47,11 @@ namespace Bookmarker.Test
         public async Task TestCollectionsApiGetByIdAsync()
         {
             // Arrange
-            string expectedCollectionname = "smith";
-            Guid smithsGuid = new Guid("88888888-4444-4444-4444-222222222222");
+            string expectedCollectionname = "recipes";
+            Guid guid = new Guid("bbbbbbbb-4444-4444-4444-222222222222");
 
             // Act
-            IHttpActionResult collectionResult = controller.Get(smithsGuid);
+            IHttpActionResult collectionResult = controller.Get(guid);
             var message = await collectionResult.ExecuteAsync(new System.Threading.CancellationToken());
             var collection = await message.Content.ReadAsAsync<Collection>();
 
