@@ -84,6 +84,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BookmarkerTestContext.cs" />
+    <Compile Include="FakeTestToBreakJenkins.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestBookmarkerTestContext.cs" />
     <Compile Include="TestModels.cs" />
