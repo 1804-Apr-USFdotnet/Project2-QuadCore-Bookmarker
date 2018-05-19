@@ -78,16 +78,16 @@ namespace Bookmarker.Test
 
             // Post -- invalid model -- expect bad request message
             Collection newCollection = new Collection();
-            newCollection.Name = "jon";
-            newCollection.Description = "badPw";
-            newCollection.Id = new Guid("55555555-4444-4444-4444-222222222222");
+            newCollection.Name = "";
+            newCollection.Description = "The latest news!";
+            newCollection.Id = new Guid("55555555-4444-aaaa-4444-222222222222");
 
-            controller.ModelState.AddModelError("k1", "password is too short");
+            controller.ModelState.AddModelError("k1", "name is required");
             IHttpActionResult result = controller.Post(newCollection);
             var badPostMessage = await result.ExecuteAsync(new System.Threading.CancellationToken());
             Assert.AreEqual(HttpStatusCode.BadRequest, badPostMessage.StatusCode);
 
-            newCollection.Description = "okayPassword";
+            newCollection.Name = "News";
             controller.ModelState.Remove("k1");
             IHttpActionResult goodResult = controller.Post(newCollection);
             var goodPostMessage = await goodResult.ExecuteAsync(new System.Threading.CancellationToken());
