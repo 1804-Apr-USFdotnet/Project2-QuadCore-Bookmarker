@@ -7,6 +7,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Cors;
+using System.Web.Http.Results;
 
 namespace Bookmarker.API.Controllers
 {
@@ -90,10 +91,18 @@ namespace Bookmarker.API.Controllers
         }
 
         // DELETE: api/Users/5
-        public void Delete(Guid id)
+        public StatusCodeResult Delete(Guid id)
         {
-            User user = _userRepository.GetById(id);
-            _userRepository.Delete(user);
+            try
+            {
+                User user = _userRepository.GetById(id);
+                _userRepository.Delete(user);
+                return StatusCode(HttpStatusCode.NoContent);
+            }
+            catch
+            {
+                return StatusCode(HttpStatusCode.BadRequest);
+            }
         }
     }
 }
