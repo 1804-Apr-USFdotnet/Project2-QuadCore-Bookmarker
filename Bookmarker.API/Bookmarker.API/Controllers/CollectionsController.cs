@@ -7,36 +7,35 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Cors;
-using System.Web.Http.Results;
 
 namespace Bookmarker.API.Controllers
 {
     [EnableCors("*", "*", "*")]
-    public class UsersController : ApiController
+    public class CollectionsController : ApiController
     {
         private readonly IDbContext _context;
-        private readonly Repository<User> _userRepository;
+        private readonly Repository<Collection> _collectionRepository;
 
-        public UsersController()
+        public CollectionsController()
         {
             _context = new BookmarkerContext();
-            _userRepository = new Repository<User>(_context);
+            _collectionRepository = new Repository<Collection>(_context);
         }
 
-        public UsersController(IDbContext context)
+        public CollectionsController(IDbContext context)
         {
             _context = context; 
-            _userRepository = new Repository<User>(_context);
+            _collectionRepository = new Repository<Collection>(_context);
         }
 
-        // GET: api/Users
+        // GET: api/Collections
         public IHttpActionResult Get()
         {
             try
             {
-                var users = _userRepository.Table;
-                var user = users.ToList();
-                return users != null ? Ok(user) : throw new NullReferenceException();
+                var collections = _collectionRepository.Table;
+                var collection = collections.ToList();
+                return collections != null ? Ok(collection) : throw new NullReferenceException();
             }
             catch (Exception ex)
             {
@@ -44,13 +43,13 @@ namespace Bookmarker.API.Controllers
             }
         }
 
-        // GET: api/Users/5
+        // GET: api/Collections/5
         public IHttpActionResult Get(Guid id)
         {
             try
             {
-                var user = _userRepository.GetById(id);
-                return user != null ? Ok(user) : (IHttpActionResult) NotFound();
+                var collection = _collectionRepository.GetById(id);
+                return collection != null ? Ok(collection) : (IHttpActionResult) NotFound();
             }
             catch
             {
@@ -58,19 +57,19 @@ namespace Bookmarker.API.Controllers
             }
         }
 
-        // POST: api/Users
-        public IHttpActionResult Post([FromBody]User user)
+        // POST: api/Collections
+        public IHttpActionResult Post([FromBody]Collection collection)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest();
             }
-            _userRepository.Insert(user);
+            _collectionRepository.Insert(collection);
             return Ok();
         }
 
-        // PUT: api/Users
-        public IHttpActionResult Put([FromBody]User user)
+        // PUT: api/Collections
+        public IHttpActionResult Put([FromBody]Collection collection)
         {
             if (!ModelState.IsValid)
             {
@@ -79,14 +78,14 @@ namespace Bookmarker.API.Controllers
 
             try
             {
-                User oldUser = _userRepository.GetById(user.Id);
-                if(oldUser == null)
+                Collection oldcollection = _collectionRepository.GetById(collection.Id);
+                if(oldcollection == null)
                 {
-                    _userRepository.Insert(user);
+                    _collectionRepository.Insert(collection);
                 }
                 else
                 {
-                    _userRepository.Update(user);
+                    _collectionRepository.Update(collection);
                 }
             }
             catch (Exception ex)
@@ -103,8 +102,8 @@ namespace Bookmarker.API.Controllers
         {
             try
             {
-                User user = _userRepository.GetById(id);
-                _userRepository.Delete(user);
+                Collection collection = _collectionRepository.GetById(id);
+                _collectionRepository.Delete(collection);
                 return Ok();
             }
             catch

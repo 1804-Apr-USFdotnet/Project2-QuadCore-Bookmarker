@@ -1,0 +1,73 @@
+node('master') {
+    stage('import') {
+        try {
+            git branch: 'develop', url: 'https://github.com/1804-Apr-USFdotnet/Project2-QuadCore-Bookmarker.git'
+        }
+        catch (exc) {
+            slackError('import')
+            throw exc
+        }
+    }
+    stage('build') {
+        try {
+            dir('Bookmarker.API') {
+                bat 'nuget restore'
+                bat 'msbuild /p:MvcBuildViews=true'
+            }
+        }
+        catch (exc) {
+            slackError('build')
+            throw exc
+        }
+    }
+    stage('test') {
+        try {
+            dir('Bookmarker.API') {
+                bat "VSTest.Console Bookmarker.Test/bin/Debug/Bookmarker.Test.dll"
+            }
+        }
+        catch (exc) {
+            slackError('test')
+            throw exc
+        }
+    }
+    stage('analyze') {
+        try {
+            dir('Bookmarker.API') {
+				bat 'SonarScanner.MSBuild begin /k:bookmarker_api /d:sonar.organization=quadcore_revature /d:sonar.host.url=https://sonarcloud.io /d:sonar.login=953b9260d5a7024b882da094257b13c4835c3b56'
+				bat 'msbuild /t:rebuild'
+				bat 'SonarScanner.MSBuild end /d:sonar.login=953b9260d5a7024b882da094257b13c4835c3b56'
+            }
+        }
+        catch (exc) {
+            slackError('analyze')
+            throw exc
+        }
+    }
+    stage('package') {
+        try {
+            dir('Bookmarker.API/Bookmarker.API') {
+                bat 'msbuild /t:package /p:Configuration=Debug;PackageFileName=..\\Package.zip'
+            }
+        }
+        catch (exc) {
+            slackError('package')
+            throw exc
+        }
+    }
+    stage('deploy') {
+        try {
+            dir('Bookmarker.API') {
+                bat "msdeploy -verb:sync -source:package=\"%CD%\\Package.zip\" -dest:auto,computerName=\"https://ec2-18-188-153-64.us-east-2.compute.amazonaws.com:8172/msdeploy.axd\",userName=\"Administrator\",password=\"${env.Deploy_Password_API}\",authtype=\"basic\",includeAcls=\"False\" -disableLink:AppPoolExtension -disableLink:ContentExtension -disableLink:CertificateExtension -setParam:\"IIS Web Application Name\"=\"Default Web Site/Bookmarker\" -enableRule:AppOffline -allowUntrusted"
+            }
+        }
+        catch (exc) {
+            slackError('deploy')
+            throw exc
+        }
+    }
+}
+
+def slackError(stageName) {
+    slackSend color: 'danger', message: "FAILED ${stageName} stage: [<${JOB_URL}|${env.JOB_NAME}> <${env.BUILD_URL}console|${env.BUILD_DISPLAY_NAME}>] [${currentBuild.durationString.replace(' and counting', '')}]"
+}
