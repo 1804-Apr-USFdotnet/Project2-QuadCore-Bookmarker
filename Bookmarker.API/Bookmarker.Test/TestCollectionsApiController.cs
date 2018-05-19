@@ -223,8 +223,8 @@ namespace Bookmarker.Test
             ///////////////////////////////////////////////////////////////
 
             // Arrange
-            Guid franksGuid = new Guid("11111111-4444-4444-4444-222222222222");
-            Guid wrongGuid = new Guid("99999999-1111-4444-4444-222222222222");
+            Guid wrongGuid = new Guid("11111111-4444-4444-4444-aaaaaaaaaaaa");
+            Guid recipesGuid = new Guid("bbbbbbbb-4444-4444-4444-222222222222");
 
             // Act
             collectionResult = controller.Delete(wrongGuid);
@@ -234,7 +234,7 @@ namespace Bookmarker.Test
             Assert.AreEqual(HttpStatusCode.BadRequest, message.StatusCode);
 
             // Act
-            collectionResult = controller.Delete(franksGuid);
+            collectionResult = controller.Delete(recipesGuid);
             message = await collectionResult.ExecuteAsync(new System.Threading.CancellationToken());
 
             // Assert
