@@ -105,7 +105,7 @@ namespace Bookmarker.API.Controllers
             {
                 User user = _userRepository.GetById(id);
                 _userRepository.Delete(user);
-                return StatusCode(HttpStatusCode.NoContent);
+                return StatusCode(HttpStatusCode.OK);
             }
             catch
             {

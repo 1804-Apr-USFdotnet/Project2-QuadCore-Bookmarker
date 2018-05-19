@@ -206,5 +206,61 @@ namespace Bookmarker.Test
             Assert.AreEqual(expectedUserCount, actualUserCount);
         }
 
+        [TestMethod]
+        public async Task TestUsersApiDeleteAsync()
+        {
+            // Find out how many users there are
+
+            // Arrange
+            int actualUserCount = 0;
+
+            // Act
+            IHttpActionResult userResult = controller.Get();
+            var message = await userResult.ExecuteAsync(new System.Threading.CancellationToken());
+            var users = await message.Content.ReadAsAsync<IEnumerable<User>>();
+            foreach (var u in users)
+            {
+                actualUserCount++;
+            }
+            
+            ///////////////////////////////////////////////////////////////
+
+            // Arrange
+            Guid franksGuid = new Guid("11111111-4444-4444-4444-222222222222");
+            Guid wrongGuid = new Guid("99999999-1111-4444-4444-222222222222");
+
+            // Act
+            userResult = controller.Delete(wrongGuid);
+            message = await userResult.ExecuteAsync(new System.Threading.CancellationToken());
+
+            // Assert
+            Assert.AreEqual(HttpStatusCode.BadRequest, message.StatusCode);
+
+            // Act
+            userResult = controller.Delete(franksGuid);
+            message = await userResult.ExecuteAsync(new System.Threading.CancellationToken());
+
+            // Assert
+            Assert.AreEqual(HttpStatusCode.OK, message.StatusCode);
+
+            ///////////////////////////////////////////////////////////////
+
+            // Check that there is one less user
+
+            // Arrange
+            int expectedUserCount = actualUserCount - 1;
+            actualUserCount = 0;
+
+            // Act
+            userResult = controller.Get();
+            message = await userResult.ExecuteAsync(new System.Threading.CancellationToken());
+            users = await message.Content.ReadAsAsync<IEnumerable<User>>();
+            foreach (var u in users)
+            {
+                actualUserCount++;
+            }
+
+            Assert.AreEqual(expectedUserCount, actualUserCount);
+        }
     }
 }
