@@ -1,0 +1,26 @@
+﻿@model IEnumerable<Bookmarker.MVC.Models.CollectionViewModel>
+
+<div class="row">
+    @Html.Partial("_CollectionCard", new Bookmarker.MVC.Models.CollectionViewModel()
+    {
+        Name = "CollectionName",
+        Description = "This is the description for a collection."
+    })
+    @Html.Partial("_CollectionCard", new Bookmarker.MVC.Models.CollectionViewModel()
+    {
+        Name = "CollectionName",
+        Description = "This is the description for a collection."
+    })
+    @Html.Partial("_CollectionCard", new Bookmarker.MVC.Models.CollectionViewModel()
+    {
+        Name = "CollectionName",
+        Description = "This is the description for a collection."
+    })
+</div>
+
+
+@Html.Partial("_CollectionCard", new Bookmarker.MVC.Models.CollectionViewModel()
+{
+    Name = "CollectionName",
+    Description = "This is the description for a collection."
+})
