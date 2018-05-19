@@ -24,7 +24,7 @@ namespace Bookmarker.Test
         }
 
         [TestMethod]
-        public async Task TestUsersAPIGetAsync()
+        public async Task TestUsersApiGetAsync()
         {
             // Arrange
             int expectedUserCount = 2;
@@ -44,7 +44,7 @@ namespace Bookmarker.Test
         }
 
         [TestMethod]
-        public async Task TestUsersAPIGetByIdAsync()
+        public async Task TestUsersApiGetByIdAsync()
         {
             // Arrange
             string expectedUsername = "smith";
@@ -60,12 +60,9 @@ namespace Bookmarker.Test
         }
 
         [TestMethod]
-        public async Task TestUsersAPIPostAsync()
+        public async Task TestUsersApiPostAsync()
         {
-            // Should be 2 users to begin with
-
             // Arrange
-            int expectedUserCount = 2;
             int actualUserCount = 0;
 
             // Act
@@ -76,9 +73,6 @@ namespace Bookmarker.Test
             {
                 actualUserCount++;
             }
-
-            // Assert
-            Assert.AreEqual(expectedUserCount, actualUserCount);
 
             //////////////////////////////////////////////////////////////////
 
@@ -102,10 +96,9 @@ namespace Bookmarker.Test
 
             /////////////////////////////////////////////////////////////////
 
-            // Now 3 users instead of 2
-
             // Arrange
-            expectedUserCount = 3;
+            int expectedUserCount = actualUserCount + 1;
+            // reset count to test again after the POST
             actualUserCount = 0;
 
             // Act
@@ -120,5 +113,98 @@ namespace Bookmarker.Test
             // Assert
             Assert.AreEqual(expectedUserCount, actualUserCount);
         }
+
+        [TestMethod]
+        public async Task TestUsersApiPutAsync()
+        {
+            // Find out how many users there are
+
+            // Arrange
+            int actualUserCount = 0;
+
+            // Act
+            IHttpActionResult userResult = controller.Get();
+            var message = await userResult.ExecuteAsync(new System.Threading.CancellationToken());
+            var users = await message.Content.ReadAsAsync<IEnumerable<User>>();
+            foreach (var user in users)
+            {
+                actualUserCount++;
+            }
+
+            //////////////////////////////////////////////////////////////////
+
+            // PUT a new user with invalid model - expect bad request message
+            User newUser = new User();
+            newUser.Username = "jon";
+            newUser.Password = "badPw";
+            newUser.Email = "jon@mail.com";
+            newUser.Id = new Guid("55555555-4444-4444-4444-222222222222");
+
+            controller.ModelState.AddModelError("k1", "password is too short");
+            IHttpActionResult result = controller.Put(newUser);
+            var badMessage = await result.ExecuteAsync(new System.Threading.CancellationToken());
+            Assert.AreEqual(HttpStatusCode.BadRequest, badMessage.StatusCode);
+
+            // Make new user's model valid and PUT
+            newUser.Password = "okayPassword";
+            controller.ModelState.Remove("k1");
+            IHttpActionResult goodResult = controller.Put(newUser);
+            var goodMessage = await goodResult.ExecuteAsync(new System.Threading.CancellationToken());
+            Assert.AreEqual(HttpStatusCode.OK, goodMessage.StatusCode);
+
+            /////////////////////////////////////////////////////////////////
+
+            // Expect user count to be one more than before
+
+            // Arrange
+            int expectedUserCount = actualUserCount + 1;
+            // reset count to test again after the PUT
+            actualUserCount = 0;
+
+            // Act
+            userResult = controller.Get();
+            message = await userResult.ExecuteAsync(new System.Threading.CancellationToken());
+            users = await message.Content.ReadAsAsync<IEnumerable<User>>();
+            foreach (var user in users)
+            {
+                actualUserCount++;
+            }
+
+            // Assert
+            Assert.AreEqual(expectedUserCount, actualUserCount);
+
+            /////////////////////////////////////////////////////////////////
+
+            // Now do an update to existing user with PUT
+            // user count shouldn't change
+
+            // Arrange
+            expectedUserCount = actualUserCount;
+            // reset count to test again after the PUT
+            actualUserCount = 0;
+
+            User oldUser = new User();
+            oldUser.Username = "jon";
+            oldUser.Password = "newPassword";
+            oldUser.Email = "jonsNewEmail@mail.com";
+            oldUser.Id = new Guid("55555555-4444-4444-4444-222222222222");
+
+            goodResult = controller.Put(oldUser);
+            goodMessage = await goodResult.ExecuteAsync(new System.Threading.CancellationToken());
+            Assert.AreEqual(HttpStatusCode.OK, goodMessage.StatusCode);
+
+            // Act
+            userResult = controller.Get();
+            message = await userResult.ExecuteAsync(new System.Threading.CancellationToken());
+            users = await message.Content.ReadAsAsync<IEnumerable<User>>();
+            foreach (var user in users)
+            {
+                actualUserCount++;
+            }
+
+            // Assert
+            Assert.AreEqual(expectedUserCount, actualUserCount);
+        }
+
     }
 }

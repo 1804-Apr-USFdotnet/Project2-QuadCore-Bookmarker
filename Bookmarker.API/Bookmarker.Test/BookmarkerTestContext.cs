@@ -47,7 +47,7 @@ namespace Bookmarker.Test
 
         public T Find(params object[] keyValues)
         {
-            return _entities.First(x => x.Id == (Guid) keyValues[0]);
+            return _entities.FirstOrDefault(x => x.Id == (Guid) keyValues[0]);
         }
 
         public IEnumerator<T> GetEnumerator()
