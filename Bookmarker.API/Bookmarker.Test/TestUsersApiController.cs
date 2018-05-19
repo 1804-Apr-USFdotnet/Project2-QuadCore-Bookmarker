@@ -88,13 +88,14 @@ namespace Bookmarker.Test
             newUser.Password = "badPw";
             newUser.Email = "jon@mail.com";
             newUser.Id = new Guid("55555555-4444-4444-4444-222222222222");
-            newUser.Entity
 
+            controller.ModelState.AddModelError("k1", "password is too short");
             IHttpActionResult result = controller.Post(newUser);
             var badPostMessage = await result.ExecuteAsync(new System.Threading.CancellationToken());
             Assert.AreEqual(HttpStatusCode.BadRequest, badPostMessage.StatusCode);
 
             newUser.Password = "okayPassword";
+            controller.ModelState.Remove("k1");
             IHttpActionResult goodResult = controller.Post(newUser);
             var goodPostMessage = await goodResult.ExecuteAsync(new System.Threading.CancellationToken());
             Assert.AreEqual(HttpStatusCode.OK, goodPostMessage.StatusCode);
