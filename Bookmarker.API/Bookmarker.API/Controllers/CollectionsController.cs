@@ -46,7 +46,15 @@ namespace Bookmarker.API.Controllers
         // GET: api/Collections/5
         public IHttpActionResult Get(Guid id)
         {
-            return null;
+            try
+            {
+                var collection = _collectionRepository.GetById(id);
+                return collection != null ? Ok(collection) : (IHttpActionResult) NotFound();
+            }
+            catch
+            {
+                return InternalServerError();
+            }
         }
 
         // POST: api/Collections
