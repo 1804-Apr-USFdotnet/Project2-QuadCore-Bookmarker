@@ -134,17 +134,17 @@ namespace Bookmarker.Test
 
             // PUT a new collection with invalid model - expect bad request message
             Collection newCollection = new Collection();
-            newCollection.Name = "jon";
-            newCollection.Description = "badPw";
-            newCollection.Id = new Guid("55555555-4444-4444-4444-222222222222");
+            newCollection.Name = "";
+            newCollection.Description = "Lots of things";
+            newCollection.Id = new Guid("55555555-cccc-1111-4444-111111111111");
 
-            controller.ModelState.AddModelError("k1", "password is too short");
+            controller.ModelState.AddModelError("k1", "Name is required");
             IHttpActionResult result = controller.Put(newCollection);
             var badMessage = await result.ExecuteAsync(new System.Threading.CancellationToken());
             Assert.AreEqual(HttpStatusCode.BadRequest, badMessage.StatusCode);
 
             // Make new collection's model valid and PUT
-            newCollection.Description = "okayPassword";
+            newCollection.Name = "Things";
             controller.ModelState.Remove("k1");
             IHttpActionResult goodResult = controller.Put(newCollection);
             var goodMessage = await goodResult.ExecuteAsync(new System.Threading.CancellationToken());
@@ -182,9 +182,9 @@ namespace Bookmarker.Test
             actualCollectionCount = 0;
 
             Collection oldCollection = new Collection();
-            oldCollection.Name = "jon";
-            oldCollection.Description = "newPassword";
-            oldCollection.Id = new Guid("55555555-4444-4444-4444-222222222222");
+            oldCollection.Name = "Things";
+            oldCollection.Description = "All the things.";
+            oldCollection.Id = new Guid("55555555-cccc-1111-4444-111111111111");
 
             goodResult = controller.Put(oldCollection);
             goodMessage = await goodResult.ExecuteAsync(new System.Threading.CancellationToken());
