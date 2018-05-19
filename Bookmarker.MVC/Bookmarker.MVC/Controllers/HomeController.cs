@@ -19,6 +19,15 @@ namespace Bookmarker.MVC.Controllers
             return View(new List<CollectionViewModel>());
         }
 
+        public ActionResult Home()
+        {
+            /* TODO: User-specific home page
+             * if user is not authenticated, give them an error screen
+             * otherwise, show their personal page
+             */
+            return View();
+        }
+
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
