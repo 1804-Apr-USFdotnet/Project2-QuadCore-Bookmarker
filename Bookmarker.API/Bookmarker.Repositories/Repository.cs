@@ -64,8 +64,12 @@ namespace Bookmarker.Repositories
             {
                 if (entity == null)
                 {
-                    throw new ArgumentNullException("entity");
+                    throw new ArgumentNullException("Entity is null.");
                 }
+
+                //Entities.Attach(entity);
+                var local = Entities.Local.FirstOrDefault(f => f.Id == entity.Id);
+                _dbContext.Entry(local).State = EntityState.Detached;
                 _dbContext.Entry(entity).State = EntityState.Modified;
                 _dbContext.SaveChanges();
             }

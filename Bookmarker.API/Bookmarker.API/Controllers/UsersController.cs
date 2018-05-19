@@ -70,7 +70,15 @@ namespace Bookmarker.API.Controllers
 
             try
             {
-                _userRepository.Update(user);
+                User oldUser = _userRepository.GetById(user.Id);
+                if(oldUser == null)
+                {
+                    _userRepository.Insert(user);
+                }
+                else
+                {
+                    _userRepository.Update(user);
+                }
             }
             catch (Exception ex)
             {
