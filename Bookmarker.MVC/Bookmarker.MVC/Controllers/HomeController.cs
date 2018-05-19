@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Bookmarker.MVC.Models;
 
 namespace Bookmarker.MVC.Controllers
 {
@@ -10,7 +11,12 @@ namespace Bookmarker.MVC.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            /* TODO: Check if user is logged in
+             * If yes, send to user-specific home page
+             * If no,  send to general home page
+             */
+
+            return View(new List<CollectionViewModel>());
         }
 
         public ActionResult About()
