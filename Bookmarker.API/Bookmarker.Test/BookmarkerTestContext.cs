@@ -20,7 +20,7 @@ namespace Bookmarker.Test
             _entities = new List<T>();
         }
 
-        public ObservableCollection<T> Local => throw new NotImplementedException();
+        public ObservableCollection<T> Local => new ObservableCollection<T>(_entities);
 
         public Expression Expression => _entities.AsQueryable().Expression;
 
@@ -81,15 +81,42 @@ namespace Bookmarker.Test
             Collections = new MockDbSet<Collection>();
             Bookmarks = new MockDbSet<Bookmark>();
 
-            User u1 = new User("smith", "password", "smith@mail.com");
-            User u2 = new User("frank", "password", "frank@mail.com");
-            Collection c1 = new Collection("c#", ".net framework", u1);
-            Collection c2 = new Collection("recipes", "my favorites", u2);
-            Collection c3 = new Collection("c#", "c# tutorials", u2);
-            Bookmark b1 = new Bookmark("c# intro", c1, "csharpintro.com");
-            Bookmark b2 = new Bookmark("c# intro", c3, "csharpintro.com");
-            Bookmark b3 = new Bookmark("c# keywords", c3, "cskeywords.com");
-            Bookmark b4 = new Bookmark("recipes", c2, "food.com");
+            User u1 = new User();
+            u1.Username = "smith";
+            u1.Password = "password";
+            u1.Email = "smith@mail.com";
+            User u2 = new User();
+            u2.Username = "frank";
+            u2.Password = "password";
+            u2.Email = "frank@mail.com";
+            Collection c1 = new Collection();
+            c1.Name = "c#";
+            c1.Description = ".net framework";
+            c1.Owner = u1;
+            Collection c2 = new Collection();
+            c2.Name = "recipes";
+            c2.Description = "my favorites";
+            c2.Owner = u2;
+            Collection c3 = new Collection();
+            c3.Name = "c#";
+            c3.Description = "c# tutorials";
+            c3.Owner = u2;
+            Bookmark b1 = new Bookmark();
+            b1.Name = "c# intro";
+            b1.Collection = c1;
+            b1.URL = "csharpintro.com";
+            Bookmark b2 = new Bookmark();
+            b2.Name = "c# intro";
+            b2.Collection = c3;
+            b2.URL = "csharpintro.com";
+            Bookmark b3 = new Bookmark();
+            b3.Name = "c# keywords";
+            b3.Collection = c3;
+            b3.URL = "cskeywords.com";
+            Bookmark b4 = new Bookmark();
+            b4.Name = "recipes";
+            b4.Collection = c2;
+            b4.URL = "food.com";
 
             Users.Add(u1);
             Users.Add(u2);
