@@ -99,17 +99,17 @@ namespace Bookmarker.API.Controllers
         }
 
         // DELETE: api/Users/5
-        public StatusCodeResult Delete(Guid id)
+        public IHttpActionResult Delete(Guid id)
         {
             try
             {
                 User user = _userRepository.GetById(id);
                 _userRepository.Delete(user);
-                return StatusCode(HttpStatusCode.OK);
+                return Ok();
             }
             catch
             {
-                return StatusCode(HttpStatusCode.BadRequest);
+                return BadRequest();
             }
         }
     }

@@ -100,7 +100,16 @@ namespace Bookmarker.API.Controllers
         // DELETE: api/Users/5
         public IHttpActionResult Delete(Guid id)
         {
-            return null;
+            try
+            {
+                Collection collection = _collectionRepository.GetById(id);
+                _collectionRepository.Delete(collection);
+                return Ok();
+            }
+            catch
+            {
+                return BadRequest();
+            }
         }
     }
 }
