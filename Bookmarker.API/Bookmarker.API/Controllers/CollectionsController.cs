@@ -71,7 +71,30 @@ namespace Bookmarker.API.Controllers
         // PUT: api/Collections
         public IHttpActionResult Put([FromBody]Collection collection)
         {
-            return null;
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            try
+            {
+                Collection oldcollection = _collectionRepository.GetById(collection.Id);
+                if(oldcollection == null)
+                {
+                    _collectionRepository.Insert(collection);
+                }
+                else
+                {
+                    _collectionRepository.Update(collection);
+                }
+            }
+            catch (Exception ex)
+            {
+                // TODO: Log errors
+                return InternalServerError(ex);
+            }
+            
+            return Ok();
         }
 
         // DELETE: api/Users/5
