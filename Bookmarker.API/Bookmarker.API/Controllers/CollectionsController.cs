@@ -60,7 +60,12 @@ namespace Bookmarker.API.Controllers
         // POST: api/Collections
         public IHttpActionResult Post([FromBody]Collection collection)
         {
-            return null;
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+            _collectionRepository.Insert(collection);
+            return Ok();
         }
 
         // PUT: api/Collections
