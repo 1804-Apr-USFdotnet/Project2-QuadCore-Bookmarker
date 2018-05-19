@@ -23,7 +23,7 @@ node('master') {
     stage('test') {
         try {
             //dir('Bookmarker.MVC') {
-                //bat "VSTest.Console *test*\\bin\\Debug\\*Test.dll"
+                //bat "VSTest.Console {testproj}/bin/Debug/{testproj}.dll"
             //}
         }
         catch (exc) {
@@ -34,9 +34,9 @@ node('master') {
     stage('analyze') {
         try {
             dir('Bookmarker.MVC') {
-                bat 'SonarScanner.MSBuild begin /k:bookmarker-project2 /v:0.1.0 /d:sonar.verbose=true'
-                bat 'msbuild /t:rebuild'
-                bat 'SonarScanner.MSBuild end'
+				bat 'SonarQube.Scanner.MSBuild.exe begin /k:bookmarker_mvc /d:sonar.organization=quadcore_revature /d:sonar.host.url=https://sonarcloud.io /d:sonar.login=356eda5d4c0d1df56aeacbc1abf9d1931a9213ee'
+				bat 'MsBuild.exe /t:Rebuild'
+				bat 'SonarQube.Scanner.MSBuild.exe end /d:sonar.login=356eda5d4c0d1df56aeacbc1abf9d1931a9213ee'
             }
         }
         catch (exc) {
@@ -58,7 +58,7 @@ node('master') {
     stage('deploy') {
         try {
             dir('Bookmarker.MVC') {
-                bat "msdeploy -verb:sync -source:package=\"%CD%\\Package.zip\" -dest:auto,computerName=\"https://ec2-18-205-198-149.compute-1.amazonaws.com:8172/msdeploy.axd\",userName=\"Administrator\",password=\"${env.Deploy_Password}\",authtype=\"basic\",includeAcls=\"False\" -disableLink:AppPoolExtension -disableLink:ContentExtension -disableLink:CertificateExtension -setParam:\"IIS Web Application Name\"=\"Default Web Site/Bookmarker\" -enableRule:AppOffline -allowUntrusted"
+                bat "msdeploy -verb:sync -source:package=\"%CD%\\Package.zip\" -dest:auto,computerName=\"https://ec2-18-205-198-149.compute-1.amazonaws.com:8172/msdeploy.axd\",userName=\"Administrator\",password=\"${env.Deploy_Password_MVC}\",authtype=\"basic\",includeAcls=\"False\" -disableLink:AppPoolExtension -disableLink:ContentExtension -disableLink:CertificateExtension -setParam:\"IIS Web Application Name\"=\"Default Web Site/Bookmarker\" -enableRule:AppOffline -allowUntrusted"
             }
         }
         catch (exc) {
