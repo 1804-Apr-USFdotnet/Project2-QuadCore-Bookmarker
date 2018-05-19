@@ -23,7 +23,7 @@ namespace Bookmarker.Test
         }
 
         [TestMethod]
-        public async Task TestUsersGetAsync()
+        public async Task TestUsersAPIGetAsync()
         {
             // Arrange
             int expectedUserCount = 2;
@@ -38,6 +38,22 @@ namespace Bookmarker.Test
                 actualUserCount++;
             }
             Assert.AreEqual(expectedUserCount, actualUserCount);
+        }
+
+        [TestMethod]
+        public async Task TestUsersAPIGetByIdAsync()
+        {
+            // Arrange
+            string expectedUsername = "smith";
+            Guid smithsGuid = new Guid("88888888-4444-4444-4444-222222222222");
+
+            // Act
+            IHttpActionResult userResult = controller.Get(smithsGuid);
+            var message = await userResult.ExecuteAsync(new System.Threading.CancellationToken());
+            var user = await message.Content.ReadAsAsync<User>();
+
+            // Assert
+            Assert.AreEqual(expectedUsername, user.Username);
         }
     }
 }
