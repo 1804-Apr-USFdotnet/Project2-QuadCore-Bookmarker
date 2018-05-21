@@ -55,7 +55,7 @@ namespace Bookmarker.API.Controllers
             try
             {
                 var user = _userRepository.GetById(id);
-                return user != null ? Ok(user) : (IHttpActionResult) NotFound();
+                return user != null ? Ok(new UserAPI(user)) : (IHttpActionResult) NotFound();
             }
             catch
             {
