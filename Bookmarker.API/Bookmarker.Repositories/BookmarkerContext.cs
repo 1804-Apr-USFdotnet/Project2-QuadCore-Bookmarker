@@ -20,7 +20,6 @@ namespace Bookmarker.Repositories
 
         public override int SaveChanges()
         {
-            // TODO: Do other stuff? Ensure DateCreated/Modified is set properly here?
             var AddedEntities = ChangeTracker.Entries().Where(E => E.State == EntityState.Added).ToList();
 
             AddedEntities.ForEach(E =>

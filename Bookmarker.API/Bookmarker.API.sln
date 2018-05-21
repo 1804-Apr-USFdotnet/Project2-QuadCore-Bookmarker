@@ -11,7 +11,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bookmarker.Repositories", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bookmarker.Test", "Bookmarker.Test\Bookmarker.Test.csproj", "{4BAE8603-66C8-4B2B-9639-F049B83265F3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bookmarker.Services", "Bookmarker.Services\Bookmarker.Services.csproj", "{D5E1F5BB-1FCB-4ED4-8029-DF7AA0C43697}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bookmarker.Logic", "Bookmarker.Logic\Bookmarker.Logic.csproj", "{A2448B61-7B7D-4D70-B894-A3A5760D5DB9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,10 +35,10 @@ Global
 		{4BAE8603-66C8-4B2B-9639-F049B83265F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4BAE8603-66C8-4B2B-9639-F049B83265F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4BAE8603-66C8-4B2B-9639-F049B83265F3}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D5E1F5BB-1FCB-4ED4-8029-DF7AA0C43697}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D5E1F5BB-1FCB-4ED4-8029-DF7AA0C43697}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D5E1F5BB-1FCB-4ED4-8029-DF7AA0C43697}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D5E1F5BB-1FCB-4ED4-8029-DF7AA0C43697}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A2448B61-7B7D-4D70-B894-A3A5760D5DB9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A2448B61-7B7D-4D70-B894-A3A5760D5DB9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A2448B61-7B7D-4D70-B894-A3A5760D5DB9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A2448B61-7B7D-4D70-B894-A3A5760D5DB9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

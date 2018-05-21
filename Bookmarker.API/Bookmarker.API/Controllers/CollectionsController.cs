@@ -85,6 +85,7 @@ namespace Bookmarker.API.Controllers
                 }
                 else
                 {
+                    collection.Created = oldcollection.Created;
                     _collectionRepository.Update(collection);
                 }
             }
