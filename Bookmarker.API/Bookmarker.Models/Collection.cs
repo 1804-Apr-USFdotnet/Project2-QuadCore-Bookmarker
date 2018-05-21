@@ -14,7 +14,7 @@ namespace Bookmarker.Models
         public string Description { get; set; }
 
         public bool Private { get; set; }
-        public int Rating { get; private set; }
+        public int Rating { get; set; }
 
         public Guid OwnerId { get; set; }
         public virtual User Owner { get; set; }
