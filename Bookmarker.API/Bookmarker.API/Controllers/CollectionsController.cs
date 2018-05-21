@@ -1,4 +1,5 @@
-﻿using Bookmarker.Models;
+﻿using Bookmarker.API.Models;
+using Bookmarker.Models;
 using Bookmarker.Repositories;
 using System;
 using System.Collections.Generic;
@@ -58,13 +59,13 @@ namespace Bookmarker.API.Controllers
         }
 
         // POST: api/Collections
-        public IHttpActionResult Post([FromBody]Collection collection)
+        public IHttpActionResult Post([FromBody]CollectionAPI collectionApi)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest();
             }
-            _collectionRepository.Insert(collection);
+            _collectionRepository.Insert(collectionApi.ToCollectionNoBookmarks());
             return Ok();
         }
 

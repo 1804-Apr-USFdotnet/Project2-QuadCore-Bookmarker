@@ -1,5 +1,6 @@
 ﻿using Bookmarker.Models;
 using Bookmarker.Repositories;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -17,6 +18,7 @@ namespace Bookmarker.API.Models
         public int Rating { get; private set; }
         public DateTime Created { get; set; }
         public DateTime? Modified { get; set; }
+        public Guid Owner { get; set; }
         public Dictionary<string, string> Links { get; set;}
 
         public CollectionAPI(Collection coll)
@@ -29,6 +31,7 @@ namespace Bookmarker.API.Models
             this.Description = coll.Description;
             this.Private = coll.Private;
             this.Rating = coll.Rating;
+            this.Owner = coll.OwnerId;
             string apiDomain = ConfigurationManager.AppSettings.Get("ServiceDomain");
             Links = new Dictionary<string, string>();
             Links.Add("self", $"{apiDomain}/Collections/{this.Id}");
@@ -38,7 +41,7 @@ namespace Bookmarker.API.Models
             Links.Add("users", $"{apiDomain}/Users");
         }
 
-        public Collection ToCollectionNoOwnerNoBookmarks()
+        public Collection ToCollectionNoBookmarks()
         {
             return new Collection()
             {
@@ -49,24 +52,9 @@ namespace Bookmarker.API.Models
                 Description = this.Description,
                 Private = this.Private,
                 Rating = this.Rating,
+                OwnerId = this.Owner,
                 Bookmarks = null
             };
-        }
-
-        public Guid GetOwnerId()
-        {
-            Repository<Collection> collRepository =
-                new Repository<Collection>(new BookmarkerContext());
-
-            return collRepository.GetById(this.Id).OwnerId;
-        }
-
-        public ICollection<Bookmark> GetBookmarksByCollectionId(Guid Id)
-        {
-            Repository<Collection> collRepository =
-                new Repository<Collection>(new BookmarkerContext());
-
-            return collRepository.GetById(Id).Bookmarks;
         }
     }
 }
