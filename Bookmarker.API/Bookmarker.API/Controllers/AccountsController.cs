@@ -1,6 +1,7 @@
 ﻿using Bookmarker.API.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.Owin.Security;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -36,6 +37,40 @@ namespace Bookmarker.API.Controllers
             userManager.Create(user, account.Password);
 
             // Login
+            Login(account);
+
+            return Ok();
+        }
+
+        [HttpPost]
+        [Route("~/api/Login")]
+        [AllowAnonymous]
+        public IHttpActionResult Login(Account account)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            // Login
+            var userStore = new UserStore<IdentityUser>(new AccountDbContext());
+            var userManager = new UserManager<IdentityUser>(userStore);
+            var user = userManager.Users.FirstOrDefault(u => u.UserName == account.Username);
+
+            if (user == null)
+            {
+                return BadRequest();
+            }
+
+            if (!userManager.CheckPassword(user, account.Password))
+            {
+                return Unauthorized();
+            }
+
+            var authManager = Request.GetOwinContext().Authentication;
+            var claimsIdentity = userManager.CreateIdentity(user, WebApiConfig.AuthenticationType);
+
+            authManager.SignIn(new AuthenticationProperties { IsPersistent = true }, claimsIdentity);
 
             return Ok();
         }
