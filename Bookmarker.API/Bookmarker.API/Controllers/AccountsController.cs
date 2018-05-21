@@ -15,7 +15,7 @@ namespace Bookmarker.API.Controllers
     public class AccountsController : ApiController
     {
         [HttpPost]
-        [Route("~/api/Register")]
+        [Route("~/api/Accounts/Register")]
         [AllowAnonymous]
         public IHttpActionResult Register(Account account)
         {
@@ -43,7 +43,7 @@ namespace Bookmarker.API.Controllers
         }
 
         [HttpPost]
-        [Route("~/api/Login")]
+        [Route("~/api/Accounts/Login")]
         [AllowAnonymous]
         public IHttpActionResult Login(Account account)
         {
