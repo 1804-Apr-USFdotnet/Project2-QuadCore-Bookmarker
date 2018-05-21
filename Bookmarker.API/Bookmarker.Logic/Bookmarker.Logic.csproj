@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{D5E1F5BB-1FCB-4ED4-8029-DF7AA0C43697}</ProjectGuid>
+    <ProjectGuid>{A2448B61-7B7D-4D70-B894-A3A5760D5DB9}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Bookmarker.Services</RootNamespace>
-    <AssemblyName>Bookmarker.Services</AssemblyName>
+    <RootNamespace>Bookmarker.Logic</RootNamespace>
+    <AssemblyName>Bookmarker.Logic</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
