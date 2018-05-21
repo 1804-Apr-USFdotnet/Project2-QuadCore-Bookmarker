@@ -36,12 +36,13 @@ namespace Bookmarker.API.Controllers
             try
             {
                 var users = _userRepository.Table;
+                if(users == null) { return Ok(users); }
                 var apiUsers = new List<UserAPI>();
                 foreach (var u in users)
                 {
                     apiUsers.Add(new UserAPI(u));
                 }
-                return users != null ? Ok(apiUsers) : throw new NullReferenceException();
+                return Ok(apiUsers);
             }
             catch (Exception ex)
             {
