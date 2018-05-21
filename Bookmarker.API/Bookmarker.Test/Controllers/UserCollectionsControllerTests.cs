@@ -20,19 +20,12 @@ namespace Bookmarker.API.Controllers.Tests
         private readonly string userGuid2 = "11111111-4444-4444-4444-222222222222";
         private readonly string userGuidNotExist = "FFFFFFFF-FFFF-FFFF-FFFF-FFFFFFFFFFFF";
 
-        //[TestMethod()]
         public UserCollectionsControllerTests()
         {
             controller = new UserCollectionsController(new BookmarkerTestContext());
             controller.ControllerContext.Configuration = new System.Web.Http.HttpConfiguration();
             controller.Request = new System.Net.Http.HttpRequestMessage();
         }
-
-        //[TestMethod()]
-        //public void UserCollectionsControllerTest1()
-        //{
-        //    Assert.Fail();
-        //}
 
         [TestMethod()]
         public async Task GetTest()
@@ -91,6 +84,7 @@ namespace Bookmarker.API.Controllers.Tests
             int index = 2;
             string expectedCollectionName = "c#";
             string expectedDescription = "c# tutorials";
+
             // Act
             IHttpActionResult result = controller.GetCollectionByIndex(userId, index);
             var response = await result.ExecuteAsync(new System.Threading.CancellationToken());
@@ -179,7 +173,15 @@ namespace Bookmarker.API.Controllers.Tests
         {
             // check, if collectionId is non-existent for user
             // returns NotFound HttpActionResult
-            Assert.Fail();
+            Guid userId = new Guid(userGuid2);
+            Guid collectionId = new Guid("eeeeeeee-4444-0000-4444-222222222222");
+            var expectedStatusCode = System.Net.HttpStatusCode.NotFound;
+
+            IHttpActionResult result = controller.GetCollectionById(userId, collectionId);
+            var response = await result.ExecuteAsync(new System.Threading.CancellationToken());
+            var actualStatusCode = response.StatusCode;
+
+            Assert.AreEqual(expectedStatusCode, actualStatusCode);
         }
     }
 }
