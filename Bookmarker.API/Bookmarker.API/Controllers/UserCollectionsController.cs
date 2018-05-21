@@ -87,12 +87,12 @@ namespace Bookmarker.API.Controllers
                     return BadRequest();
                 }
 
-                if (user.Collections == null || user.Collections.Any(x => x.Id == id))
+                if (user.Collections == null || !user.Collections.Any(x => x.Id == id))
                 {
                     return NotFound();
                 }
 
-                return Ok(user.Collections.FirstOrDefault(x => x.Id == id) );
+                return Ok(user.Collections.FirstOrDefault(x => x.Id == id));
             }
             catch (Exception ex)
             {
