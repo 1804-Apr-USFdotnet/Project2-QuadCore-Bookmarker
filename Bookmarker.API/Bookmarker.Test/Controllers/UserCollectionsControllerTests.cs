@@ -53,15 +53,44 @@ namespace Bookmarker.API.Controllers.Tests
         }
 
         [TestMethod()]
-        public void GetCollectionByIndexTest()
+        public async Task GetCollectionByIndexTest()
         {
-            Assert.Fail();
+            // Arrange
+            Guid userId = new Guid("11111111-4444-4444-4444-222222222222");
+            string expectedCollectionName = "c#";
+            string expectedDescription = "c# tutorials";
+            // Act
+            IHttpActionResult result = controller.GetCollectionByIndex(userId, 2);
+            var response = await result.ExecuteAsync(new System.Threading.CancellationToken());
+            var collection = await response.Content.ReadAsAsync<Models.Collection>();
+
+            string actualName = collection.Name;
+            string actualDescription = collection.Description;
+
+            // Assert
+            Assert.AreEqual(expectedCollectionName, actualName);
+            Assert.AreEqual(expectedDescription, actualDescription);
         }
 
         [TestMethod()]
-        public void GetCollectionByIdTest()
+        public async Task GetCollectionByIdTest()
         {
-            Assert.Fail();
+            // Arrange
+            Guid userId = new       Guid("11111111-4444-4444-4444-222222222222");
+            Guid collectionId = new Guid("bbbbbbbb-4444-4444-4444-222222222222");
+            string expectedCollectionName = "recipes";
+            string expectedDescription = "my favorites";
+            // Act
+            IHttpActionResult result = controller.GetCollectionById(userId, collectionId);
+            var response = await result.ExecuteAsync(new System.Threading.CancellationToken());
+            var collection = await response.Content.ReadAsAsync<Models.Collection>();
+
+            string actualName = collection.Name;
+            string actualDescription = collection.Description;
+
+            // Assert
+            Assert.AreEqual(expectedCollectionName, actualName);
+            Assert.AreEqual(expectedDescription, actualDescription);
         }
     }
 }
