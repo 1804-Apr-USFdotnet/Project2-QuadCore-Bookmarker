@@ -64,13 +64,14 @@ namespace Bookmarker.API.Controllers
         }
 
         // POST: api/Users
-        public IHttpActionResult Post([FromBody]User user)
+        public IHttpActionResult Post([FromBody]UserAPI userApi)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest();
             }
-            _userRepository.Insert(user);
+
+            _userRepository.Insert(userApi.ToUser());
             return Ok();
         }
 

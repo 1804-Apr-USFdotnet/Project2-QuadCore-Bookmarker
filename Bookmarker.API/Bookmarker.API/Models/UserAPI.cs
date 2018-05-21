@@ -6,6 +6,7 @@ using System.Web;
 using System.Xml;
 using System.IO;
 using System.Configuration;
+using Bookmarker.Repositories;
 
 namespace Bookmarker.API.Models
 {
@@ -21,6 +22,7 @@ namespace Bookmarker.API.Models
 
         public UserAPI(User user)
         {
+            if (user == null) { user = new User(); }
             this.Id = user.Id;
             this.Created = user.Created;
             this.Modified = user.Modified;
@@ -33,6 +35,25 @@ namespace Bookmarker.API.Models
             Links.Add("my_collections", $"{apiDomain}/Users/{this.Id}/Collections");
             Links.Add("users", $"{apiDomain}/Users");
             Links.Add("collections", $"{apiDomain}/Collections");
+        }
+
+        public User ToUser()
+        {
+            Repository<User> userRepository
+                = new Repository<User>(new BookmarkerContext());
+
+            User user = userRepository.GetById(this.Id);
+
+            return new User()
+            {
+                Id = this.Id,
+                Created = user != null ? user.Created : DateTime.UtcNow,
+                Modified = user?.Modified,
+                Username = this.Username,
+                Password = this.Password,
+                Email = this.Email,
+                Collections = user?.Collections
+            };
         }
     }
 }
