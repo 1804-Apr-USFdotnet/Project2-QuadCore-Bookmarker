@@ -37,23 +37,26 @@ namespace Bookmarker.API.Models
             Links.Add("collections", $"{apiDomain}/Collections");
         }
 
-        public User ToUser()
+        public User ToUserNoCollections()
         {
-            Repository<User> userRepository
-                = new Repository<User>(new BookmarkerContext());
-
-            User user = userRepository.GetById(this.Id);
-
             return new User()
             {
                 Id = this.Id,
-                Created = user != null ? user.Created : DateTime.UtcNow,
-                Modified = user?.Modified,
+                Created = this.Created,
+                Modified = this.Modified,
                 Username = this.Username,
                 Password = this.Password,
                 Email = this.Email,
-                Collections = user?.Collections
+                Collections = null
             };
+        }
+
+        public ICollection<Collection> GetCollectionsByUserId(Guid Id)
+        {
+            Repository<User> userRepository =
+                new Repository<User>(new BookmarkerContext());
+
+            return userRepository.GetById(Id).Collections;
         }
     }
 }

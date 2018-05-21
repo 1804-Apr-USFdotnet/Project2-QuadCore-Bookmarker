@@ -71,12 +71,12 @@ namespace Bookmarker.API.Controllers
                 return BadRequest();
             }
 
-            _userRepository.Insert(userApi.ToUser());
+            _userRepository.Insert(userApi.ToUserNoCollections());
             return Ok();
         }
 
         // PUT: api/Users
-        public IHttpActionResult Put([FromBody]User user)
+        public IHttpActionResult Put([FromBody]UserAPI userApi)
         {
             if (!ModelState.IsValid)
             {
@@ -85,15 +85,16 @@ namespace Bookmarker.API.Controllers
 
             try
             {
-                User oldUser = _userRepository.GetById(user.Id);
+                User oldUser = _userRepository.GetById(userApi.Id);
                 if(oldUser == null)
                 {
-                    _userRepository.Insert(user);
+                    _userRepository.Insert(userApi.ToUserNoCollections());
                 }
                 else
                 {
-                    user.Created = oldUser.Created;
-                    _userRepository.Update(user);
+                    User updatedUser = userApi.ToUserNoCollections();
+                    updatedUser.Collections = oldUser.Collections;
+                    _userRepository.Update(updatedUser);
                 }
             }
             catch (Exception ex)
