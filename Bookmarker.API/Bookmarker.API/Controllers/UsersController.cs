@@ -86,6 +86,7 @@ namespace Bookmarker.API.Controllers
                 }
                 else
                 {
+                    user.Created = oldUser.Created;
                     _userRepository.Update(user);
                 }
             }
