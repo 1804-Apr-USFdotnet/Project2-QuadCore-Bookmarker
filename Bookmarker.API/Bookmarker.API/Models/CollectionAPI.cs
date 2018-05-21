@@ -15,7 +15,7 @@ namespace Bookmarker.API.Models
         public string Name { get; set; }
         public string Description { get; set; }
         public bool Private { get; set; }
-        public int Rating { get; private set; }
+        public int Rating { get; set; }
         public DateTime Created { get; set; }
         public DateTime? Modified { get; set; }
         public Guid Owner { internal get; set; }

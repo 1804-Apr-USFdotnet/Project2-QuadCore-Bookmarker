@@ -95,6 +95,7 @@ namespace Bookmarker.API.Controllers
                 {
                     User updatedUser = userApi.ToUserNoCollections();
                     updatedUser.Collections = oldUser.Collections;
+                    updatedUser.Created = oldUser.Created;
                     _userRepository.Update(updatedUser);
                 }
             }
