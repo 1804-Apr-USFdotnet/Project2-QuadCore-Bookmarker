@@ -56,7 +56,7 @@ namespace Bookmarker.API.Controllers
             try
             {
                 var collection = _collectionRepository.GetById(id);
-                return collection != null ? Ok(collection) : (IHttpActionResult) NotFound();
+                return collection != null ? Ok(new CollectionAPI(collection)) : (IHttpActionResult) NotFound();
             }
             catch
             {
