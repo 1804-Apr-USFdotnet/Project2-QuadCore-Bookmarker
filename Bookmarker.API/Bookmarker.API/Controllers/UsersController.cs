@@ -1,4 +1,5 @@
-﻿using Bookmarker.Models;
+﻿using Bookmarker.API.Models;
+using Bookmarker.Models;
 using Bookmarker.Repositories;
 using System;
 using System.Collections.Generic;
@@ -35,8 +36,12 @@ namespace Bookmarker.API.Controllers
             try
             {
                 var users = _userRepository.Table;
-                var user = users.ToList();
-                return users != null ? Ok(user) : throw new NullReferenceException();
+                var apiUsers = new List<UserAPI>();
+                foreach (var u in users)
+                {
+                    apiUsers.Add(new UserAPI(u));
+                }
+                return users != null ? Ok(apiUsers) : throw new NullReferenceException();
             }
             catch (Exception ex)
             {
@@ -50,7 +55,7 @@ namespace Bookmarker.API.Controllers
             try
             {
                 var user = _userRepository.GetById(id);
-                return user != null ? Ok(user) : (IHttpActionResult) NotFound();
+                return user != null ? Ok(new UserAPI(user)) : (IHttpActionResult) NotFound();
             }
             catch
             {
@@ -59,18 +64,19 @@ namespace Bookmarker.API.Controllers
         }
 
         // POST: api/Users
-        public IHttpActionResult Post([FromBody]User user)
+        public IHttpActionResult Post([FromBody]UserAPI userApi)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest();
             }
-            _userRepository.Insert(user);
+
+            _userRepository.Insert(userApi.ToUserNoCollections());
             return Ok();
         }
 
         // PUT: api/Users
-        public IHttpActionResult Put([FromBody]User user)
+        public IHttpActionResult Put([FromBody]UserAPI userApi)
         {
             if (!ModelState.IsValid)
             {
@@ -79,15 +85,16 @@ namespace Bookmarker.API.Controllers
 
             try
             {
-                User oldUser = _userRepository.GetById(user.Id);
+                User oldUser = _userRepository.GetById(userApi.Id);
                 if(oldUser == null)
                 {
-                    _userRepository.Insert(user);
+                    _userRepository.Insert(userApi.ToUserNoCollections());
                 }
                 else
                 {
-                    user.Created = oldUser.Created;
-                    _userRepository.Update(user);
+                    User updatedUser = userApi.ToUserNoCollections();
+                    updatedUser.Collections = oldUser.Collections;
+                    _userRepository.Update(updatedUser);
                 }
             }
             catch (Exception ex)
