@@ -3,6 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Xml;
+using System.IO;
+using System.Configuration;
 
 namespace Bookmarker.API.Models
 {
@@ -14,7 +17,7 @@ namespace Bookmarker.API.Models
         public string Email { get; set; }
         public DateTime Created { get; set; }
         public DateTime? Modified { get; set; }
-        public string MyCollectionsURI { get; set; }
+        public Dictionary<string, string> Links { get; set;}
 
         public UserAPI(User user)
         {
@@ -24,7 +27,12 @@ namespace Bookmarker.API.Models
             this.Username = user.Username;
             this.Password = user.Password;
             this.Email = user.Email;
-            this.MyCollectionsURI = $"api/Users/{this.Id}/Collections";
+            string apiDomain = ConfigurationManager.AppSettings.Get("ServiceDomain");
+            Links = new Dictionary<string, string>();
+            Links.Add("self", $"{apiDomain}/Users/{this.Id}");
+            Links.Add("my_collections", $"{apiDomain}/Users/{this.Id}/Collections");
+            Links.Add("users", $"{apiDomain}/Users");
+            Links.Add("collections", $"{apiDomain}/Collections");
         }
     }
 }
