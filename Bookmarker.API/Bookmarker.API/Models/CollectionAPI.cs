@@ -32,7 +32,7 @@ namespace Bookmarker.API.Models
             this.Private = coll.Private;
             this.Rating = coll.Rating;
             this.Owner = coll.OwnerId;
-            string apiDomain = ConfigurationManager.AppSettings.Get("ServiceDomain");
+            string apiDomain = ConfigurationManager.AppSettings.Get("ServiceUri");
             Links = new Dictionary<string, string>();
             Links.Add("self", $"{apiDomain}/Collections/{this.Id}");
             Links.Add("owner", $"{apiDomain}/Users/{coll.OwnerId}");

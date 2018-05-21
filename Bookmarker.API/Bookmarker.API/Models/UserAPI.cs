@@ -29,7 +29,7 @@ namespace Bookmarker.API.Models
             this.Username = user.Username;
             this.Password = user.Password;
             this.Email = user.Email;
-            string apiDomain = ConfigurationManager.AppSettings.Get("ServiceDomain");
+            string apiDomain = ConfigurationManager.AppSettings.Get("ServiceUri");
             Links = new Dictionary<string, string>();
             Links.Add("self", $"{apiDomain}/Users/{this.Id}");
             Links.Add("my_collections", $"{apiDomain}/Users/{this.Id}/Collections");
