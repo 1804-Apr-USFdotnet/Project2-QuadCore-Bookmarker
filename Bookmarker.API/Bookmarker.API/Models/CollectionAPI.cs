@@ -18,7 +18,7 @@ namespace Bookmarker.API.Models
         public int Rating { get; private set; }
         public DateTime Created { get; set; }
         public DateTime? Modified { get; set; }
-        public Guid Owner { get; set; }
+        public Guid Owner { internal get; set; }
         public Dictionary<string, string> Links { get; set;}
 
         public CollectionAPI(Collection coll)

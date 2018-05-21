@@ -35,8 +35,14 @@ namespace Bookmarker.API.Controllers
             try
             {
                 var collections = _collectionRepository.Table;
-                var collection = collections.ToList();
-                return collections != null ? Ok(collection) : throw new NullReferenceException();
+                if (collections == null) { return InternalServerError(); }
+
+                var apiColls = new List<CollectionAPI>();
+                foreach (var c in collections)
+                {
+                    apiColls.Add(new CollectionAPI(c));
+                }
+                return Ok(apiColls);
             }
             catch (Exception ex)
             {
