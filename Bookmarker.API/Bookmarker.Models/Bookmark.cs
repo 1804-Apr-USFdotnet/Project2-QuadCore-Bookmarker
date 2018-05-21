@@ -9,7 +9,6 @@ namespace Bookmarker.Models
         [Required]
         public string Name { get; set; }
 
-        // TODO: Probably needs CollectionId property to link
         public Guid CollectionId { get; set; }
         public virtual Collection Collection { get; set; }
 
