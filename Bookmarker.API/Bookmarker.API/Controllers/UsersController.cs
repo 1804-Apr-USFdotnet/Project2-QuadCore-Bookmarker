@@ -1,4 +1,5 @@
-﻿using Bookmarker.Models;
+﻿using Bookmarker.API.Models;
+using Bookmarker.Models;
 using Bookmarker.Repositories;
 using System;
 using System.Collections.Generic;
@@ -35,8 +36,12 @@ namespace Bookmarker.API.Controllers
             try
             {
                 var users = _userRepository.Table;
-                var user = users.ToList();
-                return users != null ? Ok(user) : throw new NullReferenceException();
+                var apiUsers = new List<UserAPI>();
+                foreach (var u in users)
+                {
+                    apiUsers.Add(new UserAPI(u));
+                }
+                return users != null ? Ok(apiUsers) : throw new NullReferenceException();
             }
             catch (Exception ex)
             {
