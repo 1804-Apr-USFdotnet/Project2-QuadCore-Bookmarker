@@ -66,7 +66,7 @@ namespace Bookmarker.API.Controllers
                     return NotFound();
                 }
 
-                return Ok(user.Collections.ElementAt(id));
+                return Ok(user.Collections.ElementAt(id - 1));
             }
             catch (Exception ex)
             {
