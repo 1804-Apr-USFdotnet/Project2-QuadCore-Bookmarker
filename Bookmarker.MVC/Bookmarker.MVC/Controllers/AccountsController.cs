@@ -27,7 +27,7 @@ namespace Bookmarker.MVC.Controllers
                 return View("Error");
             }
 
-            HttpRequestMessage apiRequest = CreateRequestToService(HttpMethod.Post, "api/Account/Login");
+            HttpRequestMessage apiRequest = CreateRequestToService(HttpMethod.Post, "api/Accounts/Login");
             apiRequest.Content = new ObjectContent<AccountViewModel>(account, new JsonMediaTypeFormatter());
 
             HttpResponseMessage apiResponse;
@@ -47,7 +47,7 @@ namespace Bookmarker.MVC.Controllers
 
             PassCookiesToClient(apiResponse);
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Home", "Home");
         }
 
         private bool PassCookiesToClient(HttpResponseMessage apiResponse)
