@@ -35,10 +35,6 @@ namespace Bookmarker.API.Controllers
             }
 
             userManager.Create(user, account.Password);
-
-            // Login
-            Login(account);
-
             return Ok();
         }
 
