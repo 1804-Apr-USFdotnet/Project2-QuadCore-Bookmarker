@@ -1,5 +1,15 @@
-﻿@{ 
-    ViewBag.Title = "Users";
-}
+﻿@model IEnumerable<Bookmarker.MVC.Models.AccountViewModel>
 
-<p>@ViewBag.Message</p>
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>UsersList</title>
+</head>
+<body>
+    @foreach (var item in Model) {
+        @Html.Partial("_UserCard", item)
+    }
+</body>
+</html>

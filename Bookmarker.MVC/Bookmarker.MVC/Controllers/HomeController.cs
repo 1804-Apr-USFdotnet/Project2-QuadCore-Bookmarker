@@ -65,15 +65,16 @@ namespace Bookmarker.MVC.Controllers
                 {
                     return View("Error");
                 }
-                ViewBag.Message = "Not logged in!";
+                //ViewBag.Message = "Not logged in!";
+                return RedirectToAction("Login", "Accounts");
             }
             else
             {
-                var contentString = await apiResponse.Content.ReadAsStringAsync();
-                ViewBag.Message = "Logged in! Result: " + contentString;
+                //var contentString = await apiResponse.Content.ReadAsStringAsync();
+                //ViewBag.Message = "Logged in! Result: " + contentString;
+                return View(await apiResponse.Content.ReadAsAsync<IEnumerable<AccountViewModel>>());
             }
 
-            return View();
         }
     }
 }
