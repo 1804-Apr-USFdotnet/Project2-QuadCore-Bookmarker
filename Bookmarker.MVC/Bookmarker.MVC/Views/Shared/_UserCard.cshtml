@@ -1,15 +1,17 @@
 ﻿@model Bookmarker.MVC.Models.AccountViewModel
-<div class="card">
-    <div class="card-header">
-        <h5>@Model.Username</h5>
-    </div>
-    <div class="card-body">
-        <p class="card-text">@Model.Guid</p>
-        <p class="card-text">@Model.Email</p>
-    </div>
-    <div class="card-footer">
-        <div class="card-text">
-            <p></p>
+<div class="col-sm-4">
+    <div class="card">
+        <div class="card-header">
+            <h5>@Model.Username</h5>
+        </div>
+        <div class="card-body">
+            <p class="card-text">@Model.Id</p>
+            <p class="card-text">@Model.Email</p>
+        </div>
+        <div class="card-footer">
+            <div class="card-text">
+                <p></p>
+            </div>
         </div>
     </div>
 </div>

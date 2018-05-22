@@ -8,8 +8,22 @@
     <title>UsersList</title>
 </head>
 <body>
-    @foreach (var item in Model) {
-        @Html.Partial("_UserCard", item)
-    }
+    @{
+        var en = Model.GetEnumerator();
+        while(en.MoveNext())
+        {
+            <div class="row" style="margin-bottom: 30px;">
+                @Html.Partial("_UserCard", en.Current)
+                @if(en.MoveNext())
+                {
+                    @Html.Partial("_UserCard", en.Current);
+                }
+                @if(en.MoveNext())
+                {
+                    @Html.Partial("_UserCard", en.Current);
+                }
+            </div>
+        }
+     }
 </body>
 </html>
