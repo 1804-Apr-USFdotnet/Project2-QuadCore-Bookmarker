@@ -1,17 +1,5 @@
-﻿@{
-    Layout = null;
+﻿@{ 
+    ViewBag.Title = "Users";
 }
 
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>UsersList</title>
-</head>
-<body>
-    <p>@Html.ActionLink("Login", "Login", "Accounts", null, new { @class = "btn btn-primary btn-lg" })</p>
-    <p>@Html.ActionLink("Logout", "Logout", "Accounts", null, new { @class = "btn btn-primary btn-lg" })</p>
-    <p>@ViewBag.Message</p>
-</body>
-</html>
+<p>@ViewBag.Message</p>
