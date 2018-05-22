@@ -15,6 +15,7 @@ namespace Bookmarker.MVC.Controllers
         // GET: Accounts/Login
         public ActionResult Login()
         {
+            ViewBag.Message = TempData["Message"];
             return View();
         }
 
