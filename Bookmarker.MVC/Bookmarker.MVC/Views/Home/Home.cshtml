@@ -1,9 +1,7 @@
 ﻿@model IEnumerable<Bookmarker.MVC.Models.CollectionViewModel>
 
-<hr />
-
-@Html.ActionLink("Login", "Login", "Accounts")
-
-<hr />
+@{
+    ViewBag.Title = "Bookmarker";
+}
 
 @Html.Partial("_CollectionCards", Model)
