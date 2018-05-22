@@ -80,7 +80,7 @@ namespace Bookmarker.Test
             // Post -- invalid model -- expect bad request message
             User newUser = new User();
             newUser.Username = "jon";
-            newUser.Password = "badPw";
+            //newUser.Password = "badPw";
             newUser.Email = "jon@mail.com";
             newUser.Id = new Guid("55555555-4444-4444-4444-222222222222");
 
@@ -89,7 +89,7 @@ namespace Bookmarker.Test
             var badPostMessage = await result.ExecuteAsync(new System.Threading.CancellationToken());
             Assert.AreEqual(HttpStatusCode.BadRequest, badPostMessage.StatusCode);
 
-            newUser.Password = "okayPassword";
+            //newUser.Password = "okayPassword";
             controller.ModelState.Remove("k1");
             IHttpActionResult goodResult = controller.Post(new UserAPI(newUser));
             var goodPostMessage = await goodResult.ExecuteAsync(new System.Threading.CancellationToken());
@@ -137,7 +137,7 @@ namespace Bookmarker.Test
             // PUT a new user with invalid model - expect bad request message
             User newUser = new User();
             newUser.Username = "jon";
-            newUser.Password = "badPw";
+            //newUser.Password = "badPw";
             newUser.Email = "jon@mail.com";
             newUser.Id = new Guid("55555555-4444-4444-4444-222222222222");
 
@@ -147,7 +147,7 @@ namespace Bookmarker.Test
             Assert.AreEqual(HttpStatusCode.BadRequest, badMessage.StatusCode);
 
             // Make new user's model valid and PUT
-            newUser.Password = "okayPassword";
+            //newUser.Password = "okayPassword";
             controller.ModelState.Remove("k1");
             IHttpActionResult goodResult = controller.Put(new UserAPI(newUser));
             var goodMessage = await goodResult.ExecuteAsync(new System.Threading.CancellationToken());
@@ -186,7 +186,7 @@ namespace Bookmarker.Test
 
             User oldUser = new User();
             oldUser.Username = "jon";
-            oldUser.Password = "newPassword";
+            //oldUser.Password = "newPassword";
             oldUser.Email = "jonsNewEmail@mail.com";
             oldUser.Id = new Guid("55555555-4444-4444-4444-222222222222");
 

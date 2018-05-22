@@ -13,7 +13,10 @@ namespace Bookmarker.Test
         {
             // Arrange
             User user = new User();
-            user.Username = "name"; user.Password = "pw"; user.Email = "a@b.com"; user.Created = System.DateTime.UtcNow;
+            user.Username = "name";
+            //user.Password = "pw";
+            user.Email = "a@b.com";
+            user.Created = System.DateTime.UtcNow;
             Collection coll = new Collection();
             coll.Name = "Food"; coll.Description = "Lots of Food";
             coll.Created = System.DateTime.UtcNow;
@@ -45,11 +48,15 @@ namespace Bookmarker.Test
         {
             // Arrange
             User u1 = new User();
-            u1.Username = "u1"; u1.Password = "p1"; u1.Email = "p1@mail.com";
+            u1.Username = "u1";
+            //u1.Password = "p1";
+            u1.Email = "p1@mail.com";
             u1.Collections = new List<Collection>();
             u1.Id = Guid.NewGuid();
             User u2 = new User();
-            u2.Username = "u2"; u2.Password = "p2"; u2.Email = "p2@mail.com";
+            u2.Username = "u2";
+            //u2.Password = "p2";
+            u2.Email = "p2@mail.com";
             u2.Collections = new List<Collection>();
             u2.Id = Guid.NewGuid();
             Collection c1 = new Collection();

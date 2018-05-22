@@ -111,7 +111,8 @@ namespace Bookmarker.Test
 
             // Arrange
             User u1 = new User();
-            u1.Username = "john the third"; u1.Password = "mypw"; u1.Email = "john3@mail.com";
+            u1.Username = "john the third";
+            u1.Email = "john3@mail.com";
             userRepo.Insert(u1);
             userEnum = userRepo.Table.GetEnumerator();
 
