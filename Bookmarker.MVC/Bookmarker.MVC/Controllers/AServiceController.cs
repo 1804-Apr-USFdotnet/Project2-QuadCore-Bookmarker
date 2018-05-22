@@ -13,8 +13,10 @@ namespace Bookmarker.MVC.Controllers
     {
         protected static readonly HttpClient HttpClient = 
             new HttpClient(new HttpClientHandler() { UseCookies = false });
+        //private static readonly Uri serviceUri = 
+        //    new Uri(ConfigurationManager.AppSettings.Get("ServiceUri"));
         private static readonly Uri serviceUri = 
-            new Uri(ConfigurationManager.AppSettings.Get("ServiceUri"));
+            new Uri(ConfigurationManager.AppSettings.Get("LocalServiceUri"));
         private static readonly string cookieName = "BookmarkerCookie";
 
         protected HttpRequestMessage CreateRequestToService(HttpMethod method, string uri)
