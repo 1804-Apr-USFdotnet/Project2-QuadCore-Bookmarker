@@ -8,11 +8,10 @@ namespace Bookmarker.Models
     {
         [Required]
         [Index(IsUnique = true)]
-        [StringLength(20)]
+        [StringLength(20, MinimumLength = 3)]
         public string Username { get; set; }
 
         [DataType(DataType.EmailAddress)]
-        [Index(IsUnique = true)]
         [StringLength(250)]
         public string Email { get; set; }
 

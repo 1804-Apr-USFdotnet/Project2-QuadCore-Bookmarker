@@ -64,6 +64,7 @@ namespace Bookmarker.API.Controllers
         }
 
         // POST: api/Users
+        [AllowAnonymous]
         public IHttpActionResult Post([FromBody]UserAPI userApi)
         {
             if (!ModelState.IsValid)

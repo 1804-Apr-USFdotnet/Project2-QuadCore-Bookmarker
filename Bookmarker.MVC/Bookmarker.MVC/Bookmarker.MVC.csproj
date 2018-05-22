@@ -166,6 +166,7 @@
     <Compile Include="Models\AccountViewModel.cs" />
     <Compile Include="Models\BookmarkViewModel.cs" />
     <Compile Include="Models\CollectionViewModel.cs" />
+    <Compile Include="Models\UserAPI.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

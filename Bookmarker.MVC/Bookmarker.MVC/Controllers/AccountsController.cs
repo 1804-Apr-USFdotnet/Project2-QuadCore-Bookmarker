@@ -49,6 +49,38 @@ namespace Bookmarker.MVC.Controllers
             return View();
         }
 
+        private async Task<bool> Create(AccountViewModel account)
+        {
+            if (!ModelState.IsValid)
+            {
+                return false;
+            }
+
+            UserAPI user = new UserAPI();
+            user.Username = account.Username;
+            user.Email = account.Email;
+
+            HttpRequestMessage apiRequest = CreateRequestToService(HttpMethod.Post, "Users");
+            apiRequest.Content = new ObjectContent<UserAPI>(user, new JsonMediaTypeFormatter());
+
+            HttpResponseMessage apiResponse;
+            try
+            {
+                apiResponse = await HttpClient.SendAsync(apiRequest);
+            }
+            catch
+            {
+                return false;
+            }
+
+            if (!apiResponse.IsSuccessStatusCode)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
         // POST: Accounts/Register
         [HttpPost]
         public async Task<ActionResult> Register(AccountViewModel account)
@@ -58,21 +90,14 @@ namespace Bookmarker.MVC.Controllers
                 return View("Error");
             }
 
-            // TODO: Send register request to API
-
-            return RedirectToAction("Home", "Home");
-        }
-
-        // POST: Accounts/Login
-        [HttpPost]
-        public async Task<ActionResult> Login(AccountViewModel account)
-        {
-            if (!ModelState.IsValid)
+            // Create User in BookmarkerDb
+            if(!(await Create(account)))
             {
                 return View("Error");
             }
 
-            HttpRequestMessage apiRequest = CreateRequestToService(HttpMethod.Post, "Accounts/Login");
+            // Create Account in BookmarkerAccountDb
+            HttpRequestMessage apiRequest = CreateRequestToService(HttpMethod.Post, "Accounts/Register");
             apiRequest.Content = new ObjectContent<AccountViewModel>(account, new JsonMediaTypeFormatter());
 
             HttpResponseMessage apiResponse;
@@ -88,6 +113,41 @@ namespace Bookmarker.MVC.Controllers
             if (!apiResponse.IsSuccessStatusCode)
             {
                 return View("Error");
+            }
+
+            PassCookiesToClient(apiResponse);
+
+            return RedirectToAction("Login", "Accounts", account);
+        }
+
+        // POST: Accounts/Login
+        [HttpPost]
+        public async Task<ActionResult> Login(AccountViewModel account)
+        {
+            if (!ModelState.IsValid)
+            {
+                ViewBag.Message = "Please try again.";
+                return View();
+            }
+
+            HttpRequestMessage apiRequest = CreateRequestToService(HttpMethod.Post, "Accounts/Login");
+            apiRequest.Content = new ObjectContent<AccountViewModel>(account, new JsonMediaTypeFormatter());
+
+            HttpResponseMessage apiResponse;
+            try
+            {
+                apiResponse = await HttpClient.SendAsync(apiRequest);
+            }
+            catch
+            {
+                ViewBag.Message = "Please try again.";
+                return View();
+            }
+
+            if (!apiResponse.IsSuccessStatusCode)
+            {
+                ViewBag.Message = "Please try again.";
+                return View();
             }
 
             PassCookiesToClient(apiResponse);

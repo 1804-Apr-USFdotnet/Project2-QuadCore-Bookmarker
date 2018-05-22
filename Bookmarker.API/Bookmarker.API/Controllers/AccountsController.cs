@@ -22,7 +22,6 @@ namespace Bookmarker.API.Controllers
             return Ok(System.Web.HttpContext.Current.User?.Identity.IsAuthenticated ?? false);
         }
 
-
         [HttpPost]
         [Route("~/api/Accounts/Register")]
         [AllowAnonymous]

@@ -34,8 +34,6 @@ namespace Bookmarker.MVC.Controllers
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
-            AccountsController c = new AccountsController();
-            ViewBag.Message = c.LoggedInAsync();
 
             return View();
         }
