@@ -9,17 +9,13 @@ using System.Web;
 
 namespace Bookmarker.API.Models
 {
-    public class CollectionAPI
+    public class CollectionAPI : ABaseEntityAPI
     {
-        public Guid Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public bool Private { get; set; }
         public int Rating { get; set; }
-        public DateTime Created { get; set; }
-        public DateTime? Modified { get; set; }
         public Guid Owner { internal get; set; }
-        public Dictionary<string, string> Links { get; set;}
 
         public CollectionAPI(Collection coll)
         {
