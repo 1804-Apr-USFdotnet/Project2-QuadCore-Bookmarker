@@ -24,14 +24,20 @@ namespace Bookmarker.API.Controllers
             _bookmarkRepository = new Repository<Bookmark>(_context);
         }
 
+        public BookmarksController(IDbContext context)
+        {
+            _context = context;
+            _bookmarkRepository = new Repository<Bookmark>(_context);
+        }
+
         // GET:api/Bookmarks
-        public IHttpActionResult Get ()
+        public IHttpActionResult Get()
         {
             throw new NotImplementedException();
         }
 
         // GET:api/Bookmarks/5
-        public IHttpActionResult Get(int id)
+        public IHttpActionResult Get(Guid id)
         {
             throw new NotImplementedException();
         }
@@ -49,7 +55,7 @@ namespace Bookmarker.API.Controllers
         }
 
         // DELETE:api/Bookmarks
-        public IHttpActionResult Delete([FromBody]BookmarkAPI bookmarkApi)
+        public IHttpActionResult Delete(Guid id)
         {
             throw new NotImplementedException();
         }
