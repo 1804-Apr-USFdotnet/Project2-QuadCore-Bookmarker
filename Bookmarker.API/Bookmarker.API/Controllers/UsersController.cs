@@ -12,7 +12,6 @@ using System.Web.Http.Results;
 
 namespace Bookmarker.API.Controllers
 {
-    [EnableCors("*", "*", "*")]
     public class UsersController : ApiController
     {
         private readonly IDbContext _context;
