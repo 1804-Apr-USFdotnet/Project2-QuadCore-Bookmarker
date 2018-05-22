@@ -14,6 +14,15 @@ namespace Bookmarker.API.Controllers
 {
     public class AccountsController : ApiController
     {
+        [HttpGet]
+        [Route("~/api/Accounts/LoggedIn")]
+        [AllowAnonymous]
+        public IHttpActionResult LoggedIn()
+        {
+            return Ok(System.Web.HttpContext.Current.User?.Identity.IsAuthenticated ?? false);
+        }
+
+
         [HttpPost]
         [Route("~/api/Accounts/Register")]
         [AllowAnonymous]
