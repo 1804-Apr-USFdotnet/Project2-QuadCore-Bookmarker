@@ -19,6 +19,28 @@ namespace Bookmarker.MVC.Controllers
             return View();
         }
 
+        // GET: Accounts/Register
+        public ActionResult Register()
+        {
+            return View();
+        }
+
+        // POST: Accounts/Register
+        [HttpPost]
+        public async Task<ActionResult> Register(AccountViewModel account)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View("Error");
+            }
+
+            // TODO: Send register request to API
+
+            return RedirectToAction("Home", "Home");
+        }
+
+
+
         // POST: Accounts/Login
         [HttpPost]
         public async Task<ActionResult> Login(AccountViewModel account)
