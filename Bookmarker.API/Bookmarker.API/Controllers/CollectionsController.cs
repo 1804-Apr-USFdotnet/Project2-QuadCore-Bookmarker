@@ -1,4 +1,5 @@
-﻿using Bookmarker.Models;
+﻿using Bookmarker.API.Models;
+using Bookmarker.Models;
 using Bookmarker.Repositories;
 using System;
 using System.Collections.Generic;
@@ -34,8 +35,14 @@ namespace Bookmarker.API.Controllers
             try
             {
                 var collections = _collectionRepository.Table;
-                var collection = collections.ToList();
-                return collections != null ? Ok(collection) : throw new NullReferenceException();
+                if (collections == null) { return Ok(collections); }
+
+                var apiColls = new List<CollectionAPI>();
+                foreach (var c in collections)
+                {
+                    apiColls.Add(new CollectionAPI(c));
+                }
+                return Ok(apiColls);
             }
             catch (Exception ex)
             {
@@ -49,7 +56,7 @@ namespace Bookmarker.API.Controllers
             try
             {
                 var collection = _collectionRepository.GetById(id);
-                return collection != null ? Ok(collection) : (IHttpActionResult) NotFound();
+                return collection != null ? Ok(new CollectionAPI(collection)) : (IHttpActionResult) NotFound();
             }
             catch
             {
@@ -58,18 +65,18 @@ namespace Bookmarker.API.Controllers
         }
 
         // POST: api/Collections
-        public IHttpActionResult Post([FromBody]Collection collection)
+        public IHttpActionResult Post([FromBody]CollectionAPI collectionApi)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest();
             }
-            _collectionRepository.Insert(collection);
+            _collectionRepository.Insert(collectionApi.ToCollectionNoBookmarks());
             return Ok();
         }
 
         // PUT: api/Collections
-        public IHttpActionResult Put([FromBody]Collection collection)
+        public IHttpActionResult Put([FromBody]CollectionAPI collectionApi)
         {
             if (!ModelState.IsValid)
             {
@@ -78,15 +85,17 @@ namespace Bookmarker.API.Controllers
 
             try
             {
-                Collection oldcollection = _collectionRepository.GetById(collection.Id);
+                Collection oldcollection = _collectionRepository.GetById(collectionApi.Id);
                 if(oldcollection == null)
                 {
-                    _collectionRepository.Insert(collection);
+                    _collectionRepository.Insert(collectionApi.ToCollectionNoBookmarks());
                 }
                 else
                 {
-                    collection.Created = oldcollection.Created;
-                    _collectionRepository.Update(collection);
+                    Collection updatedColl = collectionApi.ToCollectionNoBookmarks();
+                    updatedColl.Bookmarks = oldcollection.Bookmarks;
+                    updatedColl.Created = oldcollection.Created;
+                    _collectionRepository.Update(updatedColl);
                 }
             }
             catch (Exception ex)

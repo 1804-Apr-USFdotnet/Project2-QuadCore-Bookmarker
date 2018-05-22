@@ -6,6 +6,7 @@ using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using System.Web.Http;
 using Bookmarker.API.Controllers;
+using Bookmarker.API.Models;
 using Bookmarker.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -84,13 +85,13 @@ namespace Bookmarker.Test
             newUser.Id = new Guid("55555555-4444-4444-4444-222222222222");
 
             controller.ModelState.AddModelError("k1", "password is too short");
-            IHttpActionResult result = controller.Post(newUser);
+            IHttpActionResult result = controller.Post(new UserAPI(newUser));
             var badPostMessage = await result.ExecuteAsync(new System.Threading.CancellationToken());
             Assert.AreEqual(HttpStatusCode.BadRequest, badPostMessage.StatusCode);
 
             newUser.Password = "okayPassword";
             controller.ModelState.Remove("k1");
-            IHttpActionResult goodResult = controller.Post(newUser);
+            IHttpActionResult goodResult = controller.Post(new UserAPI(newUser));
             var goodPostMessage = await goodResult.ExecuteAsync(new System.Threading.CancellationToken());
             Assert.AreEqual(HttpStatusCode.OK, goodPostMessage.StatusCode);
 
@@ -141,14 +142,14 @@ namespace Bookmarker.Test
             newUser.Id = new Guid("55555555-4444-4444-4444-222222222222");
 
             controller.ModelState.AddModelError("k1", "password is too short");
-            IHttpActionResult result = controller.Put(newUser);
+            IHttpActionResult result = controller.Put(new UserAPI(newUser));
             var badMessage = await result.ExecuteAsync(new System.Threading.CancellationToken());
             Assert.AreEqual(HttpStatusCode.BadRequest, badMessage.StatusCode);
 
             // Make new user's model valid and PUT
             newUser.Password = "okayPassword";
             controller.ModelState.Remove("k1");
-            IHttpActionResult goodResult = controller.Put(newUser);
+            IHttpActionResult goodResult = controller.Put(new UserAPI(newUser));
             var goodMessage = await goodResult.ExecuteAsync(new System.Threading.CancellationToken());
             Assert.AreEqual(HttpStatusCode.OK, goodMessage.StatusCode);
 
@@ -189,7 +190,7 @@ namespace Bookmarker.Test
             oldUser.Email = "jonsNewEmail@mail.com";
             oldUser.Id = new Guid("55555555-4444-4444-4444-222222222222");
 
-            goodResult = controller.Put(oldUser);
+            goodResult = controller.Put(new UserAPI(oldUser));
             goodMessage = await goodResult.ExecuteAsync(new System.Threading.CancellationToken());
             Assert.AreEqual(HttpStatusCode.OK, goodMessage.StatusCode);
 
