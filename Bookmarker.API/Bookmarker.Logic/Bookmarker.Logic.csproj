@@ -43,5 +43,11 @@
     <Compile Include="Library.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Bookmarker.Models\Bookmarker.Models.csproj">
+      <Project>{1f8ca80a-0684-4dee-9531-4548c2a50732}</Project>
+      <Name>Bookmarker.Models</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
