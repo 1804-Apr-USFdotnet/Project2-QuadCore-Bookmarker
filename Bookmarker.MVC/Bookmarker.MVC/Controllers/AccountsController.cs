@@ -27,10 +27,41 @@ namespace Bookmarker.MVC.Controllers
                 return View("Error");
             }
 
-            HttpRequestMessage apiRequest = CreateRequestToService(HttpMethod.Post, "api/Accounts/Login");
+            HttpRequestMessage apiRequest = CreateRequestToService(HttpMethod.Post, "Accounts/Login");
             apiRequest.Content = new ObjectContent<AccountViewModel>(account, new JsonMediaTypeFormatter());
 
             HttpResponseMessage apiResponse;
+            try
+            {
+                apiResponse = await HttpClient.SendAsync(apiRequest);
+            }
+            catch
+            {
+                return View("Error");
+            }
+
+            if (!apiResponse.IsSuccessStatusCode)
+            {
+                return View("Error");
+            }
+
+            PassCookiesToClient(apiResponse);
+
+            return RedirectToAction("Home", "Home");
+        }
+
+        // GET: Accounts/Logout
+        public async Task<ActionResult> Logout()
+        {
+            if (!ModelState.IsValid)
+            {
+                return View("Error");
+            }
+
+            HttpRequestMessage apiRequest = CreateRequestToService(HttpMethod.Get, "Accounts/Logout");
+
+            HttpResponseMessage apiResponse;
+
             try
             {
                 apiResponse = await HttpClient.SendAsync(apiRequest);
