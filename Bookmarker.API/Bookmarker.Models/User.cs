@@ -13,6 +13,7 @@ namespace Bookmarker.Models
 
         [DataType(DataType.EmailAddress)]
         [Index(IsUnique = true)]
+        [StringLength(250)]
         public string Email { get; set; }
 
         public virtual ICollection<Collection> Collections { get; set; }
