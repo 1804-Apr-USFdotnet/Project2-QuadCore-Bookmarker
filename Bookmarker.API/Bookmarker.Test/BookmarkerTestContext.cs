@@ -83,12 +83,12 @@ namespace Bookmarker.Test
 
             User u1 = new User();
             u1.Username = "smith";
-            u1.Password = "password";
+            //u1.Password = "password";
             u1.Email = "smith@mail.com";
             u1.Id = new Guid("88888888-4444-4444-4444-222222222222");
             User u2 = new User();
             u2.Username = "frank";
-            u2.Password = "password";
+            //u2.Password = "password";
             u2.Email = "frank@mail.com";
             u2.Id = new Guid("11111111-4444-4444-4444-222222222222");
             Collection c1 = new Collection();

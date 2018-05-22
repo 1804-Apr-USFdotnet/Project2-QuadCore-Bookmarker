@@ -7,7 +7,6 @@ namespace Bookmarker.API.Models
     public class UserAPI : ABaseEntityAPI
     {
         public string Username { get; set; }
-        public string Password { get; set; }
         public string Email { get; set; }
 
         public UserAPI(User user)
@@ -17,7 +16,6 @@ namespace Bookmarker.API.Models
             this.Created = user.Created;
             this.Modified = user.Modified;
             this.Username = user.Username;
-            this.Password = user.Password;
             this.Email = user.Email;
             string apiDomain = ConfigurationManager.AppSettings.Get("ServiceDomain");
             Links = new Dictionary<string, string>
@@ -37,7 +35,6 @@ namespace Bookmarker.API.Models
                 Created = this.Created,
                 Modified = this.Modified,
                 Username = this.Username,
-                Password = this.Password,
                 Email = this.Email,
                 Collections = null
             };

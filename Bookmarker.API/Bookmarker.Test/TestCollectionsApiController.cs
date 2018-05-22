@@ -6,6 +6,7 @@ using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using System.Web.Http;
 using Bookmarker.API.Controllers;
+using Bookmarker.API.Models;
 using Bookmarker.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -83,13 +84,13 @@ namespace Bookmarker.Test
             newCollection.Id = new Guid("55555555-4444-aaaa-4444-222222222222");
 
             controller.ModelState.AddModelError("k1", "name is required");
-            IHttpActionResult result = controller.Post(newCollection);
+            IHttpActionResult result = controller.Post(new CollectionAPI(newCollection));
             var badPostMessage = await result.ExecuteAsync(new System.Threading.CancellationToken());
             Assert.AreEqual(HttpStatusCode.BadRequest, badPostMessage.StatusCode);
 
             newCollection.Name = "News";
             controller.ModelState.Remove("k1");
-            IHttpActionResult goodResult = controller.Post(newCollection);
+            IHttpActionResult goodResult = controller.Post(new CollectionAPI(newCollection));
             var goodPostMessage = await goodResult.ExecuteAsync(new System.Threading.CancellationToken());
             Assert.AreEqual(HttpStatusCode.OK, goodPostMessage.StatusCode);
 
@@ -139,14 +140,14 @@ namespace Bookmarker.Test
             newCollection.Id = new Guid("55555555-cccc-1111-4444-111111111111");
 
             controller.ModelState.AddModelError("k1", "Name is required");
-            IHttpActionResult result = controller.Put(newCollection);
+            IHttpActionResult result = controller.Put(new CollectionAPI(newCollection));
             var badMessage = await result.ExecuteAsync(new System.Threading.CancellationToken());
             Assert.AreEqual(HttpStatusCode.BadRequest, badMessage.StatusCode);
 
             // Make new collection's model valid and PUT
             newCollection.Name = "Things";
             controller.ModelState.Remove("k1");
-            IHttpActionResult goodResult = controller.Put(newCollection);
+            IHttpActionResult goodResult = controller.Put(new CollectionAPI(newCollection));
             var goodMessage = await goodResult.ExecuteAsync(new System.Threading.CancellationToken());
             Assert.AreEqual(HttpStatusCode.OK, goodMessage.StatusCode);
 
@@ -186,7 +187,7 @@ namespace Bookmarker.Test
             oldCollection.Description = "All the things.";
             oldCollection.Id = new Guid("55555555-cccc-1111-4444-111111111111");
 
-            goodResult = controller.Put(oldCollection);
+            goodResult = controller.Put(new CollectionAPI(oldCollection));
             goodMessage = await goodResult.ExecuteAsync(new System.Threading.CancellationToken());
             Assert.AreEqual(HttpStatusCode.OK, goodMessage.StatusCode);
 

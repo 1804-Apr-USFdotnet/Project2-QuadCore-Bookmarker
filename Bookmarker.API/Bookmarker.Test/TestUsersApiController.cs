@@ -6,6 +6,7 @@ using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using System.Web.Http;
 using Bookmarker.API.Controllers;
+using Bookmarker.API.Models;
 using Bookmarker.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -77,22 +78,20 @@ namespace Bookmarker.Test
             //////////////////////////////////////////////////////////////////
 
             // Post -- invalid model -- expect bad request message
-            User newUser = new User
-            {
-                Username = "jon",
-                Password = "badPw",
-                Email = "jon@mail.com",
-                Id = new Guid("55555555-4444-4444-4444-222222222222")
-            };
+            User newUser = new User();
+            newUser.Username = "jon";
+            //newUser.Password = "badPw";
+            newUser.Email = "jon@mail.com";
+            newUser.Id = new Guid("55555555-4444-4444-4444-222222222222");
 
             controller.ModelState.AddModelError("k1", "password is too short");
-            IHttpActionResult result = controller.Post(new API.Models.UserAPI(newUser));
+            IHttpActionResult result = controller.Post(new UserAPI(newUser));
             var badPostMessage = await result.ExecuteAsync(new System.Threading.CancellationToken());
             Assert.AreEqual(HttpStatusCode.BadRequest, badPostMessage.StatusCode);
 
-            newUser.Password = "okayPassword";
+            //newUser.Password = "okayPassword";
             controller.ModelState.Remove("k1");
-            IHttpActionResult goodResult = controller.Post(new API.Models.UserAPI(newUser));
+            IHttpActionResult goodResult = controller.Post(new UserAPI(newUser));
             var goodPostMessage = await goodResult.ExecuteAsync(new System.Threading.CancellationToken());
             Assert.AreEqual(HttpStatusCode.OK, goodPostMessage.StatusCode);
 
@@ -136,23 +135,21 @@ namespace Bookmarker.Test
             //////////////////////////////////////////////////////////////////
 
             // PUT a new user with invalid model - expect bad request message
-            User newUser = new User
-            {
-                Username = "jon",
-                Password = "badPw",
-                Email = "jon@mail.com",
-                Id = new Guid("55555555-4444-4444-4444-222222222222")
-            };
+            User newUser = new User();
+            newUser.Username = "jon";
+            //newUser.Password = "badPw";
+            newUser.Email = "jon@mail.com";
+            newUser.Id = new Guid("55555555-4444-4444-4444-222222222222");
 
             controller.ModelState.AddModelError("k1", "password is too short");
-            IHttpActionResult result = controller.Put(new API.Models.UserAPI(newUser));
+            IHttpActionResult result = controller.Put(new UserAPI(newUser));
             var badMessage = await result.ExecuteAsync(new System.Threading.CancellationToken());
             Assert.AreEqual(HttpStatusCode.BadRequest, badMessage.StatusCode);
 
             // Make new user's model valid and PUT
-            newUser.Password = "okayPassword";
+            //newUser.Password = "okayPassword";
             controller.ModelState.Remove("k1");
-            IHttpActionResult goodResult = controller.Put(new API.Models.UserAPI(newUser));
+            IHttpActionResult goodResult = controller.Put(new UserAPI(newUser));
             var goodMessage = await goodResult.ExecuteAsync(new System.Threading.CancellationToken());
             Assert.AreEqual(HttpStatusCode.OK, goodMessage.StatusCode);
 
@@ -187,15 +184,13 @@ namespace Bookmarker.Test
             // reset count to test again after the PUT
             actualUserCount = 0;
 
-            User oldUser = new User
-            {
-                Username = "jon",
-                Password = "newPassword",
-                Email = "jonsNewEmail@mail.com",
-                Id = new Guid("55555555-4444-4444-4444-222222222222")
-            };
+            User oldUser = new User();
+            oldUser.Username = "jon";
+            //oldUser.Password = "newPassword";
+            oldUser.Email = "jonsNewEmail@mail.com";
+            oldUser.Id = new Guid("55555555-4444-4444-4444-222222222222");
 
-            goodResult = controller.Put(new API.Models.UserAPI(newUser));
+            goodResult = controller.Put(new UserAPI(oldUser));
             goodMessage = await goodResult.ExecuteAsync(new System.Threading.CancellationToken());
             Assert.AreEqual(HttpStatusCode.OK, goodMessage.StatusCode);
 
