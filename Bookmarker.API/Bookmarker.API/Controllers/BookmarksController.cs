@@ -33,31 +33,91 @@ namespace Bookmarker.API.Controllers
         // GET:api/Bookmarks
         public IHttpActionResult Get()
         {
-            throw new NotImplementedException();
+            try
+            {
+                var bookmarks = _bookmarkRepository.Table;
+                var apiBookmarks = new List<BookmarkAPI>();
+                foreach (var b in bookmarks)
+                {
+                    apiBookmarks.Add(new BookmarkAPI(b));
+                }
+                return bookmarks != null ? Ok(apiBookmarks) : throw new NullReferenceException();
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
         }
 
         // GET:api/Bookmarks/5
         public IHttpActionResult Get(Guid id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var bookmark = _bookmarkRepository.GetById(id);
+                return bookmark != null ? Ok(bookmark) : (IHttpActionResult)NotFound();
+            }
+            catch
+            {
+                return InternalServerError();
+            }
         }
 
         // POST:api/Bookmarks
         public IHttpActionResult Post([FromBody]BookmarkAPI bookmarkApi)
         {
-            throw new NotImplementedException();
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            _bookmarkRepository.Insert(bookmarkApi.ToBookmarkNoCollection());
+            return Ok();
         }
 
         // PUT:api/Bookmarks
         public IHttpActionResult Put([FromBody]BookmarkAPI bookmarkApi)
         {
-            throw new NotImplementedException();
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            try
+            {
+                Bookmark oldBookmark = _bookmarkRepository.GetById(bookmarkApi.Id);
+                if (oldBookmark == null)
+                {
+                    _bookmarkRepository.Insert(bookmarkApi.ToBookmarkNoCollection());
+                }
+                else
+                {
+                    Bookmark updatedBookmark = bookmarkApi.ToBookmarkNoCollection();
+                    updatedBookmark.Collection = oldBookmark.Collection;
+                    _bookmarkRepository.Update(updatedBookmark);
+                }
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+
+            return Ok();
         }
 
         // DELETE:api/Bookmarks
         public IHttpActionResult Delete(Guid id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                Bookmark bookmark = _bookmarkRepository.GetById(id);
+                _bookmarkRepository.Delete(bookmark);
+                return Ok();
+            }
+            catch
+            {
+                return BadRequest();
+            }
         }
     }
 }

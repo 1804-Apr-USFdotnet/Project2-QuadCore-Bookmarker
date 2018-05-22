@@ -35,7 +35,7 @@ namespace Bookmarker.API.Models
             };
         }
 
-        public Bookmark ToBookmark()
+        public Bookmark ToBookmarkNoCollection()
         {
             return new Bookmark()
             {
