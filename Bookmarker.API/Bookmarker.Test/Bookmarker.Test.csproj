@@ -87,6 +87,7 @@
     <Compile Include="Controllers\UserCollectionsControllerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestBookmarkerTestContext.cs" />
+    <Compile Include="TestBookmarksApiController.cs" />
     <Compile Include="TestModels.cs" />
     <Compile Include="TestCollectionsApiController.cs" />
     <Compile Include="TestUsersApiController.cs" />

@@ -186,6 +186,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\BookmarksController.cs" />
     <Compile Include="Controllers\AccountsController.cs" />
     <Compile Include="Controllers\CollectionBookmarksController.cs" />
     <Compile Include="Controllers\CollectionsController.cs" />
@@ -196,6 +197,8 @@
     </Compile>
     <Compile Include="Models\Account.cs" />
     <Compile Include="Models\CollectionAPI.cs" />
+    <Compile Include="Models\ABaseEntityAPI.cs" />
+    <Compile Include="Models\BookmarkAPI.cs" />
     <Compile Include="Models\UserAPI.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
