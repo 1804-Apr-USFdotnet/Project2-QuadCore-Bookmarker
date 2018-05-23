@@ -1,13 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Bookmarker.MVC.Models;
 
 namespace Bookmarker.MVC.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : AServiceController
     {
         public ActionResult Index()
         {
@@ -38,6 +41,37 @@ namespace Bookmarker.MVC.Controllers
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";
+
+            return View();
+        }
+
+        public async Task<ActionResult> UsersList()
+        {
+            HttpRequestMessage apiRequest = CreateRequestToService(HttpMethod.Get, "Users");
+
+            HttpResponseMessage apiResponse;
+            try
+            {
+                apiResponse = await HttpClient.SendAsync(apiRequest);
+            }
+            catch
+            {
+                return View("Error");
+            }
+
+            if (!apiResponse.IsSuccessStatusCode)
+            {
+                if (apiResponse.StatusCode != HttpStatusCode.Unauthorized)
+                {
+                    return View("Error");
+                }
+                ViewBag.Message = "Not logged in!";
+            }
+            else
+            {
+                var contentString = await apiResponse.Content.ReadAsStringAsync();
+                ViewBag.Message = "Logged in! Result: " + contentString;
+            }
 
             return View();
         }
