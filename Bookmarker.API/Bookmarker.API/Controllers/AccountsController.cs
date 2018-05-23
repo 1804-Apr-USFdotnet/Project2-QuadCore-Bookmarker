@@ -15,6 +15,14 @@ namespace Bookmarker.API.Controllers
     public class AccountsController : ApiController
     {
         [HttpGet]
+        [Route("~/api/Accounts/WhoAmI")]
+        [AllowAnonymous]
+        public IHttpActionResult WhoAmI()
+        {
+            return Ok(System.Web.HttpContext.Current.User?.Identity.GetUserName());
+        }
+
+        [HttpGet]
         [Route("~/api/Accounts/LoggedIn")]
         [AllowAnonymous]
         public IHttpActionResult LoggedIn()
