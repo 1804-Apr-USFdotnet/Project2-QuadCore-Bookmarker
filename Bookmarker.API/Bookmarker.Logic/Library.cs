@@ -86,18 +86,21 @@ namespace Bookmarker.Logic
 
         public static void Sort(ref List<User> list, string sort)
         {
+            if (sort == null || list == null) { return; }
             var comparitors = ParseComparisonListUsers(sort);
             var aggregateComparitor = CombineComparisons(comparitors);
             list.Sort(aggregateComparitor);
         }
         public static void Sort(ref List<Collection> list, string sort)
         {
+            if (sort == null || list == null) { return; }
             var comparitors = ParseComparisonListCollections(sort);
             var aggregateComparitor = CombineComparisons(comparitors);
             list.Sort(aggregateComparitor);
         }
         public static void Sort(ref List<Bookmark> list, string sort)
         {
+            if (sort == null || list == null) { return; }
             var comparitors = ParseComparisonListBookmarks(sort);
             var aggregateComparitor = CombineComparisons(comparitors);
             list.Sort(aggregateComparitor);

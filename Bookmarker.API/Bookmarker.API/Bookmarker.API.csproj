@@ -233,6 +233,10 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Bookmarker.Logic\Bookmarker.Logic.csproj">
+      <Project>{a2448b61-7b7d-4d70-b894-a3a5760d5db9}</Project>
+      <Name>Bookmarker.Logic</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Bookmarker.Models\Bookmarker.Models.csproj">
       <Project>{1F8CA80A-0684-4DEE-9531-4548C2A50732}</Project>
       <Name>Bookmarker.Models</Name>
