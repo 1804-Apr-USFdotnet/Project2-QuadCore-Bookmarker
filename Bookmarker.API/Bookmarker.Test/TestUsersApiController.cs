@@ -263,5 +263,24 @@ namespace Bookmarker.Test
 
             Assert.AreEqual(expectedUserCount, actualUserCount);
         }
+
+        [TestMethod]
+        public async Task TestUsersAPISortIntegration()
+        {
+            // Arrange
+            string sort = "name:desc";
+
+            // Act
+            IHttpActionResult userResult = controller.Get(sort);
+            var message = await userResult.ExecuteAsync(new System.Threading.CancellationToken());
+            var users = await message.Content.ReadAsAsync<IEnumerable<User>>();
+            var actualUsers = new List<User>(users);
+            
+            var expectedUsers = new List<User>(actualUsers);
+            Logic.Library.Sort(ref expectedUsers, sort);
+            
+            // Assert
+            CollectionAssert.AreEqual(expectedUsers, actualUsers);
+        }
     }
 }
