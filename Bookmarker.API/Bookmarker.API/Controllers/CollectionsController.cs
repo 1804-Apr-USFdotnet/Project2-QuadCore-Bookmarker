@@ -30,6 +30,7 @@ namespace Bookmarker.API.Controllers
         }
 
         // GET: api/Collections
+        [AllowAnonymous]
         public IHttpActionResult Get()
         {
             try
@@ -40,7 +41,10 @@ namespace Bookmarker.API.Controllers
                 var apiColls = new List<CollectionAPI>();
                 foreach (var c in collections)
                 {
-                    apiColls.Add(new CollectionAPI(c));
+                    if(!c.Private)
+                    {
+                        apiColls.Add(new CollectionAPI(c));
+                    }
                 }
                 return Ok(apiColls);
             }

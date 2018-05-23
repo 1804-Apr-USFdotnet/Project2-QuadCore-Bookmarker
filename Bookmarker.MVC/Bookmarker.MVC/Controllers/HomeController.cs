@@ -12,6 +12,24 @@ namespace Bookmarker.MVC.Controllers
 {
     public class HomeController : AServiceController
     {
+        public async Task<ActionResult> GuestLanding()
+        {
+            HttpRequestMessage apiRequest = CreateRequestToService(HttpMethod.Get, "Collections");
+
+            HttpResponseMessage apiResponse;
+            try
+            {
+                apiResponse = await HttpClient.SendAsync(apiRequest);
+            }
+            catch
+            {
+                return View("Error");
+            }
+
+            return View(await apiResponse.Content.ReadAsAsync<IEnumerable<CollectionViewModel>>());
+        }
+
+
         public async Task<ActionResult> Home()
         {
             HttpRequestMessage apiRequest = CreateRequestToService(HttpMethod.Get, "Accounts/WhoAmI");
@@ -20,11 +38,15 @@ namespace Bookmarker.MVC.Controllers
             {
                 apiResponse = await HttpClient.SendAsync(apiRequest);
                 var user = await apiResponse.Content.ReadAsAsync<UserAPI>();
+                if(user==null)
+                {
+                    return RedirectToAction("GuestLanding", "Home");
+                }
                 return View(user);
             }
             catch
             {
-                return RedirectToAction("Login", "Accounts");
+                return RedirectToAction("GuestLanding", "Home");
             }
         }
 

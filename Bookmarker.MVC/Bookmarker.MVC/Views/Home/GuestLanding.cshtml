@@ -1,0 +1,28 @@
+﻿@model IEnumerable<Bookmarker.MVC.Models.CollectionViewModel>
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Public Collections</title>
+</head>
+<body>
+    @{
+        var en = Model.GetEnumerator();
+        while(en.MoveNext())
+        {
+            <div class="row" style="margin-bottom: 30px;">
+                @Html.Partial("_CollectionCard", en.Current)
+                @if(en.MoveNext())
+                {
+                    @Html.Partial("_CollectionCard", en.Current);
+                }
+                @if(en.MoveNext())
+                {
+                    @Html.Partial("_CollectionCard", en.Current);
+                }
+            </div>
+        }
+     }
+</body>
+</html>
