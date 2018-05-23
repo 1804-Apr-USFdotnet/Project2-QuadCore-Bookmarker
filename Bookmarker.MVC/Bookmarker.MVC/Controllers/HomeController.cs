@@ -12,13 +12,20 @@ namespace Bookmarker.MVC.Controllers
 {
     public class HomeController : AServiceController
     {
-        public ActionResult Home()
+        public async Task<ActionResult> Home()
         {
-            /* TODO: User-specific home page
-             * if user is not authenticated, give them an error screen
-             * otherwise, show their personal page
-             */
-            return View();
+            HttpRequestMessage apiRequest = CreateRequestToService(HttpMethod.Get, "Accounts/WhoAmI");
+            HttpResponseMessage apiResponse;
+            try
+            {
+                apiResponse = await HttpClient.SendAsync(apiRequest);
+                var user = await apiResponse.Content.ReadAsAsync<UserAPI>();
+                return View(user);
+            }
+            catch
+            {
+                return RedirectToAction("Login", "Accounts");
+            }
         }
 
         public async Task<ActionResult> UsersList()

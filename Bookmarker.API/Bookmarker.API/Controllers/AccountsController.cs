@@ -8,7 +8,10 @@ using System.Configuration;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
+using Bookmarker.Repositories;
+using Bookmarker.Models;
 
 namespace Bookmarker.API.Controllers
 {
@@ -19,7 +22,13 @@ namespace Bookmarker.API.Controllers
         [AllowAnonymous]
         public IHttpActionResult WhoAmI()
         {
-            return Ok(System.Web.HttpContext.Current.User?.Identity.GetUserName());
+            string name = System.Web.HttpContext.Current?.User?.Identity?.GetUserName();
+            if(name==null) { return BadRequest(); }
+
+            Repository<User> userRepo = new Repository<User>(new BookmarkerContext());
+            User user = userRepo.Table.First(x => x.Username == name);
+            
+            return Ok(new UserAPI(user));
         }
 
         [HttpGet]
