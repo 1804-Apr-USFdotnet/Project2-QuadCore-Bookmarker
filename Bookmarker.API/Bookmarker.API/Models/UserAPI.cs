@@ -17,7 +17,7 @@ namespace Bookmarker.API.Models
             this.Modified = user.Modified;
             this.Username = user.Username;
             this.Email = user.Email;
-            string apiDomain = ConfigurationManager.AppSettings.Get("ServiceDomain");
+            string apiDomain = ConfigurationManager.AppSettings.Get("ServiceUri");
             Links = new Dictionary<string, string>
             {
                 { "self", $"{apiDomain}/Users/{this.Id}" },

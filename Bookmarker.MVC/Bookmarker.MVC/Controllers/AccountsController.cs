@@ -39,7 +39,6 @@ namespace Bookmarker.MVC.Controllers
         // GET: Accounts/Login
         public ActionResult Login()
         {
-            ViewBag.Message = TempData["Message"];
             return View();
         }
 
@@ -126,7 +125,6 @@ namespace Bookmarker.MVC.Controllers
         {
             if (!ModelState.IsValid)
             {
-                ViewBag.Message = "Please try again.";
                 return View();
             }
 
@@ -140,13 +138,11 @@ namespace Bookmarker.MVC.Controllers
             }
             catch
             {
-                ViewBag.Message = "Please try again.";
                 return View();
             }
 
             if (!apiResponse.IsSuccessStatusCode)
             {
-                ViewBag.Message = "Please try again.";
                 return View();
             }
 
@@ -160,7 +156,8 @@ namespace Bookmarker.MVC.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return View("Error");
+                TempData["Message"] = "Unable to logout";
+                return RedirectToAction("Home", "Home");
             }
 
             HttpRequestMessage apiRequest = CreateRequestToService(HttpMethod.Get, "Accounts/Logout");
@@ -173,16 +170,19 @@ namespace Bookmarker.MVC.Controllers
             }
             catch
             {
-                return View("Error");
+                TempData["Message"] = "Unable to logout";
+                return RedirectToAction("Home", "Home");
             }
 
             if (!apiResponse.IsSuccessStatusCode)
             {
-                return View("Error");
+                TempData["Message"] = "Unable to logout";
+                return RedirectToAction("Home", "Home");
             }
 
             PassCookiesToClient(apiResponse);
 
+            TempData["Message"] = "Logged out.";
             return RedirectToAction("Home", "Home");
         }
 

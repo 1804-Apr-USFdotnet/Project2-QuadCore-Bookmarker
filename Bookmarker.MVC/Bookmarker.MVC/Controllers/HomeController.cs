@@ -65,7 +65,7 @@ namespace Bookmarker.MVC.Controllers
                 {
                     return View("Error");
                 }
-                TempData["Message"] = "Please log in";
+                TempData["Message"] = "Please log in.";
                 return RedirectToAction("Login", "Accounts");
             }
             else

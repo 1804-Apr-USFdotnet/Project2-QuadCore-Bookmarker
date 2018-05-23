@@ -26,7 +26,7 @@ namespace Bookmarker.API.Models
             this.URL = bookmark.URL;
             this.Rating = bookmark.Rating;
 
-            string apiDomain = ConfigurationManager.AppSettings.Get("ServiceDomain");
+            string apiDomain = ConfigurationManager.AppSettings.Get("ServiceUri");
             Links = new Dictionary<string, string>
             {
                 { "self", $"{apiDomain}/Bookmarks/{this.Id}" },
