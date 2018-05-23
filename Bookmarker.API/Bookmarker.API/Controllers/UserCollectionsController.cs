@@ -50,30 +50,29 @@ namespace Bookmarker.API.Controllers
             }
         }
 
-        [Route("users/{userid}/collections/{id:int}")]
-        public IHttpActionResult GetCollectionByIndex(Guid userid, int id)
+        [Route("users/{userid}/collections/{index:int}")]
+        public IHttpActionResult GetCollectionByIndex(Guid userid, int index)
         {
             try
             {
                 var user = _repo.GetById(userid);
-                if (user == null)
+                if (user == null || index <= 0)
                 {
                     return BadRequest();
                 }
 
-                if (user.Collections == null || user.Collections.Count < id)
+                if (user.Collections == null || user.Collections.Count < index)
                 {
                     return NotFound();
                 }
 
-                return Ok(user.Collections.ElementAt(id - 1));
+                return Ok(user.Collections.ElementAt(index - 1));
             }
             catch (Exception ex)
             {
                 //TODO: Log error
                 return InternalServerError(ex);
             }
-            throw new NotImplementedException();
         }
 
         [Route("users/{userid}/collections/{id}")]
