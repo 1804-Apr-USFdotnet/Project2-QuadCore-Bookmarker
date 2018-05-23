@@ -30,7 +30,7 @@ namespace Bookmarker.Test
         //    Library.Sort(ref users, sort);
 
 
-        //    Assert.AreEqual(users, expected);
+        //    CollectionAssert.AreEqual(users, expected);
         //}
         //[TestMethod]
         //public void TestSortUserNameDesc()
@@ -52,7 +52,7 @@ namespace Bookmarker.Test
         //    Library.Sort(ref users, sort);
 
 
-        //    Assert.AreEqual(users, expected);
+        //    CollectionAssert.AreEqual(users, expected);
         //}
         //[TestMethod]
         //public void TestSortUserCreatedAsc()
@@ -74,7 +74,7 @@ namespace Bookmarker.Test
         //    Library.Sort(ref users, sort);
 
 
-        //    Assert.AreEqual(users, expected);
+        //    CollectionAssert.AreEqual(users, expected);
         //}
         //[TestMethod]
         //public void TestSortUserCreatedDesc()
@@ -96,7 +96,7 @@ namespace Bookmarker.Test
         //    Library.Sort(ref users, sort);
 
 
-        //    Assert.AreEqual(users, expected);
+        //    CollectionAssert.AreEqual(users, expected);
         //}
         //[TestMethod]
         //public void TestSortUserEditedAsc()
@@ -182,21 +182,32 @@ namespace Bookmarker.Test
 
             Library.Sort(ref actual, sort);
 
-            Assert.AreEqual(actual, expected);
+            CollectionAssert.AreEqual(actual, expected);
         }
         [TestMethod]
         public void TestSortCollection()
         {
-            string sort = "owner:desc";
+            string sort = "rating";
             List<Collection> actual = new List<Collection>(testCollections);
-            List<Collection> expected = new List<Collection>() { c5, c4, c3, c1, c6, c2};
+            List<Collection> expected = new List<Collection>() { c5, c1, c3, c4, c2, c6};
 
             Library.Sort(ref actual, sort);
 
-            Assert.AreEqual(actual, expected);
+            CollectionAssert.AreEqual(actual, expected);
         }
         [TestMethod]
         public void TestSortBookmark()
+        {
+            string sort = "name";
+            List<Bookmark> actual = new List<Bookmark>(testBookmarks);
+            List<Bookmark> expected = new List<Bookmark>() { b2, b1, b3, b4, b5, b6, b7, b8, b9, b0 };
+
+            Library.Sort(ref actual, sort);
+
+            CollectionAssert.AreEqual(actual, expected);
+        }
+        [TestMethod]
+        public void TestSortAsc()
         {
             string sort = "name:asc";
             List<Bookmark> actual = new List<Bookmark>(testBookmarks);
@@ -204,32 +215,51 @@ namespace Bookmarker.Test
 
             Library.Sort(ref actual, sort);
 
-            Assert.AreEqual(actual, expected);
-        }
-        [TestMethod]
-        public void TestSortAsc()
-        {
-            throw new NotImplementedException();
+            CollectionAssert.AreEqual(actual, expected);
         }
         [TestMethod]
         public void TestSortDesc()
         {
-            throw new NotImplementedException();
+            string sort = "owner:desc";
+            List<Collection> actual = new List<Collection>(testCollections);
+            List<Collection> expected = new List<Collection>() { c5, c4, c3, c1, c6, c2 };
+
+            Library.Sort(ref actual, sort);
+
+            CollectionAssert.AreEqual(actual, expected);
         }
         [TestMethod]
         public void TestSortMultipleTerms()
         {
-            throw new NotImplementedException();
+            string sort = "rating,name:desc";
+            List<Bookmark> actual = new List<Bookmark>(testBookmarks);
+            List<Bookmark> expected = new List<Bookmark>() { b4, b7, b1, b9, b0, b8, b6, b5, b3, b2 };
+
+            Library.Sort(ref actual, sort);
+
+            CollectionAssert.AreEqual(actual, expected);
         }
         [TestMethod]
         public void TestSortInvalidKey()
         {
-            throw new NotImplementedException();
+            string sort = "Bogus";
+            List<Bookmark> actual = new List<Bookmark>(testBookmarks);
+            List<Bookmark> expected = new List<Bookmark>(testBookmarks);
+
+            Library.Sort(ref actual, sort);
+
+            CollectionAssert.AreEqual(actual, expected);
         }
         [TestMethod]
         public void TestSortPartialValidKey()
         {
-            throw new NotImplementedException();
+            string sort = "bogus,name,bogus";
+            List<User> actual = new List<User>(testUsers);
+            List<User> expected = new List<User> { u2, u1, u3, u4, u5 };
+
+            Library.Sort(ref actual, sort);
+
+            CollectionAssert.AreEqual(actual, expected);
         }
     }
 }

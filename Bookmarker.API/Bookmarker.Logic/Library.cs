@@ -20,6 +20,7 @@ namespace Bookmarker.Logic
                 { "created",        (x,y) => x.Created.CompareTo(y.Created) },
                 { "created:asc",    (x,y) => x.Created.CompareTo(y.Created) },
                 { "created:desc",   (x,y) => y.Created.CompareTo(x.Created) },
+
                 { "modified",       (x,y) => (x.Modified ?? new DateTime()).CompareTo(y.Modified ?? new DateTime()) },
                 { "modified:asc",   (x,y) => (x.Modified ?? new DateTime()).CompareTo(y.Modified ?? new DateTime()) },
                 { "modified:desc",  (x,y) => (y.Modified ?? new DateTime()).CompareTo(x.Modified ?? new DateTime()) }
@@ -104,19 +105,23 @@ namespace Bookmarker.Logic
         
         private static Comparison<User>[] ParseComparisonListUsers(string sort)
         {
-            List<Comparison<User>> list = new List<Comparison<User>();
+            List<Comparison<User>> list = new List<Comparison<User>>();
 
             string[] terms = sort.Split(',');
             
             foreach(string term in terms)
             {
-                if (userComparisons[term] != null)
+                try
                 {
                     list.Add(userComparisons[term]);
                 }
-                else if (entityComparisons[term] != null)
+                catch (KeyNotFoundException)
                 {
-                    list.Add(entityComparisons[term]);
+                    try
+                    {
+                        list.Add(entityComparisons[term]);
+                    }
+                    catch (KeyNotFoundException) { }
                 }
             }
 
@@ -124,19 +129,23 @@ namespace Bookmarker.Logic
         }
         private static Comparison<Collection>[] ParseComparisonListCollections(string sort)
         {
-            List<Comparison<Collection>> list = new List<Comparison<Collection>();
+            List<Comparison<Collection>> list = new List<Comparison<Collection>>();
 
             string[] terms = sort.Split(',');
 
             foreach (string term in terms)
             {
-                if (collectionComparisons[term] != null)
+                try
                 {
                     list.Add(collectionComparisons[term]);
                 }
-                else if (entityComparisons[term] != null)
+                catch (KeyNotFoundException)
                 {
-                    list.Add(entityComparisons[term]);
+                    try
+                    {
+                        list.Add(entityComparisons[term]);
+                    }
+                    catch (KeyNotFoundException) { }
                 }
             }
 
@@ -144,19 +153,23 @@ namespace Bookmarker.Logic
         }
         private static Comparison<Bookmark>[] ParseComparisonListBookmarks(string sort)
         {
-            List<Comparison<Bookmark>> list = new List<Comparison<Bookmark>();
+            List<Comparison<Bookmark>> list = new List<Comparison<Bookmark>>();
 
             string[] terms = sort.ToLower().Split(',');
 
             foreach (string term in terms)
             {
-                if (bookmarkComparisons[term] != null)
+                try
                 {
                     list.Add(bookmarkComparisons[term]);
                 }
-                else if (entityComparisons[term] != null)
+                catch (KeyNotFoundException)
                 {
-                    list.Add(entityComparisons[term]);
+                    try
+                    {
+                        list.Add(entityComparisons[term]);
+                    }
+                    catch (KeyNotFoundException) { }
                 }
             }
 
