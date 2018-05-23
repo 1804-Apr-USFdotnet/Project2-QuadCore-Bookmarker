@@ -29,20 +29,26 @@ namespace Bookmarker.MVC.Controllers
             return View(await apiResponse.Content.ReadAsAsync<IEnumerable<CollectionViewModel>>());
         }
 
-
-        public async Task<ActionResult> Home()
+        public async Task<UserAPI> WhoAmI()
         {
             HttpRequestMessage apiRequest = CreateRequestToService(HttpMethod.Get, "Accounts/WhoAmI");
             HttpResponseMessage apiResponse;
+            apiResponse = await HttpClient.SendAsync(apiRequest);
+            var user = await apiResponse.Content.ReadAsAsync<UserAPI>();
+            return user;
+        }
+
+
+        public async Task<ActionResult> Home()
+        {
             try
             {
-                apiResponse = await HttpClient.SendAsync(apiRequest);
-                var user = await apiResponse.Content.ReadAsAsync<UserAPI>();
+                var user = await WhoAmI();
                 if(user==null)
                 {
                     return RedirectToAction("GuestLanding", "Home");
                 }
-                return View(user);
+                return View();
             }
             catch
             {

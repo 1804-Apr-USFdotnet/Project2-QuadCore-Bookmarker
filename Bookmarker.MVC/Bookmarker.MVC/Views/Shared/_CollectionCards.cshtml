@@ -1,26 +1,20 @@
 ﻿@model IEnumerable<Bookmarker.MVC.Models.CollectionViewModel>
-
-<div class="row">
-    @Html.Partial("_CollectionCard", new Bookmarker.MVC.Models.CollectionViewModel()
-    {
-        Name = "CollectionName",
-        Description = "This is the description for a collection."
-    })
-    @Html.Partial("_CollectionCard", new Bookmarker.MVC.Models.CollectionViewModel()
-    {
-        Name = "CollectionName",
-        Description = "This is the description for a collection."
-    })
-    @Html.Partial("_CollectionCard", new Bookmarker.MVC.Models.CollectionViewModel()
-    {
-        Name = "CollectionName",
-        Description = "This is the description for a collection."
-    })
+<div>
+    @{
+        var en = Model.GetEnumerator();
+        while(en.MoveNext())
+        {
+            <div class="row" style="margin-bottom: 30px;">
+                @Html.Partial("_CollectionCard", en.Current)
+                @if(en.MoveNext())
+                {
+                    @Html.Partial("_CollectionCard", en.Current);
+                }
+                @if(en.MoveNext())
+                {
+                    @Html.Partial("_CollectionCard", en.Current);
+                }
+            </div>
+        }
+     }
 </div>
-
-
-@Html.Partial("_CollectionCard", new Bookmarker.MVC.Models.CollectionViewModel()
-{
-    Name = "CollectionName",
-    Description = "This is the description for a collection."
-})
