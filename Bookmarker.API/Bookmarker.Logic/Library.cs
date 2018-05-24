@@ -195,5 +195,34 @@ namespace Bookmarker.Logic
                 return output;
             };
         }
+
+
+        public static List<User> Search(List<User> list, string sort)
+        {
+            string[] terms = ParseTerms(sort);
+            List<User> output = new List<User>();
+            foreach (string term in terms)
+            {
+                output.AddRange(list.FindAll(
+                    x => x.Username.Contains(term) ||
+                    x.Email.Contains(term)
+                ));
+            }
+
+            return output;
+        }
+        public static List<Collection> Search(List<Collection> list, string sort)
+        {
+            throw new NotImplementedException();
+        }
+        public static List<Bookmark> Search(List<Bookmark> list, string sort)
+        {
+            throw new NotImplementedException();
+        }
+
+        private static string[] ParseTerms(string terms)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
