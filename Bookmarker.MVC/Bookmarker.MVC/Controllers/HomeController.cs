@@ -7,11 +7,18 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Bookmarker.MVC.Models;
+using NLog;
 
 namespace Bookmarker.MVC.Controllers
 {
     public class HomeController : AServiceController
     {
+        public HomeController()
+        {
+            Logger logger = LogManager.GetLogger("file");
+            logger.Log(LogLevel.Info, "In MVC HomeController Constructor");
+        }
+
         public async Task<ActionResult> GuestLanding()
         {
             HttpRequestMessage apiRequest = CreateRequestToService(HttpMethod.Get, "Collections");

@@ -13,12 +13,19 @@ using System.Web.Http;
 using Bookmarker.Repositories;
 using Bookmarker.Models;
 using System.Web.Http.Cors;
+using NLog;
 
 namespace Bookmarker.API.Controllers
 {
     [EnableCors("*", "*", "*")]
     public class AccountsController : ApiController
     {
+        public AccountsController()
+        {
+            Logger logger = LogManager.GetLogger("file");
+            logger.Log(LogLevel.Info, "In API AccountsController Constructor");
+        }
+
         [HttpGet]
         [Route("~/api/Accounts/WhoAmI")]
         [AllowAnonymous]
@@ -70,6 +77,7 @@ namespace Bookmarker.API.Controllers
         [AllowAnonymous]
         public IHttpActionResult Login(Account account)
         {
+
             if (!ModelState.IsValid)
             {
                 return BadRequest();
