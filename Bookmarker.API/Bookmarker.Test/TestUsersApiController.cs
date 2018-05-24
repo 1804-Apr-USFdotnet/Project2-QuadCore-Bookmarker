@@ -271,7 +271,7 @@ namespace Bookmarker.Test
             string sort = "name:desc";
 
             // Act
-            IHttpActionResult userResult = controller.Get(sort);
+            IHttpActionResult userResult = controller.Get(sort: sort);
             var message = await userResult.ExecuteAsync(new System.Threading.CancellationToken());
             var users = await message.Content.ReadAsAsync<IEnumerable<User>>();
             var actualUsers = new List<User>(users);
@@ -279,6 +279,23 @@ namespace Bookmarker.Test
             var expectedUsers = new List<User>(actualUsers);
             Logic.Library.Sort(ref expectedUsers, sort);
             
+            // Assert
+            CollectionAssert.AreEqual(expectedUsers, actualUsers);
+        }
+        [TestMethod]
+        public async Task TestUsersApiSearchIntegration()
+        {
+            // Arrange
+            string search = "smith";
+
+            // Act
+            IHttpActionResult userResult = controller.Get(search: search);
+            var message = await userResult.ExecuteAsync(new System.Threading.CancellationToken());
+            var bookmarks = await message.Content.ReadAsAsync<IEnumerable<User>>();
+            var actualUsers = new List<User>(bookmarks);
+
+            var expectedUsers = Logic.Library.Search(actualUsers, search);
+
             // Assert
             CollectionAssert.AreEqual(expectedUsers, actualUsers);
         }

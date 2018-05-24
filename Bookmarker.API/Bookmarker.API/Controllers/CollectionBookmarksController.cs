@@ -31,7 +31,7 @@ namespace Bookmarker.API.Controllers
 
         [AllowAnonymous]
         [Route("api/collections/{collectionId}/bookmarks")]
-        public IHttpActionResult Get(Guid collectionId)
+        public IHttpActionResult Get(Guid collectionId, string search = null, string sort = null)
         {
             try
             {
@@ -43,8 +43,20 @@ namespace Bookmarker.API.Controllers
 
                 if (collection.Bookmarks != null)
                 {
+                    //Search
+                    var bookmarksList = collection.Bookmarks.ToList();
+                    if (search != null)
+                    {
+                        bookmarksList = Logic.Library.Search(bookmarksList, search);
+                    }
+                    //Sort
+                    if (sort != null)
+                    {
+                        Logic.Library.Sort(ref bookmarksList, sort);
+                    }
+
                     List<BookmarkAPI> apiList = new List<BookmarkAPI>();
-                    foreach(var bookmark in collection.Bookmarks)
+                    foreach(var bookmark in bookmarksList)
                     {
                         apiList.Add(new BookmarkAPI(bookmark));
                     }

@@ -195,5 +195,40 @@ namespace Bookmarker.Logic
                 return output;
             };
         }
+
+
+        public static List<User> Search(List<User> list, string sort)
+        {
+            if (list == null || sort == null) { return list; };
+            List<User> output = new List<User>();
+            output.AddRange(list.FindAll(
+                x => (x.Username ?? "").Contains(sort.ToLower()) ||
+                (x.Email ?? "").Contains(sort.ToLower())
+            ));
+
+            return output;
+        }
+        public static List<Collection> Search(List<Collection> list, string sort)
+        {
+            if (list == null || sort == null) { return list; };
+            List<Collection> output = new List<Collection>();
+            output.AddRange(list.FindAll(
+                x => (x.Name ?? "").Contains(sort.ToLower()) ||
+                (x.Description ?? "").Contains(sort.ToLower())
+            ));
+
+            return output;
+        }
+        public static List<Bookmark> Search(List<Bookmark> list, string sort)
+        {
+            if (list == null || sort == null) { return list; };
+            List<Bookmark> output = new List<Bookmark>();
+            output.AddRange(list.FindAll(
+                x => (x.Name ?? "").Contains(sort.ToLower()) ||
+                (x.URL ?? "").Contains(sort.ToLower())
+            ));
+
+            return output;
+        }
     }
 }

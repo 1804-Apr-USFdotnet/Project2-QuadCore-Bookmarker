@@ -268,13 +268,30 @@ namespace Bookmarker.Test
             string sort = "name:desc";
 
             // Act
-            IHttpActionResult collectionResult = controller.Get(sort);
+            IHttpActionResult collectionResult = controller.Get(sort: sort);
             var message = await collectionResult.ExecuteAsync(new System.Threading.CancellationToken());
             var collections = await message.Content.ReadAsAsync<IEnumerable<Collection>>();
             var actualCollections = new List<Collection>(collections);
 
             var expectedCollections = new List<Collection>(actualCollections);
             Logic.Library.Sort(ref expectedCollections, sort);
+
+            // Assert
+            CollectionAssert.AreEqual(expectedCollections, actualCollections);
+        }
+        [TestMethod]
+        public async Task TestCollectionsAPISearchIntegration()
+        {
+            // Arrange
+            string search = "c#";
+
+            // Act
+            IHttpActionResult collectionResult = controller.Get(search: search);
+            var message = await collectionResult.ExecuteAsync(new System.Threading.CancellationToken());
+            var collections = await message.Content.ReadAsAsync<IEnumerable<Collection>>();
+            var actualCollections = new List<Collection>(collections);
+
+            var expectedCollections = Logic.Library.Search(actualCollections, search);
 
             // Assert
             CollectionAssert.AreEqual(expectedCollections, actualCollections);

@@ -30,7 +30,7 @@ namespace Bookmarker.API.Controllers
 
         [AllowAnonymous]
         [Route("api/users/{userid}/collections")]
-        public IHttpActionResult Get(Guid userid, string sort = null)
+        public IHttpActionResult Get(Guid userid, string search = null, string sort = null)
         {
             try
             {
@@ -47,7 +47,14 @@ namespace Bookmarker.API.Controllers
 
                 // TODO: change sort to use API
                 var collectionsList = user.Collections.ToList();
-                Logic.Library.Sort(ref collectionsList, sort);
+                if (search != null)
+                {
+                    collectionsList = Logic.Library.Search(collectionsList, search);
+                }
+                if (sort != null)
+                {
+                    Logic.Library.Sort(ref collectionsList, sort); 
+                }
                 var collApiList = new List<CollectionAPI>();
                 foreach(var collection in collectionsList)
                 {

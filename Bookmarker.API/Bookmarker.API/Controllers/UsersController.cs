@@ -32,16 +32,24 @@ namespace Bookmarker.API.Controllers
 
         // GET: api/Users
         [AllowAnonymous]
-        public IHttpActionResult Get(string sort = null)
+        public IHttpActionResult Get(string search = null, string sort = null)
         {
             try
             {
                 //Fetch
                 var users = _userRepository.Table;
                 if(users == null) { return Ok(users); }
-                //Sort
+                //Search
                 var usersList = users.ToList();
-                Logic.Library.Sort(ref usersList, sort);
+                if (search != null)
+                {
+                    usersList = Logic.Library.Search(usersList, search);
+                }
+                //Sort
+                if (sort != null)
+                {
+                    Logic.Library.Sort(ref usersList, sort); 
+                }
                 //Convert
                 var apiUsers = new List<UserAPI>();
                 foreach (var u in usersList)
