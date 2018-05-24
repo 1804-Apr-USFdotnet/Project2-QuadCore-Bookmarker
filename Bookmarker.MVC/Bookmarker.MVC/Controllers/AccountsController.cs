@@ -1,4 +1,5 @@
 ﻿using Bookmarker.MVC.Models;
+using NLog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -99,6 +100,9 @@ namespace Bookmarker.MVC.Controllers
         [HttpPost]
         public async Task<ActionResult> Login(AccountViewModel account)
         {
+            Logger logger = LogManager.GetLogger("file");
+            logger.Log(LogLevel.Info, "In MVC AccountsController Login action");
+
             if (!ModelState.IsValid)
             {
                 return View();

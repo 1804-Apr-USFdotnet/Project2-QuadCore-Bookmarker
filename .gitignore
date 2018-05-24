@@ -1,5 +1,7 @@
 # Database Connection Strings
 Connections.config
+BookmarkerMVCLog.txt
+BookmarkerAPILog.txt
 
 
 # Created by https://www.gitignore.io/api/csharp,windows,visualstudio,visualstudiocode

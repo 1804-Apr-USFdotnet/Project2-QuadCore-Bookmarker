@@ -77,6 +77,8 @@ namespace Bookmarker.API.Controllers
         [AllowAnonymous]
         public IHttpActionResult Login(Account account)
         {
+            Logger logger = LogManager.GetLogger("file");
+            logger.Log(LogLevel.Info, "In API AccountsController Login action");
 
             if (!ModelState.IsValid)
             {
