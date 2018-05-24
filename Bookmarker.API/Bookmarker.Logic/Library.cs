@@ -199,30 +199,36 @@ namespace Bookmarker.Logic
 
         public static List<User> Search(List<User> list, string sort)
         {
-            string[] terms = ParseTerms(sort);
+            if (list == null || sort == null) { return list; };
             List<User> output = new List<User>();
-            foreach (string term in terms)
-            {
-                output.AddRange(list.FindAll(
-                    x => x.Username.Contains(term) ||
-                    x.Email.Contains(term)
-                ));
-            }
+            output.AddRange(list.FindAll(
+                x => (x.Username ?? "").Contains(sort) ||
+                (x.Email ?? "").Contains(sort)
+            ));
 
             return output;
         }
         public static List<Collection> Search(List<Collection> list, string sort)
         {
-            throw new NotImplementedException();
+            if (list == null || sort == null) { return list; };
+            List<Collection> output = new List<Collection>();
+            output.AddRange(list.FindAll(
+                x => (x.Name ?? "").Contains(sort) ||
+                (x.Description ?? "").Contains(sort)
+            ));
+
+            return output;
         }
         public static List<Bookmark> Search(List<Bookmark> list, string sort)
         {
-            throw new NotImplementedException();
-        }
+            if (list == null || sort == null) { return list; };
+            List<Bookmark> output = new List<Bookmark>();
+            output.AddRange(list.FindAll(
+                x => (x.Name ?? "").Contains(sort) ||
+                (x.URL ?? "").Contains(sort)
+            ));
 
-        private static string[] ParseTerms(string terms)
-        {
-            throw new NotImplementedException();
+            return output;
         }
     }
 }

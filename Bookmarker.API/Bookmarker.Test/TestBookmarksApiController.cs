@@ -269,13 +269,30 @@ namespace Bookmarker.Test
             string sort = "rating,name";
 
             // Act
-            IHttpActionResult bookmarkResult = controller.Get(sort);
+            IHttpActionResult bookmarkResult = controller.Get(sort: sort);
             var message = await bookmarkResult.ExecuteAsync(new System.Threading.CancellationToken());
             var bookmarks = await message.Content.ReadAsAsync<IEnumerable<Bookmark>>();
             var actualBookmarks = new List<Bookmark>(bookmarks);
 
             var expectedBookmarks = new List<Bookmark>(actualBookmarks);
             Logic.Library.Sort(ref expectedBookmarks, sort);
+
+            // Assert
+            CollectionAssert.AreEqual(expectedBookmarks, actualBookmarks);
+        }
+        [TestMethod]
+        public async Task TestBookmarksApiSearchIntegration()
+        {
+            // Arrange
+            string search = "intro";
+
+            // Act
+            IHttpActionResult bookmarkResult = controller.Get(search: search);
+            var message = await bookmarkResult.ExecuteAsync(new System.Threading.CancellationToken());
+            var bookmarks = await message.Content.ReadAsAsync<IEnumerable<Bookmark>>();
+            var actualBookmarks = new List<Bookmark>(bookmarks);
+
+            var expectedBookmarks = Logic.Library.Search(actualBookmarks, search);
 
             // Assert
             CollectionAssert.AreEqual(expectedBookmarks, actualBookmarks);
