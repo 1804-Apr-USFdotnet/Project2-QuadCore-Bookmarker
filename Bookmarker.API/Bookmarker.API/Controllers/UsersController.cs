@@ -12,6 +12,7 @@ using System.Web.Http.Results;
 
 namespace Bookmarker.API.Controllers
 {
+    [EnableCors("*", "*", "*")]
     public class UsersController : ApiController
     {
         private readonly IDbContext _context;
@@ -30,6 +31,7 @@ namespace Bookmarker.API.Controllers
         }
 
         // GET: api/Users
+        [AllowAnonymous]
         public IHttpActionResult Get(string sort = null)
         {
             try

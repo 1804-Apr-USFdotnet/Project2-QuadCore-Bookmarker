@@ -8,9 +8,11 @@ using Bookmarker.Models;
 using Bookmarker.Repositories;
 
 using Bookmarker.API.Models;
+using System.Web.Http.Cors;
 
 namespace Bookmarker.API.Controllers
 {
+    [EnableCors("*", "*", "*")]
     public class CollectionBookmarksController : ApiController
     {
         private readonly IDbContext _context;

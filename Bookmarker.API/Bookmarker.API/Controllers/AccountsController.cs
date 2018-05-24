@@ -12,9 +12,11 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using Bookmarker.Repositories;
 using Bookmarker.Models;
+using System.Web.Http.Cors;
 
 namespace Bookmarker.API.Controllers
 {
+    [EnableCors("*", "*", "*")]
     public class AccountsController : ApiController
     {
         [HttpGet]
