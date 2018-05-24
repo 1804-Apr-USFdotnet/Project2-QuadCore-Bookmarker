@@ -27,7 +27,8 @@ namespace Bookmarker.API.Controllers
             _repo = new Repository<Collection>(_context);
         }
 
-        [Route("collections/{collectionId}/bookmarks")]
+        [AllowAnonymous]
+        [Route("api/collections/{collectionId}/bookmarks")]
         public IHttpActionResult Get(Guid collectionId)
         {
             try
@@ -38,18 +39,27 @@ namespace Bookmarker.API.Controllers
                     return BadRequest($"No collection exists with ID ${collectionId}");
                 }
 
-                if (collection.Bookmarks == null)
+                if (collection.Bookmarks != null)
                 {
-                    return NotFound();
+                    List<BookmarkAPI> apiList = new List<BookmarkAPI>();
+                    foreach(var bookmark in collection.Bookmarks)
+                    {
+                        apiList.Add(new BookmarkAPI(bookmark));
+                    }
+                    return Ok(apiList);
                 }
-
-                List<BookmarkAPI> apiList = new List<BookmarkAPI>();
-                foreach(var bookmark in collection.Bookmarks)
+                else
                 {
-                    apiList.Add(new BookmarkAPI(bookmark));
-                }
+                    List<BookmarkAPI> apiList = new List<BookmarkAPI>();
 
-                return Ok(apiList);
+                    Repository<Bookmark> repo = new Repository<Bookmark>(new BookmarkerContext());
+                    var bookmarks = repo.Table.Where(x => x.CollectionId == collectionId);
+                    foreach (var b in bookmarks)
+                    {
+                        apiList.Add(new BookmarkAPI(b));
+                    }
+                    return Ok(apiList);
+                }
             }
             catch (Exception ex)
             {
@@ -58,7 +68,7 @@ namespace Bookmarker.API.Controllers
             }
         }
 
-        [Route("collections/{collectionId}/bookmarks/{index:int}")]
+        [Route("api/collections/{collectionId}/bookmarks/{index:int}")]
         public IHttpActionResult GetByIndex(Guid collectionId, int index)
         {
             try
@@ -84,7 +94,7 @@ namespace Bookmarker.API.Controllers
             }
         }
 
-        [Route("collections/{collectionId}/bookmarks/{id}")]
+        [Route("api/collections/{collectionId}/bookmarks/{id}")]
         public IHttpActionResult GetById(Guid collectionId, Guid id)
         {
             try

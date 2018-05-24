@@ -8,6 +8,7 @@
         <div class="card-body">
             <p class="card-text">Description: @Model.Description</p>
             <p class="card-text">Created: @Model.Created</p>
+            @Html.Partial("_Bookmarks", Model.Bookmarks)
         </div>
         <div class="card-footer">
             <div class="card-text">

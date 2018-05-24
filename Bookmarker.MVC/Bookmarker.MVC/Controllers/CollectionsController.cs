@@ -26,7 +26,12 @@ namespace Bookmarker.MVC.Controllers
                 return View("Error");
             }
 
-            return View("CollectionList", await apiResponse.Content.ReadAsAsync<IEnumerable<CollectionViewModel>>());
+            var collections = await apiResponse.Content.ReadAsAsync<IEnumerable<CollectionViewModel>>();
+            foreach (var collection in collections)
+            {
+                await collection.InitBookmarksAsync();
+            }
+            return View("CollectionList", collections);
         }
 
         // GET: Public Collections

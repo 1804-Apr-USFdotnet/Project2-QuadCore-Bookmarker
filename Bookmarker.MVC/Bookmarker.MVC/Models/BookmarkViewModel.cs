@@ -7,7 +7,7 @@ namespace Bookmarker.MVC.Models
 {
     public class BookmarkViewModel
     {
-        public string Guid { get; set; }
+        public string Id { get; set; }
         public string Created { get; set; }
         public string Modified { get; set; }
 
