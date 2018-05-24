@@ -34,6 +34,7 @@ namespace Bookmarker.MVC.Controllers
             HttpRequestMessage apiRequest = CreateRequestToService(HttpMethod.Get, "Accounts/WhoAmI");
             HttpResponseMessage apiResponse;
             apiResponse = await HttpClient.SendAsync(apiRequest);
+            PassCookiesToClient(apiResponse);
             var user = await apiResponse.Content.ReadAsAsync<UserAPI>();
             return user;
         }

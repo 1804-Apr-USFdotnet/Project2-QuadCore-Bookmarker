@@ -25,7 +25,8 @@ namespace Bookmarker.API.Controllers
             _repo = new Repository<User>(_context);
         }
 
-        [Route("users/{userid}/collections")]
+        [Route("api/users/{userid}/collections")]
+        [AllowAnonymous]
         public IHttpActionResult Get(Guid userid)
         {
             try
@@ -50,7 +51,7 @@ namespace Bookmarker.API.Controllers
             }
         }
 
-        [Route("users/{userid}/collections/{index:int}")]
+        [Route("api/users/{userid}/collections/{index:int}")]
         public IHttpActionResult GetCollectionByIndex(Guid userid, int index)
         {
             try
@@ -75,7 +76,7 @@ namespace Bookmarker.API.Controllers
             }
         }
 
-        [Route("users/{userid}/collections/{id}")]
+        [Route("api/users/{userid}/collections/{id}")]
         public IHttpActionResult GetCollectionById(Guid userid, Guid id)
         {
             try

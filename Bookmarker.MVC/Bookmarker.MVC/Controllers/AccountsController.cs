@@ -186,17 +186,5 @@ namespace Bookmarker.MVC.Controllers
             return RedirectToAction("Home", "Home");
         }
 
-        private bool PassCookiesToClient(HttpResponseMessage apiResponse)
-        {
-            if (apiResponse.Headers.TryGetValues("Set-Cookie", out IEnumerable<string> values))
-            {
-                foreach (string value in values)
-                {
-                    Response.Headers.Add("Set-Cookie", value);
-                }
-                return true;
-            }
-            return false;
-        }
     }
 }

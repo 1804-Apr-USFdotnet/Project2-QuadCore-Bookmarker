@@ -269,6 +269,7 @@
     <Content Include="Views\Home\GuestLanding.cshtml" />
     <Content Include="Views\Accounts\UserDetails.cshtml" />
     <Content Include="Views\Collections\PublicCollections.cshtml" />
+    <Content Include="Views\Collections\MyCollections.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
