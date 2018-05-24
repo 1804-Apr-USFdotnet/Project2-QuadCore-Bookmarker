@@ -101,31 +101,38 @@ namespace Bookmarker.MVC.Controllers
         public async Task<ActionResult> Login(AccountViewModel account)
         {
             Logger logger = LogManager.GetLogger("file");
-            logger.Log(LogLevel.Info, "In MVC AccountsController Login action");
+            logger.Log(LogLevel.Info, "START");
 
             if (!ModelState.IsValid)
             {
+                logger.Log(LogLevel.Info, "Model state invalid");
                 return View();
             }
 
+            logger.Log(LogLevel.Info, "Create API request");
             HttpRequestMessage apiRequest = CreateRequestToService(HttpMethod.Post, "Accounts/Login");
+            logger.Log(LogLevel.Info, "assign API Request content");
             apiRequest.Content = new ObjectContent<AccountViewModel>(account, new JsonMediaTypeFormatter());
 
             HttpResponseMessage apiResponse;
             try
             {
+                logger.Log(LogLevel.Info, "send API request");
                 apiResponse = await HttpClient.SendAsync(apiRequest);
             }
-            catch
+            catch(Exception e)
             {
+                logger.Log(LogLevel.Info, $"Error sending API request: {e}");
                 return View();
             }
 
             if (!apiResponse.IsSuccessStatusCode)
             {
+                logger.Log(LogLevel.Info, $"Status Code: {apiResponse.StatusCode}");
                 return View();
             }
 
+            logger.Log(LogLevel.Info, $"Pass cookies and redirect");
             PassCookiesToClient(apiResponse);
 
             return RedirectToAction("Home", "Home");

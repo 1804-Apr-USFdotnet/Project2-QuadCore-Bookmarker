@@ -13,12 +13,6 @@ namespace Bookmarker.MVC.Controllers
 {
     public class HomeController : AServiceController
     {
-        public HomeController()
-        {
-            Logger logger = LogManager.GetLogger("file");
-            logger.Log(LogLevel.Info, "In MVC HomeController Constructor");
-        }
-
         public async Task<ActionResult> GuestLanding()
         {
             HttpRequestMessage apiRequest = CreateRequestToService(HttpMethod.Get, "Collections");

@@ -20,12 +20,6 @@ namespace Bookmarker.API.Controllers
     [EnableCors("*", "*", "*")]
     public class AccountsController : ApiController
     {
-        public AccountsController()
-        {
-            Logger logger = LogManager.GetLogger("file");
-            logger.Log(LogLevel.Info, "In API AccountsController Constructor");
-        }
-
         [HttpGet]
         [Route("~/api/Accounts/WhoAmI")]
         [AllowAnonymous]
@@ -78,33 +72,40 @@ namespace Bookmarker.API.Controllers
         public IHttpActionResult Login(Account account)
         {
             Logger logger = LogManager.GetLogger("file");
-            logger.Log(LogLevel.Info, "In API AccountsController Login action");
+            logger.Log(LogLevel.Info, "Start");
 
             if (!ModelState.IsValid)
             {
+                logger.Log(LogLevel.Info, "Model state invalid");
                 return BadRequest();
             }
 
             // Login
+            logger.Log(LogLevel.Info, "init user store");
             var userStore = new UserStore<IdentityUser>(new AccountDbContext());
             var userManager = new UserManager<IdentityUser>(userStore);
             var user = userManager.Users.FirstOrDefault(u => u.UserName == account.Username);
 
             if (user == null)
             {
+                logger.Log(LogLevel.Info, "user is null");
                 return BadRequest();
             }
 
             if (!userManager.CheckPassword(user, account.Password))
             {
+                logger.Log(LogLevel.Info, "password unauthorized");
                 return Unauthorized();
             }
 
+            logger.Log(LogLevel.Info, "create identity claim");
             var authManager = Request.GetOwinContext().Authentication;
             var claimsIdentity = userManager.CreateIdentity(user, WebApiConfig.AuthenticationType);
 
+            logger.Log(LogLevel.Info, "sign in");
             authManager.SignIn(new AuthenticationProperties { IsPersistent = true }, claimsIdentity);
 
+            logger.Log(LogLevel.Info, "return");
             return Ok();
         }
 
