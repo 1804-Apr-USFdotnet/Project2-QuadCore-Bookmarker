@@ -1,5 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Bookmarker.API.Controllers;
+using Bookmarker.API.Models;
+using Bookmarker.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +10,7 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using Bookmarker.Test;
 using System.Net.Http;
-using Bookmarker.Models;
+
 
 namespace Bookmarker.API.Controllers.Tests
 {
@@ -38,7 +40,7 @@ namespace Bookmarker.API.Controllers.Tests
             // Act
             IHttpActionResult result = controller.Get(userId);
             var response = await result.ExecuteAsync(new System.Threading.CancellationToken());
-            var collection = await response.Content.ReadAsAsync<IEnumerable<Collection>>();
+            var collection = await response.Content.ReadAsAsync<IEnumerable<CollectionAPI>>();
 
             int actualCount = collection.Count();
             string actualName = collection.FirstOrDefault().Name;
@@ -89,7 +91,7 @@ namespace Bookmarker.API.Controllers.Tests
             // Act
             IHttpActionResult result = controller.GetCollectionByIndex(userId, index);
             var response = await result.ExecuteAsync(new System.Threading.CancellationToken());
-            var collection = await response.Content.ReadAsAsync<Collection>();
+            var collection = await response.Content.ReadAsAsync<CollectionAPI>();
 
             string actualName = collection.Name;
             string actualDescription = collection.Description;
@@ -143,7 +145,7 @@ namespace Bookmarker.API.Controllers.Tests
             // Act
             IHttpActionResult result = controller.GetCollectionById(userId, collectionId);
             var response = await result.ExecuteAsync(new System.Threading.CancellationToken());
-            var collection = await response.Content.ReadAsAsync<Collection>();
+            var collection = await response.Content.ReadAsAsync<CollectionAPI>();
 
             string actualName = collection.Name;
             string actualDescription = collection.Description;
