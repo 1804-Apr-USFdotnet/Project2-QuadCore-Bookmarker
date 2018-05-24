@@ -1,5 +1,6 @@
 ﻿using Bookmarker.Repositories;
 using Bookmarker.Models;
+using Bookmarker.API.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -41,9 +42,15 @@ namespace Bookmarker.API.Controllers
                     return NotFound();
                 }
 
+                // TODO: change sort to use API
                 var collectionsList = user.Collections.ToList();
                 Logic.Library.Sort(ref collectionsList, sort);
-                return Ok(collectionsList);
+                var collApiList = new List<CollectionAPI>();
+                foreach(var collection in collectionsList)
+                {
+                    collApiList.Add(new CollectionAPI(collection));
+                }
+                return Ok(collApiList);
             }
             catch (Exception ex)
             {
@@ -68,7 +75,8 @@ namespace Bookmarker.API.Controllers
                     return NotFound();
                 }
 
-                return Ok(user.Collections.ElementAt(index - 1));
+                var collection = new CollectionAPI(user.Collections.ElementAt(index - 1));
+                return Ok(collection);
             }
             catch (Exception ex)
             {
@@ -93,7 +101,8 @@ namespace Bookmarker.API.Controllers
                     return NotFound();
                 }
 
-                return Ok(user.Collections.FirstOrDefault(x => x.Id == id));
+                var collection = new CollectionAPI(user.Collections.FirstOrDefault(x => x.Id == id));
+                return Ok(collection);
             }
             catch (Exception ex)
             {
