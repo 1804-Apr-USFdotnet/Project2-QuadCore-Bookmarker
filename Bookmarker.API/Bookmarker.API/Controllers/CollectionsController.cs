@@ -31,15 +31,19 @@ namespace Bookmarker.API.Controllers
 
         // GET: api/Collections
         [AllowAnonymous]
-        public IHttpActionResult Get()
+        public IHttpActionResult Get(string sort = null)
         {
             try
             {
+                //fetch
                 var collections = _collectionRepository.Table;
                 if (collections == null) { return Ok(collections); }
-
+                //sort
+                var collectionsList = collections.ToList();
+                Logic.Library.Sort(ref collectionsList, sort); 
+                //convert
                 var apiColls = new List<CollectionAPI>();
-                foreach (var c in collections)
+                foreach (var c in collectionsList)
                 {
                     if(!c.Private)
                     {

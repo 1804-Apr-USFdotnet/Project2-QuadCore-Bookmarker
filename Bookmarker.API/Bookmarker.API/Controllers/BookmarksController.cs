@@ -31,13 +31,18 @@ namespace Bookmarker.API.Controllers
         }
 
         // GET:api/Bookmarks
-        public IHttpActionResult Get()
+        public IHttpActionResult Get(string sort = null)
         {
             try
             {
+                //fetch
                 var bookmarks = _bookmarkRepository.Table;
                 var apiBookmarks = new List<BookmarkAPI>();
-                foreach (var b in bookmarks)
+                //sort
+                var bookmarksList = bookmarks.ToList();
+                Logic.Library.Sort(ref bookmarksList, sort);
+                //convert
+                foreach (var b in bookmarksList)
                 {
                     apiBookmarks.Add(new BookmarkAPI(b));
                 }

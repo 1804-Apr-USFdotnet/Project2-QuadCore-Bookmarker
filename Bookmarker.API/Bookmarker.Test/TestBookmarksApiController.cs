@@ -261,5 +261,24 @@ namespace Bookmarker.Test
 
             Assert.AreEqual(expectedBookmarkCount, actualBookmarkCount);
         }
+
+        [TestMethod]
+        public async Task TestBookmarksApiSortIntegration()
+        {
+            // Arrange
+            string sort = "rating,name";
+
+            // Act
+            IHttpActionResult bookmarkResult = controller.Get(sort);
+            var message = await bookmarkResult.ExecuteAsync(new System.Threading.CancellationToken());
+            var bookmarks = await message.Content.ReadAsAsync<IEnumerable<Bookmark>>();
+            var actualBookmarks = new List<Bookmark>(bookmarks);
+
+            var expectedBookmarks = new List<Bookmark>(actualBookmarks);
+            Logic.Library.Sort(ref expectedBookmarks, sort);
+
+            // Assert
+            CollectionAssert.AreEqual(expectedBookmarks, actualBookmarks);
+        }
     }
 }

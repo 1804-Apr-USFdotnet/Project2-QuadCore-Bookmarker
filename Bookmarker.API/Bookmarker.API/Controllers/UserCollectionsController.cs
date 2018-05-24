@@ -25,9 +25,9 @@ namespace Bookmarker.API.Controllers
             _repo = new Repository<User>(_context);
         }
 
-        [Route("api/users/{userid}/collections")]
         [AllowAnonymous]
-        public IHttpActionResult Get(Guid userid)
+        [Route("api/users/{userid}/collections")]
+        public IHttpActionResult Get(Guid userid, string sort = null)
         {
             try
             {
@@ -42,7 +42,9 @@ namespace Bookmarker.API.Controllers
                     return NotFound();
                 }
 
-                return Ok(user.Collections.ToList());
+                var collectionsList = user.Collections.ToList();
+                Logic.Library.Sort(ref collectionsList, sort);
+                return Ok(collectionsList);
             }
             catch (Exception ex)
             {

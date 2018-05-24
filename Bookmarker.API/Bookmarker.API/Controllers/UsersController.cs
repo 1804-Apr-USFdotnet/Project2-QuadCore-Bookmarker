@@ -30,14 +30,19 @@ namespace Bookmarker.API.Controllers
         }
 
         // GET: api/Users
-        public IHttpActionResult Get()
+        public IHttpActionResult Get(string sort = null)
         {
             try
             {
+                //Fetch
                 var users = _userRepository.Table;
                 if(users == null) { return Ok(users); }
+                //Sort
+                var usersList = users.ToList();
+                Logic.Library.Sort(ref usersList, sort);
+                //Convert
                 var apiUsers = new List<UserAPI>();
-                foreach (var u in users)
+                foreach (var u in usersList)
                 {
                     apiUsers.Add(new UserAPI(u));
                 }
@@ -48,7 +53,7 @@ namespace Bookmarker.API.Controllers
                 return InternalServerError(ex);
             }
         }
-
+        
         // GET: api/Users/5
         public IHttpActionResult Get(Guid id)
         {
