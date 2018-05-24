@@ -24,7 +24,7 @@ namespace Bookmarker.MVC.Models
 
         public async Task<bool> InitBookmarksAsync()
         {
-            Uri serviceUri = new Uri(ConfigurationManager.AppSettings.Get("LocalServiceUri"));
+            Uri serviceUri = new Uri(ConfigurationManager.AppSettings.Get("ServiceUri"));
             HttpRequestMessage apiRequest 
                 = new HttpRequestMessage(HttpMethod.Get, new Uri(serviceUri, $"collections/{Id}/bookmarks"));
             HttpResponseMessage apiResponse;
