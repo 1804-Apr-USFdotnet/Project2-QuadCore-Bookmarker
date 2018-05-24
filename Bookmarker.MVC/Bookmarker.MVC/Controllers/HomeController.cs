@@ -26,19 +26,8 @@ namespace Bookmarker.MVC.Controllers
                 return View("Error");
             }
 
-            return View(await apiResponse.Content.ReadAsAsync<IEnumerable<CollectionViewModel>>());
+            return RedirectToAction("PublicCollections", "Collections");
         }
-
-        public async Task<UserAPI> WhoAmI()
-        {
-            HttpRequestMessage apiRequest = CreateRequestToService(HttpMethod.Get, "Accounts/WhoAmI");
-            HttpResponseMessage apiResponse;
-            apiResponse = await HttpClient.SendAsync(apiRequest);
-            PassCookiesToClient(apiResponse);
-            var user = await apiResponse.Content.ReadAsAsync<UserAPI>();
-            return user;
-        }
-
 
         public async Task<ActionResult> Home()
         {

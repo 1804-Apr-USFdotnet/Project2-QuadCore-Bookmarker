@@ -6,11 +6,12 @@
             <h5>@Model.Name</h5>
         </div>
         <div class="card-body">
-            <p class="card-text"></p>
+            <p class="card-text">Description: @Model.Description</p>
+            <p class="card-text">Created: @Model.Created</p>
         </div>
         <div class="card-footer">
             <div class="card-text">
-                <i class="fa fa-thumbs-up fa-lg"></i> 9001
+                <i class="fa fa-thumbs-up fa-lg"></i> @Model.Rating
                 @* TODO: Add Links to edit and delete icons *@
                 <a href=""><i class="fa fa-edit fa-lg"></i></a>
                 <a href=""><i class="fa fa-trash-o fa-lg"></i></a>

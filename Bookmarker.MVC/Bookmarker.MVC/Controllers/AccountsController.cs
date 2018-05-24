@@ -12,30 +12,6 @@ namespace Bookmarker.MVC.Controllers
 {
     public class AccountsController : AServiceController
     {
-        public async Task<bool> LoggedIn()
-        {
-            HttpRequestMessage apiRequest = 
-                CreateRequestToService(HttpMethod.Get, "Accounts/LoggedIn");
-
-            HttpResponseMessage apiResponse;
-            try
-            {
-                apiResponse = await HttpClient.SendAsync(apiRequest);
-                if(apiResponse.Content.ToString() == "true")
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-            catch
-            {
-                return false;
-            }
-        }
-
         // GET: Accounts/Login
         public ActionResult Login()
         {

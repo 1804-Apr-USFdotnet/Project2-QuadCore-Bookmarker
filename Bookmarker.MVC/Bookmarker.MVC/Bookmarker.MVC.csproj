@@ -258,7 +258,6 @@
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\Shared\_CollectionCard.cshtml" />
-    <Content Include="Views\Home\HomeOld.cshtml" />
     <Content Include="Views\Accounts\Login.cshtml" />
     <Content Include="Views\Shared\_Header.cshtml" />
     <Content Include="Views\Shared\_Footer.cshtml" />
@@ -266,10 +265,8 @@
     <Content Include="Views\Home\UsersList.cshtml" />
     <Content Include="Views\Accounts\Register.cshtml" />
     <Content Include="Views\Home\Home.cshtml" />
-    <Content Include="Views\Home\GuestLanding.cshtml" />
     <Content Include="Views\Accounts\UserDetails.cshtml" />
-    <Content Include="Views\Collections\PublicCollections.cshtml" />
-    <Content Include="Views\Collections\MyCollections.cshtml" />
+    <Content Include="Views\Collections\CollectionList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

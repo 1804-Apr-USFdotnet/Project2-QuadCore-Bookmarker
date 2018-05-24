@@ -1,9 +1,11 @@
-﻿using System;
+﻿using Bookmarker.MVC.Models;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -28,6 +30,23 @@ namespace Bookmarker.MVC.Controllers
             apiRequest.Headers.Add("Cookie", new CookieHeaderValue(cookieName, cookieValue).ToString());
 
             return apiRequest;
+        }
+
+        public async Task<UserAPI> WhoAmI()
+        {
+            try
+            {
+                HttpRequestMessage apiRequest = CreateRequestToService(HttpMethod.Get, "Accounts/WhoAmI");
+                HttpResponseMessage apiResponse;
+                apiResponse = await HttpClient.SendAsync(apiRequest);
+                PassCookiesToClient(apiResponse);
+                var user = await apiResponse.Content.ReadAsAsync<UserAPI>();
+                return user;
+            }
+            catch
+            {
+                return null;
+            }
         }
 
         protected bool PassCookiesToClient(HttpResponseMessage apiResponse)
