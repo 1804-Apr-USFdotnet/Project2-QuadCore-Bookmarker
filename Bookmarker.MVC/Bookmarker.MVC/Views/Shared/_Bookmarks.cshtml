@@ -3,11 +3,13 @@
 <div>
     @{
         var en = Model.GetEnumerator();
-        while(en.MoveNext())
+        int i = 0;
+        while(en.MoveNext() && i < 5)
         {
             <div class="row">
                 @Html.Partial("_Bookmark", en.Current)
             </div>
+            ++i;
         }
      }
 </div>

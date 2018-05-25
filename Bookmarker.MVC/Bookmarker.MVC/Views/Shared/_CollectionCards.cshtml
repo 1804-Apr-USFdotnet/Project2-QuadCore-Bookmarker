@@ -5,14 +5,20 @@
         while(en.MoveNext())
         {
             <div class="row" style="margin-bottom: 30px;">
-                @Html.Partial("_CollectionCard", en.Current)
+                <div class="col-sm-4">
+                    @Html.Partial("_CollectionCard", en.Current)
+                </div>
                 @if(en.MoveNext())
                 {
-                    @Html.Partial("_CollectionCard", en.Current);
+                    <div class="col-sm-4">
+                        @Html.Partial("_CollectionCard", en.Current)
+                    </div>
                 }
                 @if(en.MoveNext())
                 {
-                    @Html.Partial("_CollectionCard", en.Current);
+                    <div class="col-sm-4">
+                        @Html.Partial("_CollectionCard", en.Current)
+                    </div>
                 }
             </div>
         }
