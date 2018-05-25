@@ -1,5 +1,6 @@
 export class Collection {
-    constructor() {
-        
-    }
+    name: String;
+    description: String;
+    rating: Number;
+    links: Object;
 }

@@ -3,12 +3,13 @@ import { RouterModule, Routes } from '@angular/router';
 import { UserComponent } from './user/user.component'
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { UserDetailComponent } from './user-detail/user-detail.component';
+import { CollectionComponent } from './collection/collection.component'
 
 const routes: Routes = [
-  { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
+  { path: '', redirectTo: '/collections', pathMatch: 'full' },
   { path: 'users', component: UserComponent },
   { path: 'detail/:username', component: UserDetailComponent },
-  { path: 'dashboard', component: DashboardComponent }
+  { path: 'collections', component: CollectionComponent }
 ];
 
 @NgModule({
