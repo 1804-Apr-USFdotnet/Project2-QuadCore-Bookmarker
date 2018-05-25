@@ -1,5 +1,14 @@
-<ol style="width: 200px; text-align: center;">
-  <li *ngFor='let user of users' routerLink="/detail/{{user.username}}">
-    <span>{{user.username}}</span>
-  </li>
-</ol>
+<table class="table">
+  <thead>
+    <tr>
+      <th style="text-align: center"><h3>Users</h3></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor='let user of users' routerLink="/detail/{{user.username}}">
+      <td>
+        <button style="width: 100%" class="btn btn-dark">{{user.username}}</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
