@@ -202,8 +202,8 @@ namespace Bookmarker.Logic
             if (list == null || sort == null) { return list; };
             List<User> output = new List<User>();
             output.AddRange(list.FindAll(
-                x => (x.Username ?? "").Contains(sort.ToLower()) ||
-                (x.Email ?? "").Contains(sort.ToLower())
+                x => (x.Username?.ToLower() ?? "").Contains(sort.ToLower()) ||
+                (x.Email?.ToLower() ?? "").Contains(sort.ToLower())
             ));
 
             return output;
@@ -213,8 +213,8 @@ namespace Bookmarker.Logic
             if (list == null || sort == null) { return list; };
             List<Collection> output = new List<Collection>();
             output.AddRange(list.FindAll(
-                x => (x.Name ?? "").Contains(sort.ToLower()) ||
-                (x.Description ?? "").Contains(sort.ToLower())
+                x => (x.Name?.ToLower() ?? "").Contains(sort.ToLower()) ||
+                (x.Description?.ToLower() ?? "").Contains(sort.ToLower())
             ));
 
             return output;
@@ -224,8 +224,8 @@ namespace Bookmarker.Logic
             if (list == null || sort == null) { return list; };
             List<Bookmark> output = new List<Bookmark>();
             output.AddRange(list.FindAll(
-                x => (x.Name ?? "").Contains(sort.ToLower()) ||
-                (x.URL ?? "").Contains(sort.ToLower())
+                x => (x.Name?.ToLower() ?? "").Contains(sort.ToLower()) ||
+                (x.URL?.ToLower() ?? "").Contains(sort.ToLower())
             ));
 
             return output;

@@ -82,9 +82,30 @@ namespace Bookmarker.API.Controllers
 
             // Login
             logger.Log(LogLevel.Info, "init user store");
-            var userStore = new UserStore<IdentityUser>(new AccountDbContext());
+            logger.Log(LogLevel.Info, $"username: {account.Username}");
+            var context = new AccountDbContext();
+            logger.Log(LogLevel.Info, $"context null?: {context == null}");
+            logger.Log(LogLevel.Info, $"context db connection state: {context.Database.Connection.State}");
+            logger.Log(LogLevel.Info, $"context db connection string: {context.Database.Connection.ConnectionString}");
+            logger.Log(LogLevel.Info, $"context db connection db name: {context.Database.Connection.Database}");
+            logger.Log(LogLevel.Info, $"context users null?: {context.Users == null}");
+
+            UserStore<IdentityUser> userStore = null;
+            try
+            {
+                logger.Log(LogLevel.Info, $"context init'd: {context.Users.Count()} users");
+                userStore = new UserStore<IdentityUser>(context);
+            }
+            catch(Exception e)
+            {
+                logger.Log(LogLevel.Info, $"exception: {e}");
+            }
+
+            logger.Log(LogLevel.Info, $"userStore num users: {userStore.Users.Count()}");
             var userManager = new UserManager<IdentityUser>(userStore);
+            logger.Log(LogLevel.Info, $"user manager initialized");
             var user = userManager.Users.FirstOrDefault(u => u.UserName == account.Username);
+            logger.Log(LogLevel.Info, $"user is {user.UserName}");
 
             if (user == null)
             {
