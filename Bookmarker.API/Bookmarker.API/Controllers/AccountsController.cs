@@ -82,9 +82,13 @@ namespace Bookmarker.API.Controllers
 
             // Login
             logger.Log(LogLevel.Info, "init user store");
+            logger.Log(LogLevel.Info, $"username: {account.Username}");
             var userStore = new UserStore<IdentityUser>(new AccountDbContext());
+            logger.Log(LogLevel.Info, $"userStore num users: {userStore.Users.Count()}");
             var userManager = new UserManager<IdentityUser>(userStore);
+            logger.Log(LogLevel.Info, $"user manager initialized");
             var user = userManager.Users.FirstOrDefault(u => u.UserName == account.Username);
+            logger.Log(LogLevel.Info, $"user is {user.UserName}");
 
             if (user == null)
             {
