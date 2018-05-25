@@ -8,7 +8,9 @@ import { UserComponent } from './user/user.component';
 import { UserDetailComponent } from './user-detail/user-detail.component';
 import { MessagesComponent } from './messages/messages.component';
 import { AppRoutingModule } from './/app-routing.module';
-import { DashboardComponent } from './dashboard/dashboard.component'
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { CollectionComponent } from './collection/collection.component';
+import { CollectionDetailComponent } from './collection-detail/collection-detail.component'
 
 @NgModule({
   declarations: [
@@ -17,6 +19,8 @@ import { DashboardComponent } from './dashboard/dashboard.component'
     UserDetailComponent,
     MessagesComponent,
     DashboardComponent,
+    CollectionComponent,
+    CollectionDetailComponent,
   ],
   imports: [
     BrowserModule,
