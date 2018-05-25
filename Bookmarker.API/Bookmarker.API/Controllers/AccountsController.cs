@@ -89,8 +89,18 @@ namespace Bookmarker.API.Controllers
             logger.Log(LogLevel.Info, $"context db connection string: {context.Database.Connection.ConnectionString}");
             logger.Log(LogLevel.Info, $"context db connection db name: {context.Database.Connection.Database}");
             logger.Log(LogLevel.Info, $"context users null?: {context.Users == null}");
-            logger.Log(LogLevel.Info, $"context init'd: {context.Users.Count()} users");
-            var userStore = new UserStore<IdentityUser>(context);
+
+            UserStore<IdentityUser> userStore = null;
+            try
+            {
+                logger.Log(LogLevel.Info, $"context init'd: {context.Users.Count()} users");
+                userStore = new UserStore<IdentityUser>(context);
+            }
+            catch(Exception e)
+            {
+                logger.Log(LogLevel.Info, $"exception: {e}");
+            }
+
             logger.Log(LogLevel.Info, $"userStore num users: {userStore.Users.Count()}");
             var userManager = new UserManager<IdentityUser>(userStore);
             logger.Log(LogLevel.Info, $"user manager initialized");
