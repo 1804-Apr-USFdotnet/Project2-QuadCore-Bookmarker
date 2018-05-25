@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { User } from './user';
-import { USERS } from './mock-users';
 import { Observable, of } from 'rxjs';
 import { map, catchError, tap, filter, flatMap } from 'rxjs/operators';
 import { MessageService } from './message.service';
