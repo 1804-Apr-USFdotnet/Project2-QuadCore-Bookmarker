@@ -2,12 +2,12 @@
 
 <div class="card">
     <a href="TODO">
-        <div class="card-header">
+        <div class="card-header" title="@Model.Description">
             <h5>@Model.Name</h5>
         </div>
     </a>
     <div class="card-body">
-        <p class="card-text">Description: @Model.Description</p>
+        @*<p class="card-text">Description: @Model.Description</p>*@
         @Html.Partial("_Bookmarks", Model.Bookmarks)
         <p class="card-text text-muted">Created: @Model.Created</p>
     </div>
