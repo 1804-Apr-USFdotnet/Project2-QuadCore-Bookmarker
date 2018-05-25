@@ -7,14 +7,16 @@
     <title>Collections</title>
 </head>
 <body>
-    <div class="search-bar">
+    <div class="search-bar" style="position: fixed; background-color: #343a40; color: white; margin: 10px; z-index: 100;">
         @using (Html.BeginForm("PublicCollections", "Collections", FormMethod.Get))
         {
             @Html.TextBox("search")
-            <input type="submit" value="search" />
+            <input type="submit" value="search" class="btn btn-dark"/>
         }
     </div>
-
+    <br />
+    <br />
+    <br />
     @Html.Partial("_CollectionCards", Model)
 </body>
 </html>

@@ -39,7 +39,7 @@ namespace Bookmarker.MVC.Controllers
                 {
                     return RedirectToAction("GuestLanding", "Home");
                 }
-                return View();
+                return RedirectToAction("MyCollections", "Collections");
             }
             catch
             {
