@@ -1,7 +1,25 @@
 ﻿@model Bookmarker.MVC.Models.BookmarkViewModel
 
 <div>
-    <span>@Model.Name</span> |
-    <span>@Model.URL</span> |
-    <span>@Model.Rating</span>
+    @if (Model.Name != null && Model.Name != "")
+    {
+
+        // show Name, or part of it, as link
+        string linkText = @Model.Name.Substring(0, (Model.Name.Length > 40) ? 40 : Model.Name.Length);
+        <text>
+            @if (Model.Name.Length > 40)
+            {
+                <a href="@Model.URL">@(linkText)...</a>
+            }
+            else
+            {
+                <a href="@Model.URL">@Model.Name</a>
+            }
+        </text>
+    }
+    else
+    {
+        // show part of URL as link
+        <a href="@Model.URL">@Model.URL.Substring(0, (Model.URL.Length > 20) ? 20 : Model.URL.Length)</a>
+    }
 </div>
