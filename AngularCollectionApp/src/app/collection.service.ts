@@ -23,7 +23,7 @@ export class CollectionService {
       queryString += "?search=" + search;
     }
     else if (!search && sort) {
-      queryString += "?sort" + sort;
+      queryString += "?sort=" + sort;
     }
     else if (!search && !sort) {
       queryString += "?search=" + search + "&sort=" + sort;

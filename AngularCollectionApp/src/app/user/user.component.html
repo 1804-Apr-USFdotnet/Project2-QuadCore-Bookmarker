@@ -1,14 +1,24 @@
 <table class="table">
-  <thead>
-    <tr>
-      <th style="text-align: center"><h3>Users</h3></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor='let user of users' routerLink="/detail/{{user.username}}">
-      <td>
-        <button style="width: 100%" class="btn btn-dark">{{user.username}}</button>
-      </td>
-    </tr>
-  </tbody>
+  <div class="row">
+    <div class="col-sm-4 jumbotron" style="position: fixed; background-color: #343a40; color: white; margin-left: 20px;">
+      <h3>Users</h3>
+      <br />
+      <span class="badge">Sort by:</span>
+      <select ng-model="sort">
+        <option *ngFor="let option of sortOptions" value="{{option.value}}">{{option.name}}</option>
+      </select>
+    </div>
+    <div class="col-sm-4 offset-4">
+      <tbody>
+        <tr *ngFor='let user of users' routerLink="/detail/{{user.username}}">
+          <td>
+           <button style="width: 100%" class="btn btn-dark">{{user.username}}</button>
+          </td>
+        </tr>
+      </tbody>
+    </div>
+    <div class="col-sm-4">
+
+    </div>
+  </div>
 </table>
