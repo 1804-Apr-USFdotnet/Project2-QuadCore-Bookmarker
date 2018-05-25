@@ -1,3 +1,16 @@
-<p>
-  collection works!
-</p>
+<table class="table">
+  <thead>
+    <tr>
+      <th style="text-align: center">
+        <h3>Collections</h3>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor='let collection of collections' routerLink="/detail/{{collection.name}}">
+      <td>
+        <button style="width: 100%" class="btn btn-dark">{{collection.name}}</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
