@@ -7,6 +7,14 @@
     <title>Collections</title>
 </head>
 <body>
+    <div class="search-bar">
+        @using (Html.BeginForm("PublicCollections", "Collections", FormMethod.Get))
+        {
+            @Html.TextBox("search")
+            <input type="submit" value="search" />
+        }
+    </div>
+
     @Html.Partial("_CollectionCards", Model)
 </body>
 </html>
