@@ -25,6 +25,15 @@ namespace Bookmarker.MVC.Controllers
             return View();
         }
 
+        // GET: Accounts/UserDetails
+        public ActionResult UserDetails()
+        {
+            // TODO:: Get real user from db, not just passed-in account user
+            UserAPI debugUser = new UserAPI();
+            debugUser.Username = "debug";
+            return View(debugUser);
+        }
+
         private async Task<bool> Create(AccountViewModel account)
         {
             if (!ModelState.IsValid)
@@ -101,7 +110,6 @@ namespace Bookmarker.MVC.Controllers
         public async Task<ActionResult> Login(AccountViewModel account)
         {
             Logger logger = LogManager.GetLogger("file");
-            logger.Log(LogLevel.Info, "START");
 
             if (!ModelState.IsValid)
             {
@@ -109,9 +117,7 @@ namespace Bookmarker.MVC.Controllers
                 return View();
             }
 
-            logger.Log(LogLevel.Info, "Create API request");
             HttpRequestMessage apiRequest = CreateRequestToService(HttpMethod.Post, "Accounts/Login");
-            logger.Log(LogLevel.Info, "assign API Request content");
             apiRequest.Content = new ObjectContent<AccountViewModel>(account, new JsonMediaTypeFormatter());
 
             HttpResponseMessage apiResponse;
@@ -132,10 +138,9 @@ namespace Bookmarker.MVC.Controllers
                 return View();
             }
 
-            logger.Log(LogLevel.Info, $"Pass cookies and redirect");
             PassCookiesToClient(apiResponse);
 
-            return RedirectToAction("Home", "Home");
+            return RedirectToAction("UserDetails", "Accounts");
         }
 
         // GET: Accounts/Logout
