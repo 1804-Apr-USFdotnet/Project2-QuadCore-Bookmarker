@@ -1,0 +1,5 @@
+<ol style="width: 200px; text-align: center;">
+  <li *ngFor='let user of users' routerLink="/detail/{{user.username}}">
+    <span>{{user.username}}</span>
+  </li>
+</ol>
