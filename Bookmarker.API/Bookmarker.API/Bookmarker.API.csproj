@@ -201,6 +201,11 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="IdentityMigrations\201805250304229_CreateAccountDb.cs" />
+    <Compile Include="IdentityMigrations\201805250304229_CreateAccountDb.Designer.cs">
+      <DependentUpon>201805250304229_CreateAccountDb.cs</DependentUpon>
+    </Compile>
+    <Compile Include="IdentityMigrations\Configuration.cs" />
     <Compile Include="Models\Account.cs" />
     <Compile Include="Models\CollectionAPI.cs" />
     <Compile Include="Models\ABaseEntityAPI.cs" />
@@ -258,6 +263,11 @@
       <Project>{CB0C1047-54FC-4B30-867B-5BF352D157E6}</Project>
       <Name>Bookmarker.Repositories</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="IdentityMigrations\201805250304229_CreateAccountDb.resx">
+      <DependentUpon>201805250304229_CreateAccountDb.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
