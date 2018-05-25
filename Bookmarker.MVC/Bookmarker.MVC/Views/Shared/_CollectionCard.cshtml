@@ -1,23 +1,28 @@
 ﻿@model Bookmarker.MVC.Models.CollectionViewModel
 
-<div class="col-sm-4">
-    <div class="card">
-        <a href="TODO">
-            <div class="card-header">
-                <h5>@Model.Name</h5>
-            </div>
-        </a>
-        <div class="card-body">
-            <p class="card-text">Description: @Model.Description</p>
-            <p class="card-text">Created: @Model.Created</p>
-            @Html.Partial("_Bookmarks", Model.Bookmarks)
+<div class="card">
+    <a href="TODO">
+        <div class="card-header">
+            <h5>@Model.Name</h5>
         </div>
-        <div class="card-footer">
-            <div class="card-text">
-                <i class="fa fa-thumbs-up fa-lg"></i> @Model.Rating
+    </a>
+    <div class="card-body">
+        <p class="card-text">Description: @Model.Description</p>
+        @Html.Partial("_Bookmarks", Model.Bookmarks)
+        <p class="card-text text-muted">Created: @Model.Created</p>
+    </div>
+    <div class="card-footer">
+        <div class="card-text">
+            <div class="row">
+                <div class="col-sm-9">
+                    <i class="fa fa-thumbs-up fa-lg"></i>
+                    <text>@Model.Rating</text>
+                </div>
+                <div class="col-sm-3 justify-content-end">
+                    <a href="TODO"><i class="fa fa-edit fa-lg"></i></a>
+                    <a href="TODO"><i class="fa fa-trash-o fa-lg"></i></a>
+                </div>
                 @* TODO: Add Links to edit and delete icons *@
-                <a href=""><i class="fa fa-edit fa-lg"></i></a>
-                <a href=""><i class="fa fa-trash-o fa-lg"></i></a>
             </div>
         </div>
     </div>
