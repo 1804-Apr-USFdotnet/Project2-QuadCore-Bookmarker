@@ -53,9 +53,9 @@ namespace Bookmarker.Logic
                 { "owner:asc",  (x,y) => x.Owner.Username.CompareTo(y.Owner.Username) },
                 { "owner:desc", (x,y) => y.Owner.Username.CompareTo(x.Owner.Username) },
 
-                { "bookmarks",      (x,y) => y.Bookmarks.Count().CompareTo(x.Bookmarks.Count()) },
-                { "bookmarks:asc",  (x,y) => x.Bookmarks.Count().CompareTo(y.Bookmarks.Count()) },
-                { "bookmarks:desc", (x,y) => y.Bookmarks.Count().CompareTo(x.Bookmarks.Count()) },
+                { "bookmarks",      (x,y) => y.Bookmarks.Count.CompareTo(x.Bookmarks.Count) },
+                { "bookmarks:asc",  (x,y) => x.Bookmarks.Count.CompareTo(y.Bookmarks.Count) },
+                { "bookmarks:desc", (x,y) => y.Bookmarks.Count.CompareTo(x.Bookmarks.Count) },
 
                 { "private",        (x,y) => x.Private.CompareTo(y.Private) },
                 { "private:asc",    (x,y) => x.Private.CompareTo(y.Private) },
@@ -124,7 +124,10 @@ namespace Bookmarker.Logic
                     {
                         list.Add(entityComparisons[term]);
                     }
-                    catch (KeyNotFoundException) { }
+                    catch (KeyNotFoundException)
+                    {
+                        // TODO: log ?
+                    }
                 }
             }
 
@@ -148,7 +151,10 @@ namespace Bookmarker.Logic
                     {
                         list.Add(entityComparisons[term]);
                     }
-                    catch (KeyNotFoundException) { }
+                    catch (KeyNotFoundException)
+                    {
+                        // TODO: log ?
+                    }
                 }
             }
 
@@ -172,7 +178,10 @@ namespace Bookmarker.Logic
                     {
                         list.Add(entityComparisons[term]);
                     }
-                    catch (KeyNotFoundException) { }
+                    catch (KeyNotFoundException)
+                    {
+                        // TODO: log ?
+                    }
                 }
             }
 

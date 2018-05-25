@@ -28,10 +28,10 @@ namespace Bookmarker.Repositories
                 Entities.Remove(entity);
                 _dbContext.SaveChanges();
             }
-            catch (Exception e)
+            catch
             {
                 // log
-                throw e;
+                throw;
             }
         }
 
@@ -51,10 +51,9 @@ namespace Bookmarker.Repositories
                 Entities.Add(entity);
                 _dbContext.SaveChanges();
             }
-            catch (Exception e)
+            catch
             {
-                // log
-                throw e;
+                throw;
             }
         }
 
@@ -64,7 +63,7 @@ namespace Bookmarker.Repositories
             {
                 if (entity == null)
                 {
-                    throw new ArgumentNullException("Entity is null.");
+                    throw new ArgumentNullException("entity");
                 }
 
                 var local = Entities.Local.FirstOrDefault(f => f.Id == entity.Id);
@@ -72,10 +71,10 @@ namespace Bookmarker.Repositories
                 _dbContext.Entry(entity).State = EntityState.Modified;
                 _dbContext.SaveChanges();
             }
-            catch (Exception e)
+            catch
             {
                 // log
-                throw e;
+                throw;
             }
         }
 

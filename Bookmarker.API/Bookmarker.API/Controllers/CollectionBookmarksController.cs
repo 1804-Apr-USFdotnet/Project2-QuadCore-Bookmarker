@@ -93,7 +93,7 @@ namespace Bookmarker.API.Controllers
                     return BadRequest($"No collection exists with ID ${collectionId}");
                 }
 
-                if (collection.Bookmarks == null || collection.Bookmarks.Count() < index)
+                if (collection.Bookmarks == null || collection.Bookmarks.Count < index)
                 {
                     return NotFound();
                 }
