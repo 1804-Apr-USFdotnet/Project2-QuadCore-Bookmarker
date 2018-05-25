@@ -18,7 +18,10 @@ export class CollectionComponent implements OnInit {
   }
 
   getCollections(): void {
-
+    this.collectionSvc.getCollections(null, null)
+      .subscribe(
+        response => this.collections = response,
+        errors => console.log(errors)
+      );
   }
-
 }

@@ -1,17 +1,5 @@
-// import { Injectable } from '@angular/core';
-
-// @Injectable({
-//   providedIn: 'root'
-// })
-// export class CollectionService {
-
-//   constructor() { }
-// }
-
-
 import { Injectable } from '@angular/core';
 import { Collection } from './collection';
-//import { USERS } from './mock-users';
 import { Observable, of } from 'rxjs';
 import { map, catchError, tap, filter, flatMap } from 'rxjs/operators';
 import { MessageService } from './message.service';
@@ -20,7 +8,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 @Injectable({
   providedIn: 'root'
 })
-export class UserService {
+export class CollectionService {
 
   constructor(private messageSvc: MessageService,
   private http: HttpClient) { }
@@ -29,7 +17,7 @@ export class UserService {
 
   getCollections(search?: string, sort?: string): Observable<Collection[]> {
     this.messageSvc.add("UserSvc: fetched collections")
-    
+
     var queryString = "";
     if (search && !sort) {
       queryString += "?search=" + search;
