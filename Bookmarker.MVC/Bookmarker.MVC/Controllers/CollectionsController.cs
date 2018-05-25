@@ -26,7 +26,10 @@ namespace Bookmarker.MVC.Controllers
                 return View("Error");
             }
 
+            PassCookiesToClient(apiResponse);
+
             var collections = await apiResponse.Content.ReadAsAsync<IEnumerable<CollectionViewModel>>();
+
             foreach (var collection in collections)
             {
                 await collection.InitBookmarksAsync();
@@ -65,6 +68,8 @@ namespace Bookmarker.MVC.Controllers
             {
                 return View("Error");
             }
+
+            PassCookiesToClient(apiResponse);
 
             return View("CollectionList", await apiResponse.Content.ReadAsAsync<IEnumerable<CollectionViewModel>>());
         }

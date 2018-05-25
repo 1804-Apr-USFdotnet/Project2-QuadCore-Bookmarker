@@ -26,12 +26,15 @@ namespace Bookmarker.MVC.Controllers
         }
 
         // GET: Accounts/UserDetails
-        public ActionResult UserDetails()
+        public async Task<ActionResult> UserDetails()
         {
-            // TODO:: Get real user from db, not just passed-in account user
-            UserAPI debugUser = new UserAPI();
-            debugUser.Username = "debug";
-            return View(debugUser);
+            UserAPI user = await WhoAmI();
+            if(user == null)
+            { 
+                TempData["Message"] = "Please log in.";
+                return RedirectToAction("Login", "Accounts");
+            }
+            return View(user);
         }
 
         private async Task<bool> Create(AccountViewModel account)
@@ -63,6 +66,7 @@ namespace Bookmarker.MVC.Controllers
                 return false;
             }
 
+            PassCookiesToClient(apiResponse);
             return true;
         }
 
@@ -166,13 +170,13 @@ namespace Bookmarker.MVC.Controllers
                 return RedirectToAction("Home", "Home");
             }
 
+            PassCookiesToClient(apiResponse);
+
             if (!apiResponse.IsSuccessStatusCode)
             {
                 TempData["Message"] = "Unable to logout";
                 return RedirectToAction("Home", "Home");
             }
-
-            PassCookiesToClient(apiResponse);
 
             TempData["Message"] = "Logged out.";
             return RedirectToAction("Home", "Home");

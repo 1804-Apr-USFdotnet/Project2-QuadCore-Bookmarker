@@ -27,6 +27,7 @@ namespace Bookmarker.MVC.Controllers
                 return View("Error");
             }
 
+            PassCookiesToClient(apiResponse);
             return RedirectToAction("PublicCollections", "Collections");
         }
 
@@ -60,6 +61,8 @@ namespace Bookmarker.MVC.Controllers
             {
                 return View("Error");
             }
+
+            PassCookiesToClient(apiResponse);
 
             if (!apiResponse.IsSuccessStatusCode)
             {
