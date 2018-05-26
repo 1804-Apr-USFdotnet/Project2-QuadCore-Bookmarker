@@ -4,7 +4,7 @@
         <h3>Public Bookmark Collections</h3>
         <br />
         <span class="badge">Sort by:</span>
-        <select ng-model="sort">
+        <select [(ngModel)]="sort" (change)="getCollections()">
           <option *ngFor="let option of sortOptions" value="{{option.value}}">{{option.name}}</option>
         </select>
     </div>
@@ -12,7 +12,8 @@
       <tbody>
         <tr *ngFor='let collection of collections' routerLink="/detail/{{collection.name}}">
           <td>
-            <button style="width: 100%" class="btn btn-dark">{{collection.name}}</button>
+            <button style="width: 80%" class="btn btn-dark">{{collection.name}}</button>
+            <span style="margin-left: 5px;"><b>[ {{collection.rating}} ]</b></span>
           </td>
         </tr>
       </tbody>
