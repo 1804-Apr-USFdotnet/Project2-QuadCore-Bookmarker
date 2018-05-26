@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Formatting;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -11,7 +12,7 @@ namespace Bookmarker.MVC.Controllers
 {
     public class CollectionsController : AServiceController
     {
-        // GET: Public Collections
+        // GET: Collections/PublicCollections
         public async Task<ActionResult> PublicCollections(string search, string sort = "name")
         {
             HttpRequestMessage apiRequest = CreateRequestToService(HttpMethod.Get, "Collections?search=" + search + "&sort=" + sort);
@@ -37,7 +38,7 @@ namespace Bookmarker.MVC.Controllers
             return View("CollectionList", collections);
         }
 
-        // GET: Public Collections
+        // GET: Collections/MyCollections
         public async Task<ActionResult> MyCollections()
         {
             Guid? id = null;
@@ -71,7 +72,49 @@ namespace Bookmarker.MVC.Controllers
 
             PassCookiesToClient(apiResponse);
 
-            return View("CollectionList", await apiResponse.Content.ReadAsAsync<IEnumerable<CollectionViewModel>>());
+            return View(await apiResponse.Content.ReadAsAsync<IEnumerable<CollectionViewModel>>());
+        }
+
+
+        // GET: Collections/AddCollection
+        [HttpGet]
+        public async Task<ActionResult> AddCollection()
+        {
+            var user = await WhoAmI();
+            CollectionViewModel collection = new CollectionViewModel();
+            collection.Owner = user.Id;
+            return View(collection);
+        }
+
+        // POST: Collections/AddCollection
+        [HttpPost]
+        public async Task<ActionResult> AddCollection(CollectionViewModel collection)
+        {
+            if (!ModelState.IsValid)
+            {
+                return RedirectToAction("MyCollections");
+            }
+
+            HttpRequestMessage apiRequest = CreateRequestToService(HttpMethod.Post, "Collections");
+            apiRequest.Content = new ObjectContent<CollectionViewModel>(collection, new JsonMediaTypeFormatter());
+
+            HttpResponseMessage apiResponse;
+            try
+            {
+                apiResponse = await HttpClient.SendAsync(apiRequest);
+            }
+            catch
+            {
+                return RedirectToAction("MyCollections");
+            }
+
+            if (!apiResponse.IsSuccessStatusCode)
+            {
+                return RedirectToAction("MyCollections");
+            }
+
+            PassCookiesToClient(apiResponse);
+            return RedirectToAction("MyCollections");
         }
     }
 }

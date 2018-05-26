@@ -285,6 +285,8 @@
     <Content Include="Views\Shared\_Bookmarks.cshtml" />
     <Content Include="Views\Accounts\EditUserOld.cshtml" />
     <Content Include="Views\Accounts\EditUser.cshtml" />
+    <Content Include="Views\Collections\AddCollection.cshtml" />
+    <Content Include="Views\Collections\MyCollections.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -8,7 +8,10 @@
     </a>
     <div class="card-body">
         @*<p class="card-text">Description: @Model.Description</p>*@
-        @Html.Partial("_Bookmarks", Model.Bookmarks)
+        @if(Model.Bookmarks != null)
+        {
+            @Html.Partial("_Bookmarks", Model.Bookmarks)
+        }
         <p class="card-text text-muted">Created: @Model.Created</p>
     </div>
     <div class="card-footer">
