@@ -35,6 +35,8 @@ namespace Bookmarker.MVC.Controllers
             {
                 await collection.InitBookmarksAsync();
             }
+            var user = await WhoAmI();
+            ViewBag.UserId = user?.Id;
             return View("CollectionList", collections);
         }
 
@@ -42,9 +44,10 @@ namespace Bookmarker.MVC.Controllers
         public async Task<ActionResult> MyCollections(string search, string sort = "name")
         {
             Guid? id = null;
+            UserAPI user = null;
             try
             {
-                var user = await WhoAmI();
+                user = await WhoAmI();
                 id = user?.Id;
                 if(id == null)
                 {
@@ -72,6 +75,7 @@ namespace Bookmarker.MVC.Controllers
 
             PassCookiesToClient(apiResponse);
 
+            ViewBag.UserId = user?.Id;
             return View(await apiResponse.Content.ReadAsAsync<IEnumerable<CollectionViewModel>>());
         }
 
@@ -144,10 +148,16 @@ namespace Bookmarker.MVC.Controllers
             PassCookiesToClient(apiResponse);
 
             var user = await WhoAmI();
-            if(collection.Private && collection.OwnerId != user.Id)
+            
+            if(collection.Private && (user == null || collection.OwnerId != user.Id))
             {
                 TempData["Message"] = "Please log in.";
                 return RedirectToAction("Login", "Accounts");
+            }
+
+            if(user == null)
+            {
+                return View(collection);
             }
 
             if(collection.OwnerId == user.Id)

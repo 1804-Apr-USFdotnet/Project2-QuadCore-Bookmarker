@@ -22,8 +22,11 @@
                     <text>@Model.Rating</text>
                 </div>
                 <div class="col-sm-3 justify-content-end">
+                @if(ViewBag.UserId == Model.OwnerId)
+                {
                     <a href="TODO"><i class="fa fa-edit fa-lg"></i></a>
                     <a href="TODO"><i class="fa fa-trash-o fa-lg"></i></a>
+                }
                 </div>
                 @* TODO: Add Links to edit and delete icons *@
             </div>
