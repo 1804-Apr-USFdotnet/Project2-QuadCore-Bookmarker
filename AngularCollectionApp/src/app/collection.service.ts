@@ -33,7 +33,7 @@ export class CollectionService {
     return x;
   }
 
-  getCollectionById(id : number): Observable<Collection> {
+  getCollectionById(id : string): Observable<Collection> {
     var url = `${this.collectionsUrl}/${id}`;
 
     var x = this.http.get<Collection>(url).pipe(
