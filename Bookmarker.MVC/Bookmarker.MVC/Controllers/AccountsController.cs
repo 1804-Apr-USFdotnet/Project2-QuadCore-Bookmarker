@@ -187,7 +187,7 @@ namespace Bookmarker.MVC.Controllers
 
             PassCookiesToClient(apiResponse);
 
-            return RedirectToAction("Login", "Accounts", account);
+            return RedirectToAction("UserDetails");
         }
 
         // POST: Accounts/Login
