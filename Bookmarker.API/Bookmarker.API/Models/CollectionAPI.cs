@@ -15,7 +15,7 @@ namespace Bookmarker.API.Models
         public string Description { get; set; }
         public bool Private { get; set; }
         public int Rating { get; set; }
-        public Guid Owner { get; set; }
+        public Guid OwnerId { get; set; }
 
         public CollectionAPI(Collection coll)
         {
@@ -27,7 +27,7 @@ namespace Bookmarker.API.Models
             this.Description = coll.Description;
             this.Private = coll.Private;
             this.Rating = coll.Rating;
-            this.Owner = coll.OwnerId;
+            this.OwnerId = coll.OwnerId;
             string apiDomain = ConfigurationManager.AppSettings.Get("ServiceUri");
             Links = new Dictionary<string, string>();
             Links.Add("self", $"{apiDomain}/Collections/{this.Id}");
@@ -48,7 +48,7 @@ namespace Bookmarker.API.Models
                 Description = this.Description,
                 Private = this.Private,
                 Rating = this.Rating,
-                OwnerId = this.Owner,
+                OwnerId = this.OwnerId,
                 Bookmarks = null
             };
         }

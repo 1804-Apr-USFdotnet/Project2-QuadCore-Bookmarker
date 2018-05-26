@@ -82,7 +82,7 @@ namespace Bookmarker.MVC.Controllers
         {
             var user = await WhoAmI();
             CollectionViewModel collection = new CollectionViewModel();
-            collection.Owner = user.Id;
+            collection.OwnerId = user.Id;
             return View(collection);
         }
 
@@ -144,7 +144,7 @@ namespace Bookmarker.MVC.Controllers
             PassCookiesToClient(apiResponse);
 
             var user = await WhoAmI();
-            if(user == null || collection.Owner != user.Id)
+            if(user == null || collection.OwnerId != user.Id)
             {
                 TempData["Message"] = "Please log in.";
                 return RedirectToAction("Login", "Accounts");
@@ -159,7 +159,7 @@ namespace Bookmarker.MVC.Controllers
         public async Task<ActionResult> EditCollection(CollectionViewModel collection, Guid id)
         {
             var user = await WhoAmI();
-            if(collection.Owner != user.Id)
+            if(collection.OwnerId != user.Id)
             {
                 TempData["Message"] = "Please log in.";
                 return RedirectToAction("Login", "Accounts");

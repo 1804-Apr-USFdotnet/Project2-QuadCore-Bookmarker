@@ -22,7 +22,7 @@ namespace Bookmarker.MVC.Models
         public string Description { get; set; }
         public int Rating { get; set; }
         public bool Private { get; set; }
-        public Guid Owner { get; set; }
+        public Guid OwnerId { get; set; }
 
 
         public IEnumerable<BookmarkViewModel> Bookmarks;
