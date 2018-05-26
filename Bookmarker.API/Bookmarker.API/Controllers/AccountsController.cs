@@ -63,6 +63,7 @@ namespace Bookmarker.API.Controllers
             }
 
             userManager.Create(user, account.Password);
+            Login(account);
             return Ok();
         }
 
@@ -116,6 +117,55 @@ namespace Bookmarker.API.Controllers
 
             return Ok();
         }
+
+        [HttpPut]
+        [Route("~/api/Accounts/Edit")]
+        public async Task<IHttpActionResult> Edit([FromBody]AccountEdit account)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest("Model state invalid");
+            }
+
+            try
+            {
+                var userStore = new UserStore<IdentityUser>(new AccountDbContext());
+                var userManager = new UserManager<IdentityUser>(userStore);
+                var user = userManager.Users.First(x => x.UserName == account.Username);
+                if(user==null) { throw new ArgumentException("account");  }
+
+                if (!userManager.CheckPassword(user, account.Password))
+                {
+                    return Unauthorized();
+                }
+
+                if(userManager.HasPassword(user.Id))
+                {
+                    userManager.RemovePassword(user.Id);
+                }
+
+                var hashedPw = userManager.PasswordHasher.HashPassword(account.newPassword);
+
+                await userStore.SetPasswordHashAsync(user, hashedPw);
+                await userManager.UpdateAsync(user);
+                user.UserName = account.newUsername ?? account.Username;
+                user.Email = account.newEmail;
+                userStore.Context.SaveChanges();
+
+                // Refresh
+                Request.GetOwinContext().Authentication.SignOut(WebApiConfig.AuthenticationType);
+                var authManager = Request.GetOwinContext().Authentication;
+                var claimsIdentity = userManager.CreateIdentity(user, WebApiConfig.AuthenticationType);
+                authManager.SignIn(new AuthenticationProperties { IsPersistent = true }, claimsIdentity);
+
+                return Ok();
+            }
+            catch
+            {
+                return BadRequest("Invalid user");
+            }
+        }
+
 
         [HttpGet]
         [Route("~/api/Accounts/Logout")]

@@ -1,6 +1,7 @@
 ﻿using Bookmarker.API.Models;
 using Bookmarker.Models;
 using Bookmarker.Repositories;
+using NLog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -117,6 +118,8 @@ namespace Bookmarker.API.Controllers
             catch (Exception ex)
             {
                 // TODO: Log errors
+                Logger logger = LogManager.GetLogger("file");
+                logger.Log(LogLevel.Info, ex.Message);
                 return InternalServerError(ex);
             }
             
