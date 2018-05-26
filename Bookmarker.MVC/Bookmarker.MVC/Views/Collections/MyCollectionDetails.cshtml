@@ -5,11 +5,11 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>Collection Details</title>
+    <title>My Collection Details</title>
 </head>
 <body>
     <div>
-        <h4>Collection Details</h4>
+        <h4>My Collection Details</h4>
         <hr />
         <dl class="dl-horizontal">
             <dt>
@@ -53,12 +53,26 @@
                 @Html.DisplayFor(model => model.Rating)
             </dd>
     
+            <dt>
+                @Html.DisplayNameFor(model => model.Private)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Private)
+            </dd>
+    
         </dl>
     </div>
 
 
-    <div>
-        @Html.ActionLink("All Collections", "PublicCollections", "Collections", null, new { @class = "btn btn-dark" })
-    </div>
+    <span>
+        @Html.ActionLink("Edit", "EditCollection", "Collections", new { id = Model.Id }, new { @class = "btn btn-dark" })
+    </span>
+    <span>
+        @Html.ActionLink("My Collections", "MyCollections", "Collections", null, new { @class = "btn btn-dark" })
+    </span>
+    <span>
+        @Html.ActionLink("Collections", "PublicCollections", "Collections", null, new { @class = "btn btn-dark" })
+    </span>
 </body>
 </html>

@@ -144,20 +144,48 @@ namespace Bookmarker.MVC.Controllers
             PassCookiesToClient(apiResponse);
 
             var user = await WhoAmI();
-            if(user == null || collection.OwnerId != user.Id)
+            if(collection.Private && collection.OwnerId != user.Id)
             {
                 TempData["Message"] = "Please log in.";
                 return RedirectToAction("Login", "Accounts");
             }
 
-            return View(collection);
+            if(collection.OwnerId == user.Id)
+            {
+                return View("MyCollectionDetails", collection);
+            }
+            else
+            {
+                return View(collection);
+            }
         }
 
         // GET: Collections/{id}/Edit
         [HttpGet]
         [Route("Collections/{id}/Edit")]
-        public async Task<ActionResult> EditCollection(CollectionViewModel collection, Guid id)
+        public async Task<ActionResult> EditCollection(Guid id)
         {
+            HttpRequestMessage apiRequest = CreateRequestToService(HttpMethod.Get, $"Collections/{id}");
+
+            HttpResponseMessage apiResponse;
+            try
+            {
+                apiResponse = await HttpClient.SendAsync(apiRequest);
+            }
+            catch
+            {
+                return RedirectToAction("CollectionDetails", id);
+            }
+
+            if (!apiResponse.IsSuccessStatusCode)
+            {
+                return RedirectToAction("CollectionDetails", id);
+            }
+
+            CollectionViewModel collection = await apiResponse.Content.ReadAsAsync<CollectionViewModel>();
+
+            PassCookiesToClient(apiResponse);
+
             var user = await WhoAmI();
             if(collection.OwnerId != user.Id)
             {
@@ -169,6 +197,32 @@ namespace Bookmarker.MVC.Controllers
         }
 
         // POST: Collections/{id}/Edit
+        [HttpPost]
+        [Route("Collections/{id}/Edit")]
+        public async Task<ActionResult> EditCollection(CollectionViewModel collection)
+        {
+            HttpRequestMessage apiRequest = CreateRequestToService(HttpMethod.Put, "Collections");
+            apiRequest.Content = new ObjectContent<CollectionViewModel>(collection, new JsonMediaTypeFormatter());
 
+            HttpResponseMessage apiResponse;
+            try
+            {
+                apiResponse = await HttpClient.SendAsync(apiRequest);
+            }
+            catch
+            {
+                return RedirectToAction("CollectionDetails", new { id = collection.Id });
+            }
+
+            if (!apiResponse.IsSuccessStatusCode)
+            {
+                return RedirectToAction("CollectionDetails", new { id = collection.Id });
+            }
+
+
+            PassCookiesToClient(apiResponse);
+
+            return RedirectToAction("CollectionDetails", new { id = collection.Id });
+        }
     }
 }

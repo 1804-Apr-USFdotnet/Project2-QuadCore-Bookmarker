@@ -289,6 +289,7 @@
     <Content Include="Views\Collections\MyCollections.cshtml" />
     <Content Include="Views\Collections\EditCollection.cshtml" />
     <Content Include="Views\Collections\CollectionDetails.cshtml" />
+    <Content Include="Views\Collections\MyCollectionDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
