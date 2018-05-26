@@ -67,11 +67,13 @@ namespace Bookmarker.API.Controllers
         }
 
         // GET: api/Collections/5
+        [AllowAnonymous]
         public IHttpActionResult Get(Guid id)
         {
             try
             {
                 var collection = _collectionRepository.GetById(id);
+                //TODO Return some HTTP request if collection is set to private!
                 return collection != null ? Ok(new CollectionAPI(collection)) : (IHttpActionResult) NotFound();
             }
             catch
