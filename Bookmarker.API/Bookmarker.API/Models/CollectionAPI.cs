@@ -15,7 +15,7 @@ namespace Bookmarker.API.Models
         public string Description { get; set; }
         public bool Private { get; set; }
         public int Rating { get; set; }
-        public Guid Owner { internal get; set; }
+        public Guid Owner { get; set; }
 
         public CollectionAPI(Collection coll)
         {

@@ -116,5 +116,59 @@ namespace Bookmarker.MVC.Controllers
             PassCookiesToClient(apiResponse);
             return RedirectToAction("MyCollections");
         }
+
+        // GET: Collections/{id}/Details
+        [HttpGet]
+        [Route("Collections/{id}/Details")]
+        public async Task<ActionResult> CollectionDetails(Guid id)
+        {
+            HttpRequestMessage apiRequest = CreateRequestToService(HttpMethod.Get, $"Collections/{id}");
+
+            HttpResponseMessage apiResponse;
+            try
+            {
+                apiResponse = await HttpClient.SendAsync(apiRequest);
+            }
+            catch
+            {
+                return RedirectToAction("MyCollections");
+            }
+
+            if (!apiResponse.IsSuccessStatusCode)
+            {
+                return RedirectToAction("MyCollections");
+            }
+
+            CollectionViewModel collection = await apiResponse.Content.ReadAsAsync<CollectionViewModel>();
+
+            PassCookiesToClient(apiResponse);
+
+            var user = await WhoAmI();
+            if(user == null || collection.Owner != user.Id)
+            {
+                TempData["Message"] = "Please log in.";
+                return RedirectToAction("Login", "Accounts");
+            }
+
+            return View(collection);
+        }
+
+        // GET: Collections/{id}/Edit
+        [HttpGet]
+        [Route("Collections/{id}/Edit")]
+        public async Task<ActionResult> EditCollection(CollectionViewModel collection, Guid id)
+        {
+            var user = await WhoAmI();
+            if(collection.Owner != user.Id)
+            {
+                TempData["Message"] = "Please log in.";
+                return RedirectToAction("Login", "Accounts");
+            }
+
+            return View(collection);
+        }
+
+        // POST: Collections/{id}/Edit
+
     }
 }

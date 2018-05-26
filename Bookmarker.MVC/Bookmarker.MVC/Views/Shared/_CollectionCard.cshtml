@@ -3,7 +3,7 @@
 <div class="card">
     <a href="TODO">
         <div class="card-header" title="@Model.Description">
-            <h5>@Model.Name</h5>
+            @Html.RouteLink(Model.Name, new { action = "CollectionDetails", controller = "Collections", id = Model.Id }, new { @class = "btn btn-dark" })
         </div>
     </a>
     <div class="card-body">

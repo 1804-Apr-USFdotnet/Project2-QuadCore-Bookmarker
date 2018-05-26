@@ -287,6 +287,8 @@
     <Content Include="Views\Accounts\EditUser.cshtml" />
     <Content Include="Views\Collections\AddCollection.cshtml" />
     <Content Include="Views\Collections\MyCollections.cshtml" />
+    <Content Include="Views\Collections\EditCollection.cshtml" />
+    <Content Include="Views\Collections\CollectionDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
