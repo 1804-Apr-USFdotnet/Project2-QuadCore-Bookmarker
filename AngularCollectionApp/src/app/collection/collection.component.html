@@ -8,18 +8,16 @@
           <option *ngFor="let option of sortOptions" value="{{option.value}}">{{option.name}}</option>
         </select>
     </div>
-    <div class="col-sm-4 offset-4">
+    <div class="col-sm-8 offset-4">
       <tbody>
         <tr *ngFor='let collection of collections' routerLink="/detail/{{collection.name}}">
           <td>
-            <button style="width: 80%" class="btn btn-dark">{{collection.name}}</button>
-            <span style="margin-left: 5px;"><b>[ {{collection.rating}} ]</b></span>
+            <button style="width: 400px;" class="btn btn-dark">{{collection.name}}</button>
+            <span title="rating" style="margin-left: 5px;"><b>[ {{collection.rating}} ] </b></span>
+            <span title="{{collection.description}}">{{collection.description | slice:0:60}}...</span>
           </td>
         </tr>
       </tbody>
-    </div>
-    <div class="col-sm-4">
-
     </div>
   </div>
 </table>
