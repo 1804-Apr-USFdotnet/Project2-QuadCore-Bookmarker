@@ -39,7 +39,7 @@ namespace Bookmarker.MVC.Controllers
         }
 
         // GET: Collections/MyCollections
-        public async Task<ActionResult> MyCollections()
+        public async Task<ActionResult> MyCollections(string search, string sort = "name")
         {
             Guid? id = null;
             try
@@ -58,7 +58,7 @@ namespace Bookmarker.MVC.Controllers
                 return RedirectToAction("Login", "Accounts");
             }
 
-            HttpRequestMessage apiRequest = CreateRequestToService(HttpMethod.Get, $"users/{id}/collections");
+            HttpRequestMessage apiRequest = CreateRequestToService(HttpMethod.Get, $"users/{id}/collections?search=" + search + "&sort=" + sort);
 
             HttpResponseMessage apiResponse;
             try
