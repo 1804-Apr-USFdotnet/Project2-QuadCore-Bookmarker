@@ -10,7 +10,7 @@
     <app-bookmarks [url]="collection.links.my_bookmarks"></app-bookmarks>
   </div>
 
-  <div class="text-muted">{{collection.created}}</div>
+  <div class="text-muted">Created on: {{collection.created | date:'longDate'}}</div>
 </div>
 
 <button (click)="goBack()" class="btn btn-dark">go back</button>
