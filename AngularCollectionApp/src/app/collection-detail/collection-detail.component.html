@@ -1,10 +1,12 @@
-<p>
-  collection-detail works!
-</p>
-<p>
-  {{name}}
-</p>
 <div *ngIf="collection">
   <h2>{{collection.name}}</h2>
-  <span class="text-muted">{{collection.created}}</span>
+  <div>
+    {{collection.description}}
+  </div>
+  <div>
+    Rating: {{collection.rating}}
+  </div>
+  <div class="text-muted">{{collection.created}}</div>
 </div>
+
+<button (click)="goBack()" class="btn btn-dark">go back</button>

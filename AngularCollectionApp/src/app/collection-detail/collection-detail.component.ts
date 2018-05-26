@@ -11,7 +11,7 @@ import { CollectionService } from '../collection.service';
   styleUrls: ['./collection-detail.component.css']
 })
 export class CollectionDetailComponent implements OnInit {
-  name: string;
+  collection : Collection;
 
   constructor(private route: ActivatedRoute,
     private collectionService: CollectionService,
@@ -24,8 +24,11 @@ export class CollectionDetailComponent implements OnInit {
   }
 
   getCollection() {
-    var name: string = this.route.snapshot.paramMap.get('collectionName');
-    this.name = name;
+    var id: string = this.route.snapshot.paramMap.get('id');
+    this.collectionService.getCollectionById(id).subscribe(
+      response => this.collection = response,
+      errors => console.log(errors)
+    );
   }
 
   goBack() : void {
