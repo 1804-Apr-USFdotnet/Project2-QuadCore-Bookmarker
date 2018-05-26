@@ -282,6 +282,7 @@
     <Content Include="Views\Collections\CollectionList.cshtml" />
     <Content Include="Views\Shared\_Bookmark.cshtml" />
     <Content Include="Views\Shared\_Bookmarks.cshtml" />
+    <Content Include="Views\Accounts\EditUser.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -37,6 +37,45 @@ namespace Bookmarker.MVC.Controllers
             return View(user);
         }
 
+        // GET: Accounts/EditUser
+        public async Task<ActionResult> EditUser()
+        {
+            UserAPI user = await WhoAmI();
+            if(user == null)
+            { 
+                TempData["Message"] = "Please log in.";
+                return RedirectToAction("Login", "Accounts");
+            }
+            return View(user);
+        }
+
+        //POST: Accounts/EditUser
+        [HttpPost]
+        public async Task<ActionResult> EditUser(UserAPI user)
+        {
+            HttpRequestMessage apiRequest = CreateRequestToService(HttpMethod.Put, "Users");
+            apiRequest.Content = new ObjectContent<UserAPI>(user, new JsonMediaTypeFormatter());
+
+            HttpResponseMessage apiResponse;
+            try
+            {
+                apiResponse = await HttpClient.SendAsync(apiRequest);
+            }
+            catch
+            {
+                return RedirectToAction("UserDetails");
+            }
+
+            if (!apiResponse.IsSuccessStatusCode)
+            {
+                return RedirectToAction("UserDetails");
+            }
+
+            PassCookiesToClient(apiResponse);
+            return RedirectToAction("UserDetails");
+        }
+
+
         private async Task<bool> Create(AccountViewModel account)
         {
             if (!ModelState.IsValid)
