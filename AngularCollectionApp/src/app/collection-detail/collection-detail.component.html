@@ -1,3 +1,10 @@
 <p>
   collection-detail works!
 </p>
+<p>
+  {{name}}
+</p>
+<div *ngIf="collection">
+  <h2>{{collection.name}}</h2>
+  <span class="text-muted">{{collection.created}}</span>
+</div>
