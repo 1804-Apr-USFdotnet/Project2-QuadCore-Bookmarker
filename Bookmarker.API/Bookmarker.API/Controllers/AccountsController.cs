@@ -150,6 +150,13 @@ namespace Bookmarker.API.Controllers
                 user.UserName = account.newUsername ?? account.Username;
                 user.Email = account.newEmail;
                 userStore.Context.SaveChanges();
+
+                // Refresh
+                Request.GetOwinContext().Authentication.SignOut(WebApiConfig.AuthenticationType);
+                var authManager = Request.GetOwinContext().Authentication;
+                var claimsIdentity = userManager.CreateIdentity(user, WebApiConfig.AuthenticationType);
+                authManager.SignIn(new AuthenticationProperties { IsPersistent = true }, claimsIdentity);
+
                 return Ok();
             }
             catch
