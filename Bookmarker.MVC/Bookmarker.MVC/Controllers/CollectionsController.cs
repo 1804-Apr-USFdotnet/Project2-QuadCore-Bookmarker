@@ -12,7 +12,7 @@ namespace Bookmarker.MVC.Controllers
     public class CollectionsController : AServiceController
     {
         // GET: Public Collections
-        public async Task<ActionResult> PublicCollections(string search, string sort)
+        public async Task<ActionResult> PublicCollections(string search, string sort = "name")
         {
             HttpRequestMessage apiRequest = CreateRequestToService(HttpMethod.Get, "Collections?search=" + search + "&sort=" + sort);
 
