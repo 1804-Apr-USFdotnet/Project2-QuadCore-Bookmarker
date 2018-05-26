@@ -1,4 +1,5 @@
-<p>
-  bookmarks works!
-  {{url}}
-</p>
+<div>
+  <a *ngFor="let bm of bookmarks" href="{{bm.url}}">
+    {{bm.name}} <br />
+  </a>
+</div>
