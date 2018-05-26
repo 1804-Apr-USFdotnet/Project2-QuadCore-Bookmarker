@@ -171,6 +171,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\AccountEdit.cs" />
     <Compile Include="Models\AccountViewModel.cs" />
     <Compile Include="Models\BookmarkViewModel.cs" />
     <Compile Include="Models\CollectionViewModel.cs" />
@@ -282,6 +283,7 @@
     <Content Include="Views\Collections\CollectionList.cshtml" />
     <Content Include="Views\Shared\_Bookmark.cshtml" />
     <Content Include="Views\Shared\_Bookmarks.cshtml" />
+    <Content Include="Views\Accounts\EditUserOld.cshtml" />
     <Content Include="Views\Accounts\EditUser.cshtml" />
   </ItemGroup>
   <ItemGroup>

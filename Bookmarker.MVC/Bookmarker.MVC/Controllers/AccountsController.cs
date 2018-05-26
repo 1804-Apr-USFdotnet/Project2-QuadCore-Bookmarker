@@ -46,15 +46,33 @@ namespace Bookmarker.MVC.Controllers
                 TempData["Message"] = "Please log in.";
                 return RedirectToAction("Login", "Accounts");
             }
-            return View(user);
+
+            AccountEdit editUser = new AccountEdit();
+            editUser.Username = user.Username;
+            editUser.newUsername = user.Username;
+            editUser.Email = user.Email;
+            editUser.newEmail = user.Email;
+            editUser.Created = user.Created;
+            editUser.Modified = user.Modified;
+            editUser.Id = user.Id;
+
+            return View(editUser);
         }
 
         //POST: Accounts/EditUser
         [HttpPost]
-        public async Task<ActionResult> EditUser(UserAPI user)
+        public async Task<ActionResult> EditUser(AccountEdit user)
         {
+            UserAPI apiUser = new UserAPI();
+            apiUser.Username = user.newUsername ?? user.Username;
+            apiUser.Email = user.newEmail;
+            apiUser.Created = user.Created;
+            apiUser.Modified = user.Modified;
+            apiUser.Id = user.Id;
+
+            // Edit User
             HttpRequestMessage apiRequest = CreateRequestToService(HttpMethod.Put, "Users");
-            apiRequest.Content = new ObjectContent<UserAPI>(user, new JsonMediaTypeFormatter());
+            apiRequest.Content = new ObjectContent<UserAPI>(apiUser, new JsonMediaTypeFormatter());
 
             HttpResponseMessage apiResponse;
             try
@@ -72,6 +90,30 @@ namespace Bookmarker.MVC.Controllers
             }
 
             PassCookiesToClient(apiResponse);
+
+
+            // Edit Identity User
+            apiRequest = CreateRequestToService(HttpMethod.Put, "Accounts/Edit");
+            apiRequest.Content = new ObjectContent<AccountEdit>(user, new JsonMediaTypeFormatter());
+
+            try
+            {
+                apiResponse = await HttpClient.SendAsync(apiRequest);
+            }
+            catch
+            {
+                // TODO: Rollback User edit
+                return RedirectToAction("UserDetails");
+            }
+
+            if (!apiResponse.IsSuccessStatusCode)
+            {
+                return RedirectToAction("UserDetails");
+            }
+
+            PassCookiesToClient(apiResponse);
+
+
             return RedirectToAction("UserDetails");
         }
 

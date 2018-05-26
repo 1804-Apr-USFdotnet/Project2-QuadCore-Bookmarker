@@ -73,7 +73,6 @@ namespace Bookmarker.Repositories
             }
             catch
             {
-                // log
                 throw;
             }
         }

@@ -207,6 +207,7 @@
     </Compile>
     <Compile Include="IdentityMigrations\Configuration.cs" />
     <Compile Include="Models\Account.cs" />
+    <Compile Include="Models\AccountEdit.cs" />
     <Compile Include="Models\CollectionAPI.cs" />
     <Compile Include="Models\ABaseEntityAPI.cs" />
     <Compile Include="Models\BookmarkAPI.cs" />
