@@ -7,7 +7,7 @@
     Rating: {{collection.rating}}
   </div>
   <div>
-    {{collection.links.my_bookmarks}}
+    <app-bookmarks [url]="collection.links.my_bookmarks"></app-bookmarks>
   </div>
 
   <div class="text-muted">{{collection.created}}</div>
