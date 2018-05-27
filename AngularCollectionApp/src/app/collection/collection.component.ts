@@ -9,6 +9,7 @@ import { CollectionService } from '../collection.service'
 })
 export class CollectionComponent implements OnInit {
 
+  collectionGroups: Object[] = [];
   collections: Collection[];
   sort: string;
   sortOptions: Object[] = [
@@ -25,8 +26,19 @@ export class CollectionComponent implements OnInit {
   getCollections(sortQ: string): void {
     this.collectionSvc.getCollections(null, "name:desc")
       .subscribe(
-        response => this.collections = response,
+        response => this.makeCollectionGroups(response),
         errors => console.log(errors)
       );
+  }
+
+  makeCollectionGroups(collectionList: Collection[]) {
+    var group: object[] = [];
+    collectionList.forEach(eachObject => {
+      group.push(eachObject);
+      if (group.length === 3) {
+        this.collectionGroups.push(group);
+        group = [];
+      }
+    });
   }
 }

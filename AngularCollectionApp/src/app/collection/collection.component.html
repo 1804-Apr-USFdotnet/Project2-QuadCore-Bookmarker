@@ -8,6 +8,25 @@
           <option *ngFor="let option of sortOptions" value="{{option.value}}">{{option.name}}</option>
         </select>
     </div>
+    <div class="container">
+      <div *ngFor="let group of collectionGroups" class="row">
+        <div *ngFor="let collection of group" class="col-sm-4">
+          <div class="card">
+            <div class="card-header">
+              {{collection.name}}
+            </div>
+            <div class="card-body">
+              <p>card</p>
+            </div>
+            <div class="card-footer">
+              <p>footer</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
     <div class="col-sm-4 offset-4">
       <tbody>
         <tr *ngFor='let collection of collections' routerLink="/collections/{{collection.id}}">
