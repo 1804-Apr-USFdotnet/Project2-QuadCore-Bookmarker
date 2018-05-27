@@ -4,11 +4,11 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>Collections</title>
+    <title>My Collections</title>
 </head>
 <body>
     <div class="search-bar" style="position: fixed; background-color: #343a40; color: white; z-index: 100;">
-        @using (Html.BeginForm("PublicCollections", "Collections", FormMethod.Get))
+        @using (Html.BeginForm("MyCollections", "Collections", FormMethod.Get))
         {
             @Html.TextBox("search")
 
@@ -27,5 +27,9 @@
     <br />
     <br />
     @Html.Partial("_CollectionCards", Model)
+
+    <div>
+        @Html.ActionLink("Add", "AddCollection", "Collections", null, new { @class = "btn btn-dark" })
+    </div>
 </body>
 </html>

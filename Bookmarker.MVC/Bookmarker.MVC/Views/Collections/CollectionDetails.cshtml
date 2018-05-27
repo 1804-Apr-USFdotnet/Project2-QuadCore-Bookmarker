@@ -1,35 +1,33 @@
-﻿@model Bookmarker.MVC.Models.UserAPI
-@{ 
-    ViewBag.Title = "Account Details";
-}
+﻿@model Bookmarker.MVC.Models.CollectionViewModel
+
 <!DOCTYPE html>
 
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>@ViewBag.Title</title>
+    <title>Collection Details</title>
 </head>
 <body>
     <div>
-        <h4>@ViewBag.Title</h4>
+        <h4>Collection Details</h4>
         <hr />
         <dl class="dl-horizontal">
             <dt>
-                @Html.DisplayNameFor(model => model.Username)
+                @Html.DisplayNameFor(model => model.Name)
             </dt>
     
             <dd>
-                @Html.DisplayFor(model => model.Username)
+                @Html.DisplayFor(model => model.Name)
             </dd>
     
             <dt>
-                @Html.DisplayNameFor(model => model.Email)
+                @Html.DisplayNameFor(model => model.Description)
             </dt>
     
             <dd>
-                @Html.DisplayFor(model => model.Email)
+                @Html.DisplayFor(model => model.Description)
             </dd>
-    
+
             <dt>
                 @Html.DisplayNameFor(model => model.Created)
             </dt>
@@ -46,11 +44,21 @@
                 @Html.DisplayFor(model => model.Modified)
             </dd>
     
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Rating)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Rating)
+            </dd>
+    
         </dl>
+    </div>
 
-        <div>
-            @Html.ActionLink("Edit", "EditUser", "Accounts", null, new { @class = "btn btn-dark" })
-        </div>
+
+    <div>
+        @Html.ActionLink("All Collections", "PublicCollections", "Collections", null, new { @class = "btn btn-dark" })
     </div>
 </body>
 </html>

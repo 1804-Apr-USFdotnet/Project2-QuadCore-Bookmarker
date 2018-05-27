@@ -63,6 +63,7 @@ namespace Bookmarker.API.Controllers
             }
 
             userManager.Create(user, account.Password);
+            Login(account);
             return Ok();
         }
 
@@ -88,30 +89,20 @@ namespace Bookmarker.API.Controllers
             logger.Log(LogLevel.Info, $"context db connection state: {context.Database.Connection.State}");
             logger.Log(LogLevel.Info, $"context db connection string: {context.Database.Connection.ConnectionString}");
             logger.Log(LogLevel.Info, $"context db connection db name: {context.Database.Connection.Database}");
-            logger.Log(LogLevel.Info, $"context users null?: {context.Users == null}");
 
             UserStore<IdentityUser> userStore = null;
             try
             {
-                logger.Log(LogLevel.Info, $"context init'd: {context.Users.Count()} users");
                 userStore = new UserStore<IdentityUser>(context);
             }
             catch(Exception e)
             {
                 logger.Log(LogLevel.Info, $"exception: {e}");
             }
+            if(userStore == null) { return InternalServerError(); }
 
-            logger.Log(LogLevel.Info, $"userStore num users: {userStore.Users.Count()}");
             var userManager = new UserManager<IdentityUser>(userStore);
-            logger.Log(LogLevel.Info, $"user manager initialized");
             var user = userManager.Users.FirstOrDefault(u => u.UserName == account.Username);
-            logger.Log(LogLevel.Info, $"user is {user.UserName}");
-
-            if (user == null)
-            {
-                logger.Log(LogLevel.Info, "user is null");
-                return BadRequest();
-            }
 
             if (!userManager.CheckPassword(user, account.Password))
             {
@@ -119,16 +110,62 @@ namespace Bookmarker.API.Controllers
                 return Unauthorized();
             }
 
-            logger.Log(LogLevel.Info, "create identity claim");
             var authManager = Request.GetOwinContext().Authentication;
             var claimsIdentity = userManager.CreateIdentity(user, WebApiConfig.AuthenticationType);
 
-            logger.Log(LogLevel.Info, "sign in");
             authManager.SignIn(new AuthenticationProperties { IsPersistent = true }, claimsIdentity);
 
-            logger.Log(LogLevel.Info, "return");
             return Ok();
         }
+
+        [HttpPut]
+        [Route("~/api/Accounts/Edit")]
+        public async Task<IHttpActionResult> Edit([FromBody]AccountEdit account)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest("Model state invalid");
+            }
+
+            try
+            {
+                var userStore = new UserStore<IdentityUser>(new AccountDbContext());
+                var userManager = new UserManager<IdentityUser>(userStore);
+                var user = userManager.Users.First(x => x.UserName == account.Username);
+                if(user==null) { throw new ArgumentException("account");  }
+
+                if (!userManager.CheckPassword(user, account.Password))
+                {
+                    return Unauthorized();
+                }
+
+                if(userManager.HasPassword(user.Id))
+                {
+                    userManager.RemovePassword(user.Id);
+                }
+
+                var hashedPw = userManager.PasswordHasher.HashPassword(account.newPassword);
+
+                await userStore.SetPasswordHashAsync(user, hashedPw);
+                await userManager.UpdateAsync(user);
+                user.UserName = account.newUsername ?? account.Username;
+                user.Email = account.newEmail;
+                userStore.Context.SaveChanges();
+
+                // Refresh
+                Request.GetOwinContext().Authentication.SignOut(WebApiConfig.AuthenticationType);
+                var authManager = Request.GetOwinContext().Authentication;
+                var claimsIdentity = userManager.CreateIdentity(user, WebApiConfig.AuthenticationType);
+                authManager.SignIn(new AuthenticationProperties { IsPersistent = true }, claimsIdentity);
+
+                return Ok();
+            }
+            catch
+            {
+                return BadRequest("Invalid user");
+            }
+        }
+
 
         [HttpGet]
         [Route("~/api/Accounts/Logout")]

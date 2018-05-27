@@ -11,7 +11,7 @@ export class CollectionComponent implements OnInit {
 
   collectionGroups: Object[] = [];
   collections: Collection[];
-  sort: string;
+  sort: string = "name";
   sortOptions: Object[] = [
     { name: "Name", value: "name:asc" },
     { name: "Rating", value: "rating:desc" }
@@ -20,11 +20,11 @@ export class CollectionComponent implements OnInit {
   constructor(private collectionSvc: CollectionService) { }
 
   ngOnInit() {
-    this.getCollections(this.sort);
+    this.getCollections();
   }
 
-  getCollections(sortQ: string): void {
-    this.collectionSvc.getCollections(null, "name:desc")
+  getCollections(): void {
+    this.collectionSvc.getCollections(null, this.sort)
       .subscribe(
         response => this.makeCollectionGroups(response),
         errors => console.log(errors)

@@ -4,11 +4,11 @@
         <h3>Public Bookmark Collections</h3>
         <br />
         <span class="badge">Sort by:</span>
-        <select ng-model="sort">
+        <select [(ngModel)]="sort" (change)="getCollections()">
           <option *ngFor="let option of sortOptions" value="{{option.value}}">{{option.name}}</option>
         </select>
     </div>
-    
+
     <div class="container">
       <div *ngFor="let group of collectionGroups" class="row">
         <div *ngFor="let collection of group" class="col-sm-4">
@@ -32,7 +32,9 @@
       <tbody>
         <tr *ngFor='let collection of collections' routerLink="/collections/{{collection.id}}">
           <td>
-            <button style="width: 100%" class="btn btn-dark">{{collection.name}}</button>
+            <button style="width: 400px;" class="btn btn-dark">{{collection.name}}</button>
+            <span title="rating" style="margin-left: 5px;"><b>[ {{collection.rating}} ] </b></span>
+            <span title="{{collection.description}}">{{collection.description | slice:0:60}}...</span>
           </td>
         </tr>
       </tbody>

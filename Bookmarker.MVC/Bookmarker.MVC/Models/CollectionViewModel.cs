@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Configuration;
 using System.Linq;
 using System.Net;
@@ -12,13 +13,17 @@ namespace Bookmarker.MVC.Models
     public class CollectionViewModel
     {
         public Guid Id { get; set; }
-        public string Created { get; set; }
-        public string Modified { get; set; }
+        public DateTime Created { get; set; }
+        public DateTime? Modified { get; set; }
 
+        [Required]
         public string Name { get; set; }
+        [Required]
         public string Description { get; set; }
         public int Rating { get; set; }
-        public bool IsPrivate { get; set; }
+        public bool Private { get; set; }
+        public Guid OwnerId { get; set; }
+
 
         public IEnumerable<BookmarkViewModel> Bookmarks;
 

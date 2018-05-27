@@ -3,12 +3,15 @@
 <div class="card">
     <a href="TODO">
         <div class="card-header" title="@Model.Description">
-            <h5>@Model.Name</h5>
+            @Html.RouteLink(Model.Name, new { action = "CollectionDetails", controller = "Collections", id = Model.Id }, new { @class = "btn btn-dark" })
         </div>
     </a>
     <div class="card-body">
         @*<p class="card-text">Description: @Model.Description</p>*@
-        @Html.Partial("_Bookmarks", Model.Bookmarks)
+        @if(Model.Bookmarks != null)
+        {
+            @Html.Partial("_Bookmarks", Model.Bookmarks)
+        }
         <p class="card-text text-muted">Created: @Model.Created</p>
     </div>
     <div class="card-footer">
@@ -19,8 +22,11 @@
                     <text>@Model.Rating</text>
                 </div>
                 <div class="col-sm-3 justify-content-end">
+                @if(ViewBag.UserId == Model.OwnerId)
+                {
                     <a href="TODO"><i class="fa fa-edit fa-lg"></i></a>
                     <a href="TODO"><i class="fa fa-trash-o fa-lg"></i></a>
+                }
                 </div>
                 @* TODO: Add Links to edit and delete icons *@
             </div>
