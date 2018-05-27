@@ -45,8 +45,8 @@ node('master') {
     stage('package') {
         try {
             dir('AngularCollectionApp') {
-                // winds up as: ng build --base-href /angularapp1/ --prod
-                bat 'npm run build -- --base-href /angularapp1/ --prod'
+                // winds up as: ng build --base-href /Bookmarker/ --prod
+                bat 'npm run build -- --base-href /Bookmarker/ --prod'
                 // bat 'copy /y web.config dist'
                 // // ng build inside jenkins workspace doesn't
                 // bat 'copy /y src\\favicon.ico dist'
@@ -62,7 +62,7 @@ node('master') {
     stage('deploy') {
         try {
             dir('AngularCollectionApp') {
-                bat "msdeploy -verb:sync -source:contentPath=\"%CD%\" -dest:contentPath=\"Default Web Site/angularapp1\",wmsvc=ec2-18-219-24-228.us-east-2.compute.amazonaws.com ,userName=Administrator,password=\"${env.Deploy_Password_Angular}\" -enableRule:AppOffline -allowUntrusted"
+                bat "msdeploy -verb:sync -source:contentPath=\"%CD%\" -dest:contentPath=\"Default Web Site/Bookmarker\",wmsvc=ec2-18-219-24-228.us-east-2.compute.amazonaws.com ,userName=Administrator,password=\"${env.Deploy_Password_Angular}\" -enableRule:AppOffline -allowUntrusted"
             }
         }
         catch (exc) {
