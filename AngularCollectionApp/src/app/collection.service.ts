@@ -16,7 +16,7 @@ export class CollectionService {
   private collectionsUrl = 'http://ec2-18-188-153-64.us-east-2.compute.amazonaws.com/Bookmarker/api/Collections';
 
   getCollections(search?: string, sort?: string): Observable<Collection[]> {
-    this.messageSvc.add("UserSvc: fetched collections")
+    this.messageSvc.add("CollectionSvc: fetched collections")
 
     var queryString = "";
     if (search && !sort) {
@@ -30,6 +30,15 @@ export class CollectionService {
     }
 
     var x = this.http.get<Collection[]>(this.collectionsUrl + queryString);
+    return x;
+  }
+
+  getCollectionById(id : string): Observable<Collection> {
+    var url = `${this.collectionsUrl}/${id}`;
+
+    var x = this.http.get<Collection>(url).pipe(
+      tap(_ => this.messageSvc.add(`CollectionSvc: fetched collection id=${id}`))
+    );
     return x;
   }
 }

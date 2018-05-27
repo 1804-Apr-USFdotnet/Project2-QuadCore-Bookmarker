@@ -9,7 +9,8 @@ import { UserDetailComponent } from './user-detail/user-detail.component';
 import { MessagesComponent } from './messages/messages.component';
 import { AppRoutingModule } from './/app-routing.module';
 import { CollectionComponent } from './collection/collection.component';
-import { CollectionDetailComponent } from './collection-detail/collection-detail.component'
+import { CollectionDetailComponent } from './collection-detail/collection-detail.component';
+import { BookmarksComponent } from './bookmarks/bookmarks.component'
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { CollectionDetailComponent } from './collection-detail/collection-detail
     MessagesComponent,
     CollectionComponent,
     CollectionDetailComponent,
+    BookmarksComponent,
   ],
   imports: [
     BrowserModule,
