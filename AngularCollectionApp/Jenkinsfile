@@ -1,7 +1,7 @@
 node('master') {
     stage('import') {
         try {
-            git 'https://github.com/1804-Apr-USFdotnet/Project2-QuadCore-Bookmarker.git'
+            git branch: 'develop', url: 'https://github.com/1804-Apr-USFdotnet/Project2-QuadCore-Bookmarker.git'
         }
         catch (exc) {
             slackError('import')
