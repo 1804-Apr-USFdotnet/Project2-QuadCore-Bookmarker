@@ -1,17 +1,18 @@
-<div class="col-sm-4 jumbotron" style="position: fixed; background-color: #343a40; color: white; margin-left: auto; z-index: 20;">
-    <h3>Public Bookmark Collections</h3>
-    <br />
+<div style="margin: 60px; margin-top:20px;">
+  <h3 style="margin: 5px;">Collections</h3>
+  <br />
+  <div>
     <span class="badge">Sort by:</span>
-    <select [(ngModel)]="sort" (change)="getCollections()">
-      <option *ngFor="let option of sortOptions" value="{{option.value}}">{{option.name}}</option>
-    </select>
-</div>
+      <select [(ngModel)]="sort" (change)="getCollections()">
+        <option *ngFor="let option of sortOptions" value="{{option.value}}">{{option.name}}</option>
+      </select>
+  </div>
 
-<div class="container" style="margin-top: 260px;">
+  <br />
   <div *ngFor="let group of collectionGroups" class="row" style="padding-top: 10px">
     <div *ngFor="let collection of group" class="col-sm-4">
       <div class="card" routerLink="/collections/{{collection.id}}">
-        <div class="card-header">
+        <div class="card-header" style="background-color: #343a40; color: white;">
           {{collection.name}}
         </div>
         <div class="card-body">

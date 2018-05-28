@@ -8,7 +8,7 @@ import { CollectionDetailComponent } from './collection-detail/collection-detail
 const routes: Routes = [
   { path: '', redirectTo: '/collections', pathMatch: 'full' },
   { path: 'users', component: UserComponent },
-  { path: 'detail/:username', component: UserDetailComponent },
+  { path: 'detail/:id', component: UserDetailComponent },
   { path: 'collections', component: CollectionComponent },
   { path: 'collections/:id', component: CollectionDetailComponent }
 ];

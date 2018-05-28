@@ -10,6 +10,11 @@ import { UserService } from '../user.service'
 export class UserComponent implements OnInit {
 
   users: User[];
+  sort: string = "name:asc";
+  sortOptions: Object[] = [
+    { name: "Name asc.", value: "name:asc" },
+    { name: "Name desc.", value: "name:desc" }
+  ];
 
   constructor(private userSvc: UserService) { }
 
@@ -18,7 +23,7 @@ export class UserComponent implements OnInit {
   }
 
   getUsers():void {
-    this.userSvc.getUsers()
+    this.userSvc.getUsers(null, this.sort)
       .subscribe(
         response => this.users = response,
         errors => console.log(errors)

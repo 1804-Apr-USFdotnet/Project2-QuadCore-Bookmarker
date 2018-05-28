@@ -15,9 +15,31 @@ export class UserService {
 
   private usersUrl = 'http://ec2-18-188-153-64.us-east-2.compute.amazonaws.com/Bookmarker/api/Users';
 
-  getUsers(): Observable<User[]> {
+  getUsers(search?: string, sort?: string): Observable<User[]> {
     this.messageSvc.add("UserSvc: fetched users")
-    var x = this.http.get<User[]>(this.usersUrl);
+
+    var queryString = "";
+    if (search && !sort) {
+      queryString += "?search=" + search;
+    }
+    else if (!search && sort) {
+      queryString += "?sort=" + sort;
+    }
+    else if (!search && !sort) {
+      queryString += "?search=" + search + "&sort=" + sort;
+    }
+
+    var x = this.http.get<User[]>(this.usersUrl + queryString);
     return x;
   }
+
+  getUserById(id : string): Observable<User> {
+    var url = `${this.usersUrl}/${id}`;
+
+    var x = this.http.get<User>(url).pipe(
+      tap(_ => this.messageSvc.add(`UserSvc: fetched user id=${id}`))
+    );
+    return x;
+  }
+
 }
