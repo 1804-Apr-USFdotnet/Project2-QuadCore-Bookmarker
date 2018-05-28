@@ -86,5 +86,8 @@
     <span>
         @Html.ActionLink("Collections", "PublicCollections", "Collections", null, new { @class = "btn btn-dark" })
     </span>
+    <span>
+        @Html.RouteLink("Delete", new { action = "DeleteCollection", controller = "Collections", id = Model.Id }, new { @class = "btn btn-dark" })
+    </span>
 </body>
 </html>
