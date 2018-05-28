@@ -54,9 +54,9 @@
     <Compile Include="Migrations\201805281941228_initial.Designer.cs">
       <DependentUpon>201805281941228_initial.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201805281956126_rating-subscription.cs" />
-    <Compile Include="Migrations\201805281956126_rating-subscription.Designer.cs">
-      <DependentUpon>201805281956126_rating-subscription.cs</DependentUpon>
+    <Compile Include="Migrations\201805282109563_RatingSubscription.cs" />
+    <Compile Include="Migrations\201805282109563_RatingSubscription.Designer.cs">
+      <DependentUpon>201805282109563_RatingSubscription.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -77,8 +77,8 @@
     <EmbeddedResource Include="Migrations\201805281941228_initial.resx">
       <DependentUpon>201805281941228_initial.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805281956126_rating-subscription.resx">
-      <DependentUpon>201805281956126_rating-subscription.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201805282109563_RatingSubscription.resx">
+      <DependentUpon>201805282109563_RatingSubscription.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

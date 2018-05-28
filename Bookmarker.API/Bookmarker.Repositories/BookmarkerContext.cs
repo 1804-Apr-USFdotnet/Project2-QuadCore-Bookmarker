@@ -33,6 +33,11 @@ namespace Bookmarker.Repositories
                 });
 
             modelBuilder.Entity<User>()
+                .HasOptional(u => u.CollectionRating)
+                .WithMany()
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<User>()
                 .HasMany<Bookmark>(u => u.BookmarkRating)
                 .WithMany(b => b.RatedUsers)
                 .Map(bu =>
@@ -43,6 +48,11 @@ namespace Bookmarker.Repositories
                 });
 
             modelBuilder.Entity<User>()
+                .HasOptional(u => u.BookmarkRating)
+                .WithMany()
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<User>()
                 .HasMany<Collection>(u => u.CollectionSubscriptions)
                 .WithMany(c => c.SubscribedUsers)
                 .Map( cuSub =>
@@ -51,6 +61,11 @@ namespace Bookmarker.Repositories
                     cuSub.MapRightKey("CollectionRefId");
                     cuSub.ToTable("UserCollectionSubscriptions");
                 });
+
+            modelBuilder.Entity<User>()
+                .HasOptional(u => u.CollectionSubscriptions)
+                .WithMany()
+                .WillCascadeOnDelete(false);
         }
 
         public override int SaveChanges()

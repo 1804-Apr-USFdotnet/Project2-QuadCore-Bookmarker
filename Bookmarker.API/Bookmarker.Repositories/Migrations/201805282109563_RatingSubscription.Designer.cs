@@ -7,13 +7,13 @@ namespace Bookmarker.Repositories.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class ratingsubscription : IMigrationMetadata
+    public sealed partial class RatingSubscription : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(ratingsubscription));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(RatingSubscription));
         
         string IMigrationMetadata.Id
         {
-            get { return "201805281956126_rating-subscription"; }
+            get { return "201805282109563_RatingSubscription"; }
         }
         
         string IMigrationMetadata.Source
