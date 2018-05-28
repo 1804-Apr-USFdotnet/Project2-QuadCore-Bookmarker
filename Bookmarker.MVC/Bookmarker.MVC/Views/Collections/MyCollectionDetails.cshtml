@@ -69,10 +69,13 @@
 
     @if (Model.Bookmarks != null)
     {
-        <div style="margin-left: 5px;">
+        <div style="margin-left: 15px;">
             @Html.Partial("_Bookmarks", Model.Bookmarks)
         </div>
     }
+    <hr />
+
+    @Html.ActionLink("Add Bookmark", "New", "Bookmarks", new { collectionId = Model.Id }, new { @class = "btn btn-dark" })
 
     <hr />
     <br />

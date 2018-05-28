@@ -293,11 +293,11 @@
     <Content Include="Views\Collections\MyCollectionDetails.cshtml" />
     <Content Include="Views\Shared\_FiveBookmarks.cshtml" />
     <Content Include="Views\Collections\DeleteCollection.cshtml" />
+    <Content Include="Views\Bookmarks\New.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\AService\" />
-    <Folder Include="Views\Bookmarks\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
