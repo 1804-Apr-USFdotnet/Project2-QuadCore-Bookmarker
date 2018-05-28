@@ -26,22 +26,22 @@ namespace Bookmarker.Test
 
             CollectionAssert.AreEquivalent(actual, expected);
         }
-        [TestMethod]
-        public void TestSearchUserByEmail()
-        {
-            User a = new User() { Email = "foobar@yahoo.com" };
-            User b = new User() { Email = "bob@gmail.com" };
-            User c = new User() { Email = "billybob@gmail.com" };
+        //[TestMethod]
+        //public void TestSearchUserByEmail()
+        //{
+        //    User a = new User() { Email = "foobar@yahoo.com" };
+        //    User b = new User() { Email = "bob@gmail.com" };
+        //    User c = new User() { Email = "billybob@gmail.com" };
 
-            List<User> testList = new List<User>() { a, b, c };
-            List<User> expected = new List<User>() { b, c };
+        //    List<User> testList = new List<User>() { a, b, c };
+        //    List<User> expected = new List<User>() { b, c };
 
-            string search = "gmail.com";
+        //    string search = "gmail.com";
 
-            List<User> actual = Library.Search(testList, search);
+        //    List<User> actual = Library.Search(testList, search);
 
-            CollectionAssert.AreEquivalent(actual, expected);
-        }
+        //    CollectionAssert.AreEquivalent(actual, expected);
+        //}
         [TestMethod]
         public void TestSearchCollectionByName()
         {
