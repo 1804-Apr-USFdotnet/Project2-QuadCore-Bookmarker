@@ -107,9 +107,9 @@ namespace Bookmarker.MVC.Controllers
             }
         }
 
-        public async Task<ActionResult> UsersList()
+        public async Task<ActionResult> UsersList(string search, string sort = "name")
         {
-            HttpRequestMessage apiRequest = CreateRequestToService(HttpMethod.Get, "Users");
+            HttpRequestMessage apiRequest = CreateRequestToService(HttpMethod.Get, "Users?search=" + search + "&sort=" + sort);
 
             HttpResponseMessage apiResponse;
             try
