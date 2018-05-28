@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { BookmarksComponent } from './bookmarks.component';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('BookmarksComponent', () => {
   let component: BookmarksComponent;
@@ -8,7 +9,8 @@ describe('BookmarksComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ BookmarksComponent ]
+      declarations: [ BookmarksComponent ],
+      imports: [ HttpClientModule ]
     })
     .compileComponents();
   }));
