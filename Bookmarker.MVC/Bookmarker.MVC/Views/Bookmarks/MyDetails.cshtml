@@ -22,13 +22,13 @@
             @Html.DisplayFor(model => model.URL)
         </dd>
     
-        <dt>
-            @Html.DisplayNameFor(model => model.Rating)
-        </dt>
+            @*<dt>
+                @Html.DisplayNameFor(model => model.Rating)
+            </dt>
     
-        <dd>
-            @Html.DisplayFor(model => model.Rating)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Rating)
+            </dd>*@
     
         <dt>
             Collection Name
@@ -42,27 +42,32 @@
             @Html.DisplayNameFor(model => model.Created)
         </dt>
     
-        <dd>
-            @Html.DisplayFor(model => model.Created)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Created)
+            </dd>
+            @if(Model.Modified != null)
+            {
+                <dt>
+                    @Html.DisplayNameFor(model => model.Modified)
+                </dt>
     
-        <dt>
-            @Html.DisplayNameFor(model => model.Modified)
-        </dt>
-    
-        <dd>
-            @Html.DisplayFor(model => model.Modified)
-        </dd>
-    </dl>
-</div>
-<div>
-    <span>
-        @Html.ActionLink("Edit", "Edit", "Bookmarks", new { id = Model.Id }, new { @class = "btn btn-dark" })
-    </span>
-    <span>
-        @Html.ActionLink("Delete", "Delete", "Bookmarks", new { id = Model.Id }, new { @class = "btn btn-dark" })
-    </span>
-    <span>
-        @Html.ActionLink("Back", "CollectionDetails", "Collections", new { id = Model.CollectionId }, new { @class = "btn btn-dark" })
-    </span>
-</div>
+                <dd>
+                    @Html.DisplayFor(model => model.Modified)
+                </dd>
+            }
+            
+        </dl>
+    </div>
+    <div>
+        <span>
+            @Html.ActionLink("Edit", "Edit", "Bookmarks", new { id = Model.Id }, new { @class = "btn btn-dark" })
+        </span>
+        <span>
+            @Html.ActionLink("Delete", "Delete", "Bookmarks", new { id = Model.Id }, new { @class = "btn btn-dark" })
+        </span>
+        <span>
+            @Html.ActionLink("Back", "CollectionDetails", "Collections", new { id = Model.CollectionId }, new { @class = "btn btn-dark" })
+        </span>
+    </div>
+</body>
+</html>

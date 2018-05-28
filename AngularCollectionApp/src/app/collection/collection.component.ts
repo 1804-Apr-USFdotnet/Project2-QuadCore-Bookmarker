@@ -11,10 +11,11 @@ export class CollectionComponent implements OnInit {
 
   collectionGroups: Object[];
   collections: Collection[];
-  sort: string = "name";
+  sort: string = "name:asc";
+  search: string = "";
   sortOptions: Object[] = [
-    { name: "Name", value: "name:asc" },
-    { name: "Rating", value: "rating:desc" }
+    { name: "Name asc.", value: "name:asc" },
+    { name: "Name desc.", value: "name:desc" }
   ];
 
   constructor(private collectionSvc: CollectionService) { }
@@ -24,7 +25,7 @@ export class CollectionComponent implements OnInit {
   }
 
   getCollections(): void {
-    this.collectionSvc.getCollections(null, this.sort)
+    this.collectionSvc.getCollections(this.search, this.sort)
       .subscribe(
         response => this.makeCollectionGroups(response),
         // response => this.collections = response,

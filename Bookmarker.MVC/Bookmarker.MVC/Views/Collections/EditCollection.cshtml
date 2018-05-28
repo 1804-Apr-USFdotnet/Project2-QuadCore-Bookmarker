@@ -36,12 +36,13 @@
             </div>
         </div>
     
-        <div class="form-group">
-            @Html.LabelFor(model => model.Rating, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DisplayFor(model => model.Rating)
+            <div class="form-group">
+                @*@Html.LabelFor(model => model.Rating, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DisplayFor(model => model.Rating)
+                </div>*@
+                @Html.HiddenFor(model => model.Rating)
             </div>
-        </div>
     
         <div class="form-group">
             @Html.LabelFor(model => model.Private, htmlAttributes: new { @class = "control-label col-md-2" })

@@ -1,31 +1,24 @@
-<div class="row">
-  <div class="col-sm-4">
-
+<div *ngIf="user" style="margin: 150px; margin-top: 0px;">
+  <div class="card-header" style="background-color: #343a40; color: white;">
+    <span>{{user.username}}</span>
+    <span style="float: right;" (click)="goBack()" class="">go back</span>
   </div>
-
-  <div class="col-sm-4">
-    <div *ngIf="user">
-      <div class="card">
-        <div class="card-header" style="background-color: #343a40; color: white;">
-          <h5>{{user.username}}</h5>
-        </div>
-        <div class="card-body">
-          <p class="card-text" *ngIf="user.email">Email: {{user.email}}</p>
-        </div>
-        <div class="card-footer" style="background-color: #343a40; color: white;">
-          <div class="card-text">
-            <p></p>
+  <br />
+  <div *ngIf="collectionGroups">
+    <div *ngFor="let group of collectionGroups" class="row" style="padding-top: 10px">
+      <div *ngFor="let collection of group" class="col-sm-4">
+        <div class="card" routerLink="/collections/{{collection.id}}">
+          <div class="card-header" style="background-color: #343a40; color: white;">
+            {{collection.name}}
+          </div>
+          <div class="card-body">
+            <p>{{collection.description | slice:0:60}}</p>
           </div>
         </div>
       </div>
     </div>
-    <br />
-    <button (click)="goBack()" class="btn btn-dark">go back</button>
   </div>
-
-  <div class="col-sm-4">
-
-  </div>
-
 </div>
 
+<hr />
+<br />

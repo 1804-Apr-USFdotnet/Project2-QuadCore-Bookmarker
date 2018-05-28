@@ -1,23 +1,24 @@
-<table class="table">
-  <div class="row">
-    <div class="col-sm-4 jumbotron" style="position: fixed; background-color: #343a40; color: white; margin-left: 20px;">
-        <h3>Public Bookmark Collections</h3>
-        <br />
-        <span class="badge">Sort by:</span>
-        <select [(ngModel)]="sort" (change)="getCollections()">
-          <option *ngFor="let option of sortOptions" value="{{option.value}}">{{option.name}}</option>
-        </select>
-    </div>
-    <div class="col-sm-8 offset-4">
-      <tbody>
-        <tr *ngFor='let collection of collections' routerLink="/detail/{{collection.name}}">
-          <td>
-            <button style="width: 400px;" class="btn btn-dark">{{collection.name}}</button>
-            <span title="rating" style="margin-left: 5px;"><b>[ {{collection.rating}} ] </b></span>
-            <span title="{{collection.description}}">{{collection.description | slice:0:60}}...</span>
-          </td>
-        </tr>
-      </tbody>
+<div style="margin: 60px; margin-top:20px;">
+  <h3 style="margin: 5px;">Collections</h3>
+  <br />
+  <div>
+    <span class="badge">Sort by:</span>
+      <select [(ngModel)]="sort" (change)="getCollections()">
+        <option *ngFor="let option of sortOptions" value="{{option.value}}">{{option.name}}</option>
+      </select>
+  </div>
+
+  <br />
+  <div *ngFor="let group of collectionGroups" class="row" style="padding-top: 10px">
+    <div *ngFor="let collection of group" class="col-sm-4">
+      <div class="card" routerLink="/collections/{{collection.id}}">
+        <div class="card-header" style="background-color: #343a40; color: white;">
+          {{collection.name}}
+        </div>
+        <div class="card-body">
+          <p>{{collection.description | slice:0:60}}</p>
+        </div>
+      </div>
     </div>
   </div>
-</table>
+</div>
