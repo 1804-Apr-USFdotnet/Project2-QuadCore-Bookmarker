@@ -18,7 +18,7 @@ namespace Bookmarker.MVC.Controllers
         {
             var user = await WhoAmI();
             BookmarkViewModel bm = new BookmarkViewModel();
-            bm.CollectionId = collectionId;
+            await bm.InitCollectionAsync(collectionId);
             return View(bm);
         }
 
@@ -53,5 +53,35 @@ namespace Bookmarker.MVC.Controllers
             return RedirectToAction("CollectionDetails", "Collections", new { id = bookmark.CollectionId });
         }
 
+        // GET: Bookmarks/Details/{id}
+        [HttpGet]
+        public async Task<ActionResult> Details(Guid id)
+        {
+            HttpRequestMessage apiRequest = CreateRequestToService(HttpMethod.Get, $"Bookmarks/{id}");
+
+            HttpResponseMessage apiResponse;
+            try
+            {
+                apiResponse = await HttpClient.SendAsync(apiRequest);
+            }
+            catch
+            {
+                return RedirectToAction("PublicCollections", "Collections");
+            }
+
+            if (!apiResponse.IsSuccessStatusCode)
+            {
+                return RedirectToAction("PublicCollections", "Collections");
+            }
+
+            BookmarkViewModel bm = await apiResponse.Content.ReadAsAsync<BookmarkViewModel>();
+            if(bm.Collection == null)
+            {
+                await bm.InitCollectionAsync(bm.CollectionId);
+            }
+
+            PassCookiesToClient(apiResponse);
+            return View(bm);
+        }
     }
 }

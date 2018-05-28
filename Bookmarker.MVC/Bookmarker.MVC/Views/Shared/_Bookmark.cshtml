@@ -9,10 +9,12 @@
         <text>
             @if (Model.Name.Length > 40)
             {
+                <a href="@($"../../Bookmarks/Details/{Model.Id}")"><i style="color: black;" class="fa fa-info-circle fa-lg"></i></a>
                 <a href="@Model.URL" target="_blank">@(linkText)...</a>
             }
             else
             {
+                <a href="@($"../../Bookmarks/Details/{Model.Id}")"><i style="color: black;" class="fa fa-info-circle fa-lg"></i></a>
                 <a href="@Model.URL" target="_blank">@Model.Name</a>
             }
         </text>
@@ -20,6 +22,7 @@
     else
     {
         // show part of URL as link
+        <a href="@($"../../Bookmarks/Details/{Model.Id}")"><i style="color: black;" class="fa fa-info-circle fa-lg"></i></a>
         <a href="@Model.URL" target="_blank">@Model.URL.Substring(0, (Model.URL.Length > 20) ? 20 : Model.URL.Length)</a>
     }
 </div>
