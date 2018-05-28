@@ -15,15 +15,15 @@
             <dt>
                 @Html.DisplayNameFor(model => model.Name)
             </dt>
-    
+
             <dd>
                 @Html.DisplayFor(model => model.Name)
             </dd>
-    
+
             <dt>
                 @Html.DisplayNameFor(model => model.Description)
             </dt>
-    
+
             <dd>
                 @Html.DisplayFor(model => model.Description)
             </dd>
@@ -31,40 +31,52 @@
             <dt>
                 @Html.DisplayNameFor(model => model.Created)
             </dt>
-    
+
             <dd>
                 @Html.DisplayFor(model => model.Created)
             </dd>
-    
+
             <dt>
                 @Html.DisplayNameFor(model => model.Modified)
             </dt>
-    
+
             <dd>
                 @Html.DisplayFor(model => model.Modified)
             </dd>
-    
-    
+
+
             <dt>
                 @Html.DisplayNameFor(model => model.Rating)
             </dt>
-    
+
             <dd>
                 @Html.DisplayFor(model => model.Rating)
             </dd>
-    
+
             <dt>
                 @Html.DisplayNameFor(model => model.Private)
             </dt>
-    
+
             <dd>
                 @Html.DisplayFor(model => model.Private)
             </dd>
-    
+
         </dl>
     </div>
 
+    <h3>Bookmarks</h3>
+    <hr />
 
+    @if (Model.Bookmarks != null)
+    {
+        <div style="margin-left: 5px;">
+            @Html.Partial("_Bookmarks", Model.Bookmarks)
+        </div>
+    }
+
+    <hr />
+    <br />
+    <br />
     <span>
         @Html.ActionLink("Edit", "EditCollection", "Collections", new { id = Model.Id }, new { @class = "btn btn-dark" })
     </span>

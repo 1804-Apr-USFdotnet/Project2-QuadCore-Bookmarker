@@ -3,14 +3,14 @@
 <div class="card">
     <a href="TODO">
         <div class="card-header" title="@Model.Description">
-            @Html.RouteLink(Model.Name, new { action = "CollectionDetails", controller = "Collections", id = Model.Id }, new { @class = "btn btn-dark" })
+            @Html.RouteLink(Model.Name, new { action = "CollectionDetails", controller = "Collections", id = Model.Id }, new { @class = "btn btn-dark", target = "_blank" })
         </div>
     </a>
     <div class="card-body">
         @*<p class="card-text">Description: @Model.Description</p>*@
         @if(Model.Bookmarks != null)
         {
-            @Html.Partial("_Bookmarks", Model.Bookmarks)
+            @Html.Partial("_FiveBookmarks", Model.Bookmarks)
         }
         <p class="card-text text-muted">Created: @Model.Created</p>
     </div>

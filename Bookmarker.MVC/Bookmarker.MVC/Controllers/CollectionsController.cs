@@ -75,8 +75,13 @@ namespace Bookmarker.MVC.Controllers
 
             PassCookiesToClient(apiResponse);
 
+            var collections = await apiResponse.Content.ReadAsAsync<IEnumerable<CollectionViewModel>>();
+            foreach (var collection in collections)
+            {
+                await collection.InitBookmarksAsync();
+            }
             ViewBag.UserId = user?.Id;
-            return View(await apiResponse.Content.ReadAsAsync<IEnumerable<CollectionViewModel>>());
+            return View(collections);
         }
 
 
@@ -144,6 +149,7 @@ namespace Bookmarker.MVC.Controllers
             }
 
             CollectionViewModel collection = await apiResponse.Content.ReadAsAsync<CollectionViewModel>();
+            await collection.InitBookmarksAsync();
 
             PassCookiesToClient(apiResponse);
 

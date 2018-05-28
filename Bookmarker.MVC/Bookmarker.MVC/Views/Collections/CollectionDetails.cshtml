@@ -15,15 +15,15 @@
             <dt>
                 @Html.DisplayNameFor(model => model.Name)
             </dt>
-    
+
             <dd>
                 @Html.DisplayFor(model => model.Name)
             </dd>
-    
+
             <dt>
                 @Html.DisplayNameFor(model => model.Description)
             </dt>
-    
+
             <dd>
                 @Html.DisplayFor(model => model.Description)
             </dd>
@@ -31,32 +31,45 @@
             <dt>
                 @Html.DisplayNameFor(model => model.Created)
             </dt>
-    
+
             <dd>
                 @Html.DisplayFor(model => model.Created)
             </dd>
-    
+
             <dt>
                 @Html.DisplayNameFor(model => model.Modified)
             </dt>
-    
+
             <dd>
                 @Html.DisplayFor(model => model.Modified)
             </dd>
-    
-    
+
+
             <dt>
                 @Html.DisplayNameFor(model => model.Rating)
             </dt>
-    
+
             <dd>
                 @Html.DisplayFor(model => model.Rating)
             </dd>
-    
+
         </dl>
     </div>
 
+    <hr />
+    <h4>Bookmarks</h4>
+    <hr />
 
+    @if (Model.Bookmarks != null)
+    {
+        <div style="margin-left: 15px;">
+            @Html.Partial("_Bookmarks", Model.Bookmarks)
+        </div>
+    }
+
+    <hr />
+    <br />
+    <br />
     <div>
         @Html.ActionLink("All Collections", "PublicCollections", "Collections", null, new { @class = "btn btn-dark" })
     </div>

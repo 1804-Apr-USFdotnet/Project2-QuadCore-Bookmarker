@@ -9,17 +9,17 @@
         <text>
             @if (Model.Name.Length > 40)
             {
-                <a href="@Model.URL">@(linkText)...</a>
+                <a href="@Model.URL" target="_blank">@(linkText)...</a>
             }
             else
             {
-                <a href="@Model.URL">@Model.Name</a>
+                <a href="@Model.URL" target="_blank">@Model.Name</a>
             }
         </text>
     }
     else
     {
         // show part of URL as link
-        <a href="@Model.URL">@Model.URL.Substring(0, (Model.URL.Length > 20) ? 20 : Model.URL.Length)</a>
+        <a href="@Model.URL" target="_blank">@Model.URL.Substring(0, (Model.URL.Length > 20) ? 20 : Model.URL.Length)</a>
     }
 </div>
