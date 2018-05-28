@@ -9,7 +9,7 @@ import { CollectionService } from '../collection.service'
 })
 export class CollectionComponent implements OnInit {
 
-  collectionGroups: Object[] = [];
+  collectionGroups: Object[];
   collections: Collection[];
   sort: string = "name";
   sortOptions: Object[] = [
@@ -27,11 +27,13 @@ export class CollectionComponent implements OnInit {
     this.collectionSvc.getCollections(null, this.sort)
       .subscribe(
         response => this.makeCollectionGroups(response),
+        // response => this.collections = response,
         errors => console.log(errors)
       );
   }
 
   makeCollectionGroups(collectionList: Collection[]) {
+    this.collectionGroups = [];
     var group: object[] = [];
     collectionList.forEach(eachObject => {
       group.push(eachObject);

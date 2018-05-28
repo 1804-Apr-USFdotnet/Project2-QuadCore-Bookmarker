@@ -61,7 +61,7 @@ node('master') {
     }
     stage('deploy') {
         try {
-            dir('AngularCollectionApp') {
+            dir('AngularCollectionApp/dist/AngularCollectionApp') {
                 bat "msdeploy -verb:sync -source:contentPath=\"%CD%\" -dest:contentPath=\"Default Web Site/Bookmarker\",wmsvc=\"ec2-18-219-24-228.us-east-2.compute.amazonaws.com\",userName=\"Administrator\",password=\"${env.Deploy_Password_Angular}\" -enableRule:AppOffline -allowUntrusted"
             }
         }
