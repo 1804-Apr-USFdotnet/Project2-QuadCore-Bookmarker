@@ -14,8 +14,8 @@ export class CollectionComponent implements OnInit {
   sort: string = "name:asc";
   search: string = "";
   sortOptions: Object[] = [
-    { name: "Name", value: "name:asc" },
-    { name: "Rating", value: "rating:desc" }
+    { name: "Name asc.", value: "name:asc" },
+    { name: "Name desc.", value: "name:desc" }
   ];
 
   constructor(private collectionSvc: CollectionService) { }
