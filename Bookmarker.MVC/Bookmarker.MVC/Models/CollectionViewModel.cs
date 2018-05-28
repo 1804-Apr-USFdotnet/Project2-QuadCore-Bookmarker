@@ -27,11 +27,11 @@ namespace Bookmarker.MVC.Models
 
         public IEnumerable<BookmarkViewModel> Bookmarks;
 
-        public async Task<bool> InitBookmarksAsync()
+        public async Task<bool> InitBookmarksAsync(string search = null, string sort = "name")
         {
             Uri serviceUri = new Uri(ConfigurationManager.AppSettings.Get("ServiceUri"));
             HttpRequestMessage apiRequest 
-                = new HttpRequestMessage(HttpMethod.Get, new Uri(serviceUri, $"collections/{Id}/bookmarks"));
+                = new HttpRequestMessage(HttpMethod.Get, new Uri(serviceUri, $"collections/{Id}/bookmarks?search=" + search + "&sort=" + sort));
             HttpResponseMessage apiResponse;
             try
             {

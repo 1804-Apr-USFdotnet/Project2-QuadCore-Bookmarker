@@ -166,6 +166,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccountsController.cs" />
     <Compile Include="Controllers\AServiceController.cs" />
+    <Compile Include="Controllers\BookmarksController.cs" />
     <Compile Include="Controllers\CollectionsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
@@ -290,6 +291,13 @@
     <Content Include="Views\Collections\EditCollection.cshtml" />
     <Content Include="Views\Collections\CollectionDetails.cshtml" />
     <Content Include="Views\Collections\MyCollectionDetails.cshtml" />
+    <Content Include="Views\Shared\_FiveBookmarks.cshtml" />
+    <Content Include="Views\Collections\DeleteCollection.cshtml" />
+    <Content Include="Views\Bookmarks\New.cshtml" />
+    <Content Include="Views\Bookmarks\Details.cshtml" />
+    <Content Include="Views\Bookmarks\MyDetails.cshtml" />
+    <Content Include="Views\Bookmarks\Edit.cshtml" />
+    <Content Include="Views\Bookmarks\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

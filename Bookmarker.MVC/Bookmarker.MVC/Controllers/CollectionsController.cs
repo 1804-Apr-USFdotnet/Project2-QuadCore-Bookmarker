@@ -12,6 +12,36 @@ namespace Bookmarker.MVC.Controllers
 {
     public class CollectionsController : AServiceController
     {
+        // GET: Collections/TopCollections
+        public async Task<ActionResult> TopCollections(string search, string sort = "rating:desc")
+        {
+            HttpRequestMessage apiRequest = CreateRequestToService(HttpMethod.Get, "Collections?search=" + search + "&sort=" + sort);
+
+            HttpResponseMessage apiResponse;
+            try
+            {
+                apiResponse = await HttpClient.SendAsync(apiRequest);
+            }
+            catch
+            {
+                return View("Error");
+            }
+
+            PassCookiesToClient(apiResponse);
+
+            var collections = await apiResponse.Content.ReadAsAsync<IEnumerable<CollectionViewModel>>();
+
+            collections = collections.Take(9);            
+
+            foreach (var collection in collections)
+            {
+                await collection.InitBookmarksAsync();
+            }
+            var user = await WhoAmI();
+            ViewBag.UserId = user?.Id;
+            return View("CollectionList", collections);
+        }
+
         // GET: Collections/PublicCollections
         public async Task<ActionResult> PublicCollections(string search, string sort = "name")
         {
@@ -75,8 +105,13 @@ namespace Bookmarker.MVC.Controllers
 
             PassCookiesToClient(apiResponse);
 
+            var collections = await apiResponse.Content.ReadAsAsync<IEnumerable<CollectionViewModel>>();
+            foreach (var collection in collections)
+            {
+                await collection.InitBookmarksAsync();
+            }
             ViewBag.UserId = user?.Id;
-            return View(await apiResponse.Content.ReadAsAsync<IEnumerable<CollectionViewModel>>());
+            return View(collections);
         }
 
 
@@ -144,6 +179,7 @@ namespace Bookmarker.MVC.Controllers
             }
 
             CollectionViewModel collection = await apiResponse.Content.ReadAsAsync<CollectionViewModel>();
+            await collection.InitBookmarksAsync();
 
             PassCookiesToClient(apiResponse);
 
@@ -172,7 +208,7 @@ namespace Bookmarker.MVC.Controllers
 
         // GET: Collections/{id}/Edit
         [HttpGet]
-        [Route("Collections/{id}/Edit")]
+        [Route("Collections/{id}/EditCollection")]
         public async Task<ActionResult> EditCollection(Guid id)
         {
             HttpRequestMessage apiRequest = CreateRequestToService(HttpMethod.Get, $"Collections/{id}");
@@ -208,7 +244,7 @@ namespace Bookmarker.MVC.Controllers
 
         // POST: Collections/{id}/Edit
         [HttpPost]
-        [Route("Collections/{id}/Edit")]
+        [Route("Collections/{id}/EditCollection")]
         public async Task<ActionResult> EditCollection(CollectionViewModel collection)
         {
             HttpRequestMessage apiRequest = CreateRequestToService(HttpMethod.Put, "Collections");
@@ -233,6 +269,71 @@ namespace Bookmarker.MVC.Controllers
             PassCookiesToClient(apiResponse);
 
             return RedirectToAction("CollectionDetails", new { id = collection.Id });
+        }
+
+        // GET: Collections/{id}/Delete
+        [HttpGet]
+        [Route("Collections/{id}/Delete")]
+        public async Task<ActionResult> DeleteCollection(Guid id)
+        {
+            HttpRequestMessage apiRequest = CreateRequestToService(HttpMethod.Get, $"Collections/{id}");
+
+            HttpResponseMessage apiResponse;
+            try
+            {
+                apiResponse = await HttpClient.SendAsync(apiRequest);
+            }
+            catch
+            {
+                return RedirectToAction("CollectionDetails", id);
+            }
+
+            if (!apiResponse.IsSuccessStatusCode)
+            {
+                return RedirectToAction("CollectionDetails", id);
+            }
+
+            CollectionViewModel collection = await apiResponse.Content.ReadAsAsync<CollectionViewModel>();
+
+            PassCookiesToClient(apiResponse);
+
+            var user = await WhoAmI();
+            if(collection.OwnerId != user.Id)
+            {
+                TempData["Message"] = "Please log in.";
+                return RedirectToAction("Login", "Accounts");
+            }
+
+            return View(collection);
+        }
+
+        // DELETE: Collections/{id}/Delete
+        [HttpPost]
+        [Route("Collections/{id}/Delete")]
+        [ActionName("DeleteCollection")]
+        public async Task<ActionResult> ConfirmDeleteCollection(Guid id)
+        {
+            HttpRequestMessage apiRequest = CreateRequestToService(HttpMethod.Delete, $"Collections/{id}");
+
+            HttpResponseMessage apiResponse;
+            try
+            {
+                apiResponse = await HttpClient.SendAsync(apiRequest);
+            }
+            catch
+            {
+                return RedirectToAction("CollectionDetails", id);
+            }
+
+            if (!apiResponse.IsSuccessStatusCode)
+            {
+                return RedirectToAction("CollectionDetails", id);
+            }
+
+
+            PassCookiesToClient(apiResponse);
+
+            return RedirectToAction("MyCollections");
         }
     }
 }

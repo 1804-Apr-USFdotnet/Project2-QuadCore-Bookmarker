@@ -8,55 +8,61 @@
     <title>Collection Details</title>
 </head>
 <body>
-    <div>
-        <h4>Collection Details</h4>
-        <hr />
-        <dl class="dl-horizontal">
-            <dt>
-                @Html.DisplayNameFor(model => model.Name)
-            </dt>
-    
-            <dd>
-                @Html.DisplayFor(model => model.Name)
-            </dd>
-    
-            <dt>
-                @Html.DisplayNameFor(model => model.Description)
-            </dt>
-    
-            <dd>
-                @Html.DisplayFor(model => model.Description)
-            </dd>
+    <div class="row">
+        <div class="col-sm-6">
+            <h4>@Model.Name</h4>
+            <hr />
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Description)
+                </dt>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.Created)
-            </dt>
-    
-            <dd>
-                @Html.DisplayFor(model => model.Created)
-            </dd>
-    
-            <dt>
-                @Html.DisplayNameFor(model => model.Modified)
-            </dt>
-    
-            <dd>
-                @Html.DisplayFor(model => model.Modified)
-            </dd>
-    
-    
-            <dt>
-                @Html.DisplayNameFor(model => model.Rating)
-            </dt>
-    
-            <dd>
-                @Html.DisplayFor(model => model.Rating)
-            </dd>
-    
-        </dl>
+                <dd>
+                    @Html.DisplayFor(model => model.Description)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Created)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Created)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Modified)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Modified)
+                </dd>
+
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Rating)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Rating)
+                </dd>
+
+            </dl>
+        </div>
+        <div class="col-sm-6">
+            <h4>Bookmarks</h4>
+            <hr />
+
+            @if (Model.Bookmarks != null)
+            {
+                <div style="margin-left: 15px;">
+                    @Html.Partial("_Bookmarks", Model.Bookmarks)
+                </div>
+            }
+
+        </div>
     </div>
 
-
+    <hr />
     <div>
         @Html.ActionLink("All Collections", "PublicCollections", "Collections", null, new { @class = "btn btn-dark" })
     </div>
