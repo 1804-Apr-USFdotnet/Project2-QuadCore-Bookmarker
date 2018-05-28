@@ -9,12 +9,13 @@
         <text>
             @if (Model.Name.Length > 40)
             {
-                <a href="@($"../../Bookmarks/Details/{Model.Id}")"><i style="color: black;" class="fa fa-info-circle fa-lg"></i></a>
+                
+                <a href="@Url.Action("Details", "Bookmarks", new { id = Model.Id })")"><i style="color: black;" class="fa fa-info-circle fa-lg"></i></a>
                 <a href="@Model.URL" target="_blank">@(linkText)...</a>
             }
             else
             {
-                <a href="@($"../../Bookmarks/Details/{Model.Id}")"><i style="color: black;" class="fa fa-info-circle fa-lg"></i></a>
+                <a href="@Url.Action("Details", "Bookmarks", new { id = Model.Id })"><i style="color: black;" class="fa fa-info-circle fa-lg"></i></a>
                 <a href="@Model.URL" target="_blank">@Model.Name</a>
             }
         </text>
