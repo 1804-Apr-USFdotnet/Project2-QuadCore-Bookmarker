@@ -1,25 +1,17 @@
 ﻿@model IEnumerable<Bookmarker.MVC.Models.CollectionViewModel>
-<!DOCTYPE html>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>My Collections</title>
-</head>
-<body>
-    <div class="search-bar" style="position: fixed; background-color: #343a40; color: white; z-index: 100;">
-        @using (Html.BeginForm("MyCollections", "Collections", FormMethod.Get))
-        {
-            @Html.Partial("_CollectionSearch")
-        }
-    </div>
-    <br />
-    <br />
-    <br />
-    @Html.Partial("_CollectionCards", Model)
 
-    <div>
-        @Html.ActionLink("Add", "AddCollection", "Collections", null, new { @class = "btn btn-dark" })
-    </div>
-</body>
-</html>
+<div class="search-bar" style="position: fixed; background-color: #343a40; color: white; z-index: 100;">
+    @using (Html.BeginForm("MyCollections", "Collections", FormMethod.Get))
+    {
+        @Html.Partial("_CollectionSearch")
+    }
+</div>
+<br />
+<br />
+<br />
+@Html.Partial("_CollectionCards", Model)
+
+<div>
+    @Html.ActionLink("Add", "AddCollection", "Collections", null, new { @class = "btn btn-dark" })
+</div>

@@ -3,4 +3,5 @@ export class Collection {
     description: String;
     links: Object;
     id: String;
+    created: String;
 }
