@@ -12,6 +12,40 @@ namespace Bookmarker.MVC.Controllers
 {
     public class BookmarksController : AServiceController
     {
+        // GET: Bookmarks/List
+        [HttpGet]
+        public async Task<ActionResult> List(string search, string sort = "name")
+        {
+            HttpRequestMessage apiRequest = CreateRequestToService(HttpMethod.Get, "Bookmarks?search=" + search + "&sort=" + sort);
+
+            HttpResponseMessage apiResponse;
+            try
+            {
+                apiResponse = await HttpClient.SendAsync(apiRequest);
+            }
+            catch
+            {
+                return View("Error");
+            }
+
+            PassCookiesToClient(apiResponse);
+
+            var bookmarks = await apiResponse.Content.ReadAsAsync<IEnumerable<BookmarkViewModel>>();
+
+            foreach (var bm in bookmarks)
+            {
+                if(bm.Collection == null)
+                {
+                    await bm.InitCollectionAsync(bm.CollectionId);
+                }
+            }
+            var user = await WhoAmI();
+            ViewBag.UserId = user?.Id;
+            return View(bookmarks);
+        }
+
+
+
         // GET: Bookmarks/New
         [HttpGet]
         public async Task<ActionResult> New(Guid collectionId)

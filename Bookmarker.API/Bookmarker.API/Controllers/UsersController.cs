@@ -66,6 +66,7 @@ namespace Bookmarker.API.Controllers
         }
         
         // GET: api/Users/5
+        [AllowAnonymous]
         public IHttpActionResult Get(Guid id)
         {
             try

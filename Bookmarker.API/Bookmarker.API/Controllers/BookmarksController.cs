@@ -31,6 +31,7 @@ namespace Bookmarker.API.Controllers
         }
 
         // GET:api/Bookmarks
+        [AllowAnonymous]
         public IHttpActionResult Get(string search = null, string sort = null)
         {
             try
@@ -63,6 +64,7 @@ namespace Bookmarker.API.Controllers
         }
 
         // GET:api/Bookmarks/5
+        [AllowAnonymous]
         public IHttpActionResult Get(Guid id)
         {
             try

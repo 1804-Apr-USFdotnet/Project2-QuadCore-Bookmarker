@@ -68,18 +68,6 @@ namespace Bookmarker.API.Controllers.Tests
         }
 
         [TestMethod()]
-        public async Task GetNotFoundTest()
-        {
-            // check, if userId has no collections
-            // returns NotFound HttpActionResult
-            
-            //TODO: Add another user to test data
-            //      that has no collections
-
-            //Assert.Fail();
-        }
-
-        [TestMethod()]
         public async Task GetCollectionByIndexTest()
         {
             // Arrange

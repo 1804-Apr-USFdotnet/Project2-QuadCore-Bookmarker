@@ -48,6 +48,65 @@ namespace Bookmarker.MVC.Controllers
             }
         }
 
+        public async Task<ActionResult> UserProfile(Guid id, string search, string sort = "name")
+        {
+            var me = await WhoAmI();
+            if(me != null && me.Id == id) { return RedirectToAction("MyCollections", "Collections");  }
+
+            // Get user
+            HttpRequestMessage apiRequest = CreateRequestToService(HttpMethod.Get, $"Users/{id}");
+
+            HttpResponseMessage apiResponse;
+            try
+            {
+                apiResponse = await HttpClient.SendAsync(apiRequest);
+            }
+            catch
+            {
+                return View("Error");
+            }
+
+            PassCookiesToClient(apiResponse);
+            var user = await apiResponse.Content.ReadAsAsync<AccountViewModel>();
+
+
+            // Now get user's collections
+            apiRequest = CreateRequestToService(HttpMethod.Get, $"users/{id}/collections?search=" + search + "&sort=" + sort);
+
+            apiResponse = null;
+            try
+            {
+                apiResponse = await HttpClient.SendAsync(apiRequest);
+            }
+            catch
+            {
+                return View("Error");
+            }
+
+            PassCookiesToClient(apiResponse);
+
+            if (!apiResponse.IsSuccessStatusCode)
+            {
+                if (apiResponse.StatusCode != HttpStatusCode.Unauthorized)
+                {
+                    return View("Error");
+                }
+                return RedirectToAction("UserDetails", "Accounts");
+            }
+            else
+            {
+                //await user.InitCollectionsAsync();
+                user.Collections = await apiResponse.Content.ReadAsAsync<IEnumerable<CollectionViewModel>>();
+                user.Collections = user.Collections.Where(x => x.Private == false);
+
+                foreach (var collection in user.Collections)
+                {
+                    await collection.InitBookmarksAsync();
+                }
+                return View(user);
+            }
+        }
+
         public async Task<ActionResult> UsersList()
         {
             HttpRequestMessage apiRequest = CreateRequestToService(HttpMethod.Get, "Users");

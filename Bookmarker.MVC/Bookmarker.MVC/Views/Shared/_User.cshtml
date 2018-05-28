@@ -1,0 +1,3 @@
+﻿@model Bookmarker.MVC.Models.AccountViewModel
+
+@Html.ActionLink(Model.Username, "UserProfile", "Home", new { id = Model.Id }, new { @class = "btn btn-dark", style = "margin: 5px; width: 200px;" })

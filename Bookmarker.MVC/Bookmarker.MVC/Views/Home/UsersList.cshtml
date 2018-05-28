@@ -5,24 +5,13 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>UsersList</title>
+    <title>User List</title>
 </head>
 <body>
     @{
-        var en = Model.GetEnumerator();
-        while(en.MoveNext())
+        foreach (var user in Model)
         {
-            <div class="row" style="margin-bottom: 30px;">
-                @Html.Partial("_UserCard", en.Current)
-                @if(en.MoveNext())
-                {
-                    @Html.Partial("_UserCard", en.Current);
-                }
-                @if(en.MoveNext())
-                {
-                    @Html.Partial("_UserCard", en.Current);
-                }
-            </div>
+            @Html.Partial("_User", user)
         }
      }
 </body>

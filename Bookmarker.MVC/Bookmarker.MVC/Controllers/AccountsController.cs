@@ -270,8 +270,7 @@ namespace Bookmarker.MVC.Controllers
                 return RedirectToAction("Home", "Home");
             }
 
-            TempData["Message"] = "Logged out.";
-            return RedirectToAction("Home", "Home");
+            return Redirect("http://ec2-18-219-24-228.us-east-2.compute.amazonaws.com/Bookmarker");
         }
 
     }
