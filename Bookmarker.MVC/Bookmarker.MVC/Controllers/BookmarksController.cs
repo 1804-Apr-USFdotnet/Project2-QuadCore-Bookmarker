@@ -103,5 +103,69 @@ namespace Bookmarker.MVC.Controllers
                 return View(bm);
             }
         }
+
+        // GET: Bookmarks/{id}/Edit
+        [HttpGet]
+        [Route("Bookmarks/{id}/Edit")]
+        public async Task<ActionResult> Edit(Guid id)
+        {
+            HttpRequestMessage apiRequest = CreateRequestToService(HttpMethod.Get, $"Bookmarks/{id}");
+
+            HttpResponseMessage apiResponse;
+            try
+            {
+                apiResponse = await HttpClient.SendAsync(apiRequest);
+            }
+            catch
+            {
+                return RedirectToAction("Details", id);
+            }
+
+            if (!apiResponse.IsSuccessStatusCode)
+            {
+                return RedirectToAction("Details", id);
+            }
+
+            BookmarkViewModel bm = await apiResponse.Content.ReadAsAsync<BookmarkViewModel>();
+
+            PassCookiesToClient(apiResponse);
+
+            var user = await WhoAmI();
+            if(bm.Collection.OwnerId != user.Id)
+            {
+                TempData["Message"] = "Please log in.";
+                return RedirectToAction("Login", "Accounts");
+            }
+
+            return View(bm);
+        }
+
+        // POST: Bookmarks/{id}/Edit
+        [HttpPost]
+        [Route("Bookmarks/{id}/Edit")]
+        public async Task<ActionResult> Edit(BookmarkViewModel bm)
+        {
+            HttpRequestMessage apiRequest = CreateRequestToService(HttpMethod.Put, "Bookmarks");
+            apiRequest.Content = new ObjectContent<BookmarkViewModel>(bm, new JsonMediaTypeFormatter());
+
+            HttpResponseMessage apiResponse;
+            try
+            {
+                apiResponse = await HttpClient.SendAsync(apiRequest);
+            }
+            catch
+            {
+                return RedirectToAction("Details", new { id = bm.Id });
+            }
+
+            if (!apiResponse.IsSuccessStatusCode)
+            {
+                return RedirectToAction("Details", new { id = bm.Id });
+            }
+
+
+            PassCookiesToClient(apiResponse);
+            return RedirectToAction("Details", new { id = bm.Id });
+        }
     }
 }
