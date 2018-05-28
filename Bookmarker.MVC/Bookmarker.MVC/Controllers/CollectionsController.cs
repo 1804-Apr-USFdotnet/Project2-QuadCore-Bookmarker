@@ -13,9 +13,9 @@ namespace Bookmarker.MVC.Controllers
     public class CollectionsController : AServiceController
     {
         // GET: Collections/TopCollections
-        public async Task<ActionResult> TopCollections(string search, string sort = "rating:desc")
+        public async Task<ActionResult> TopCollections()
         {
-            HttpRequestMessage apiRequest = CreateRequestToService(HttpMethod.Get, "Collections?search=" + search + "&sort=" + sort);
+            HttpRequestMessage apiRequest = CreateRequestToService(HttpMethod.Get, "Collections?sort=rating:desc");
 
             HttpResponseMessage apiResponse;
             try
@@ -39,7 +39,7 @@ namespace Bookmarker.MVC.Controllers
             }
             var user = await WhoAmI();
             ViewBag.UserId = user?.Id;
-            return View("CollectionList", collections);
+            return View("Trending", collections);
         }
 
         // GET: Collections/PublicCollections

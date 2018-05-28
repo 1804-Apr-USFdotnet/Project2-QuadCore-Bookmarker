@@ -301,6 +301,8 @@
     <Content Include="Views\Bookmarks\List.cshtml" />
     <Content Include="Views\Home\UserProfile.cshtml" />
     <Content Include="Views\Shared\_User.cshtml" />
+    <Content Include="Views\Shared\_CollectionSearch.cshtml" />
+    <Content Include="Views\Collections\Trending.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

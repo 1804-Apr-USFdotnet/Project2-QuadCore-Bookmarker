@@ -65,6 +65,7 @@
     <hr />
     <div>
         @Html.ActionLink("All Collections", "PublicCollections", "Collections", null, new { @class = "btn btn-dark" })
+        @Html.ActionLink("User's Profile", "UserProfile", "Home", new { id = Model.OwnerId }, new { @class = "btn btn-dark" })
     </div>
 </body>
 </html>

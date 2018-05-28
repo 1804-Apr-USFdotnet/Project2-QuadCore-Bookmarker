@@ -1,11 +1,10 @@
 ﻿@model Bookmarker.MVC.Models.CollectionViewModel
 
 <div class="card">
-    <a href="TODO">
-        <div class="card-header" title="@Model.Description">
-            @Html.RouteLink(Model.Name, new { action = "CollectionDetails", controller = "Collections", id = Model.Id }, new { @class = "btn btn-dark", target = "_blank" })
-        </div>
-    </a>
+    <div class="card-header" title="@Model.Description">
+        @Html.RouteLink(Model.Name, new { action = "CollectionDetails", controller = "Collections", id = Model.Id }, new { @class = "btn btn-dark", target = "_blank" })
+        <span style="float: right;"><img src="~/favicon.ico" /> @Model.Bookmarks.Count()</span>
+    </div>
     <div class="card-body">
         @if(Model.Bookmarks != null)
         {

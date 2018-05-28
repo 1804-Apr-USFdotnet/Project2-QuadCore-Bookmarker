@@ -15,17 +15,7 @@
         <div class="search-bar" style="position: fixed; background-color: #343a40; color: white; z-index: 100;">
             @using (Html.BeginForm("UserProfile", "Home", Model.Id, FormMethod.Get))
             {
-                @Html.TextBox("search")
-
-                List<object> options = new List<object>();
-                options.Add(new { name = "Name", value = "name:asc" });
-                options.Add(new { name = "Rating", value = "rating:desc" });
-
-                <span style="margin-left: 5px;"/>
-
-                @Html.DropDownList("sort", new SelectList(options, "value", "name"))
-
-                <input type="submit" value="search" class="btn btn-dark"/>
+                @Html.Partial("_CollectionSearch")
             }
         </div>
     <br />
