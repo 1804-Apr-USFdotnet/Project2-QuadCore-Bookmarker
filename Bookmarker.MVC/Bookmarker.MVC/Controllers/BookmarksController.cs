@@ -167,5 +167,75 @@ namespace Bookmarker.MVC.Controllers
             PassCookiesToClient(apiResponse);
             return RedirectToAction("Details", new { id = bm.Id });
         }
+
+        // GET: Bookmarks/{id}/Delete
+        [HttpGet]
+        [Route("Bookmarks/{id}/Delete")]
+        public async Task<ActionResult> Delete(Guid id)
+        {
+            HttpRequestMessage apiRequest = CreateRequestToService(HttpMethod.Get, $"Bookmarks/{id}");
+
+            HttpResponseMessage apiResponse;
+            try
+            {
+                apiResponse = await HttpClient.SendAsync(apiRequest);
+            }
+            catch
+            {
+                return RedirectToAction("Details", id);
+            }
+
+            if (!apiResponse.IsSuccessStatusCode)
+            {
+                return RedirectToAction("Details", id);
+            }
+
+            BookmarkViewModel bm = await apiResponse.Content.ReadAsAsync<BookmarkViewModel>();
+
+            PassCookiesToClient(apiResponse);
+
+            var user = await WhoAmI();
+            if(bm.Collection.OwnerId != user.Id)
+            {
+                TempData["Message"] = "Please log in.";
+                return RedirectToAction("Login", "Accounts");
+            }
+
+            return View(bm);
+        }
+
+        // DELETE: Bookmarks/{id}/Delete
+        [HttpPost]
+        [Route("Bookmarks/{id}/Delete")]
+        [ActionName("Delete")]
+        public async Task<ActionResult> ConfirmDelete(Guid id)
+        {
+            HttpRequestMessage apiRequest = CreateRequestToService(HttpMethod.Delete, $"Bookmarks/{id}");
+
+            HttpResponseMessage apiResponse;
+            try
+            {
+                apiResponse = await HttpClient.SendAsync(apiRequest);
+            }
+            catch
+            {
+                return RedirectToAction("Details", id);
+            }
+
+            if (!apiResponse.IsSuccessStatusCode)
+            {
+                return RedirectToAction("Details", id);
+            }
+
+
+            PassCookiesToClient(apiResponse);
+
+            return RedirectToAction("MyCollections", "Collections");
+        }
+
+
+
+
+
     }
 }

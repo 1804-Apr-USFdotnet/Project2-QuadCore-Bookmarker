@@ -208,7 +208,7 @@ namespace Bookmarker.MVC.Controllers
 
         // GET: Collections/{id}/Edit
         [HttpGet]
-        [Route("Collections/{id}/Edit")]
+        [Route("Collections/{id}/EditCollection")]
         public async Task<ActionResult> EditCollection(Guid id)
         {
             HttpRequestMessage apiRequest = CreateRequestToService(HttpMethod.Get, $"Collections/{id}");
@@ -244,7 +244,7 @@ namespace Bookmarker.MVC.Controllers
 
         // POST: Collections/{id}/Edit
         [HttpPost]
-        [Route("Collections/{id}/Edit")]
+        [Route("Collections/{id}/EditCollection")]
         public async Task<ActionResult> EditCollection(CollectionViewModel collection)
         {
             HttpRequestMessage apiRequest = CreateRequestToService(HttpMethod.Put, "Collections");

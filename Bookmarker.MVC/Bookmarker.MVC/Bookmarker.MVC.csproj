@@ -297,6 +297,7 @@
     <Content Include="Views\Bookmarks\Details.cshtml" />
     <Content Include="Views\Bookmarks\MyDetails.cshtml" />
     <Content Include="Views\Bookmarks\Edit.cshtml" />
+    <Content Include="Views\Bookmarks\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
