@@ -1,30 +1,29 @@
 ﻿<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-    <a class="navbar-brand" href="/Bookmarker/Home">
-        BOOKMARKER
-    </a>
+    @Html.ActionLink("BOOKMARKER", "Home", "Home", null, new { @class = "navbar-brand" })
     <ul class="navbar-nav">
-        <li class="nav-item">
-            @Html.ActionLink("Login", "Login", "Accounts", null, new { @class = "nav-link" })
-            @*<a class="nav-link" href="/Bookmarker/Accounts/Login">Login</a>*@
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Account
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                @Html.ActionLink("My Account", "UserDetails", "Accounts", null, new { @class = "dropdown-item" })
+                @Html.ActionLink("Register", "Register", "Accounts", null, new { @class = "dropdown-item" })
+                @Html.ActionLink("Login", "Login", "Accounts", null, new { @class = "dropdown-item" })
+                @Html.ActionLink("Logout", "Logout", "Accounts", null, new { @class = "dropdown-item" })
+            </div>
+        </li>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Collections
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                @Html.ActionLink("My Collections", "MyCollections", "Collections", null, new { @class = "dropdown-item" })
+                @Html.ActionLink("Trending", "TopCollections", "Collections", null, new { @class = "dropdown-item" })
+                @Html.ActionLink("All Collections", "PublicCollections", "Collections", null, new { @class = "dropdown-item" })
+            </div>
         </li>
         <li class="nav-item">
-            @Html.ActionLink("Logout", "Logout", "Accounts", null, new { @class = "nav-link" })
-            @*<a class="nav-link" href="/Bookmarker/Accounts/Logout">Logout</a>*@
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="/Bookmarker/Accounts/Register">Register</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="/Bookmarker/Home/UsersList">Users</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="/Bookmarker/Collections/PublicCollections">Collections</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="/Bookmarker/Collections/MyCollections">My Collections</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="/Bookmarker/Accounts/UserDetails">My Account</a>
+            @Html.ActionLink("Users", "UsersList", "Home", null, new { @class = "nav-link" })
         </li>
     </ul>
 </nav>

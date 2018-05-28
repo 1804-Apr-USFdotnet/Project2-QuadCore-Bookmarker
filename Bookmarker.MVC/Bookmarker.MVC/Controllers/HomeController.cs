@@ -28,7 +28,7 @@ namespace Bookmarker.MVC.Controllers
             }
 
             PassCookiesToClient(apiResponse);
-            return RedirectToAction("PublicCollections", "Collections", new { sort = "name"} );
+            return RedirectToAction("TopCollections", "Collections");
         }
 
         public async Task<ActionResult> Home()

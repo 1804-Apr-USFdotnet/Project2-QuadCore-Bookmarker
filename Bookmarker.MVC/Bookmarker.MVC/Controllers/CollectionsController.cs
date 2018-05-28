@@ -12,6 +12,36 @@ namespace Bookmarker.MVC.Controllers
 {
     public class CollectionsController : AServiceController
     {
+        // GET: Collections/TopCollections
+        public async Task<ActionResult> TopCollections(string search, string sort = "rating:desc")
+        {
+            HttpRequestMessage apiRequest = CreateRequestToService(HttpMethod.Get, "Collections?search=" + search + "&sort=" + sort);
+
+            HttpResponseMessage apiResponse;
+            try
+            {
+                apiResponse = await HttpClient.SendAsync(apiRequest);
+            }
+            catch
+            {
+                return View("Error");
+            }
+
+            PassCookiesToClient(apiResponse);
+
+            var collections = await apiResponse.Content.ReadAsAsync<IEnumerable<CollectionViewModel>>();
+
+            collections = collections.Take(9);            
+
+            foreach (var collection in collections)
+            {
+                await collection.InitBookmarksAsync();
+            }
+            var user = await WhoAmI();
+            ViewBag.UserId = user?.Id;
+            return View("CollectionList", collections);
+        }
+
         // GET: Collections/PublicCollections
         public async Task<ActionResult> PublicCollections(string search, string sort = "name")
         {
