@@ -18,6 +18,41 @@ namespace Bookmarker.Repositories
         public IDbSet<Collection> Collections { get; set; }
         public IDbSet<Bookmark> Bookmarks { get; set; }
 
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            //base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<User>()
+                .HasMany<Collection>(u => u.CollectionRating)
+                .WithMany(c => c.RatedUsers)
+                .Map(cu =>
+                {
+                    cu.MapLeftKey("UserRefId");
+                    cu.MapLeftKey("CollectionRefId");
+                    cu.ToTable("UserCollectionRating");
+                });
+
+            modelBuilder.Entity<User>()
+                .HasMany<Bookmark>(u => u.BookmarkRating)
+                .WithMany(b => b.RatedUsers)
+                .Map(bu =>
+                {
+                    bu.MapLeftKey("UserRefId");
+                    bu.MapRightKey("BookmarkRefId");
+                    bu.ToTable("UserBookmarkRating");
+                });
+
+            modelBuilder.Entity<User>()
+                .HasMany<Collection>(u => u.CollectionSubscriptions)
+                .WithMany(c => c.SubscribedUsers)
+                .Map( cuSub =>
+                {
+                    cuSub.MapLeftKey("UserRefId");
+                    cuSub.MapRightKey("CollectionRefId");
+                    cuSub.ToTable("UserCollectionSubscriptions");
+                });
+        }
+
         public override int SaveChanges()
         {
             var AddedEntities = ChangeTracker.Entries().Where(E => E.State == EntityState.Added).ToList();

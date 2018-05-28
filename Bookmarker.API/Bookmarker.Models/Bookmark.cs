@@ -1,6 +1,6 @@
-﻿
-using System;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
 
 namespace Bookmarker.Models
 {
@@ -16,6 +16,10 @@ namespace Bookmarker.Models
         [DataType(DataType.Url)]
         public string URL { get; set; }
         public int Rating { get; private set; }
+
+        public virtual ICollection<User> Users { get; set; }
+
+        public virtual ICollection<User> RatedUsers { get; set; }
 
         public void ThumbUp()
         {

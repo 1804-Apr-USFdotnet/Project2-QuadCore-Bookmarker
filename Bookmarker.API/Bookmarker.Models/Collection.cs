@@ -20,6 +20,10 @@ namespace Bookmarker.Models
         public virtual User Owner { get; set; }
         public virtual ICollection<Bookmark> Bookmarks { get; set; }
 
+        public virtual ICollection<User> SubscribedUsers { get; set; }
+
+        public virtual ICollection<User> RatedUsers { get; set; }
+
         public void ThumbUp()
         {
             Rating++;

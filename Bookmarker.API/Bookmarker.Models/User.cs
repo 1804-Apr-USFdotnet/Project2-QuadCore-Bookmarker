@@ -16,5 +16,10 @@ namespace Bookmarker.Models
         public string Email { get; set; }
 
         public virtual ICollection<Collection> Collections { get; set; }
+
+        public virtual ICollection<Collection> CollectionSubscriptions { get; set; }
+
+        public virtual ICollection<Collection> CollectionRating { get; set; }
+        public virtual ICollection<Bookmark> BookmarkRating { get; set; }
     }
 }

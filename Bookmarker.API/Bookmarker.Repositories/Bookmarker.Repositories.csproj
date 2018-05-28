@@ -50,6 +50,15 @@
     <Compile Include="BookmarkerContext.cs" />
     <Compile Include="IDbContext.cs" />
     <Compile Include="IRepository.cs" />
+    <Compile Include="Migrations\201805281924501_initial.cs" />
+    <Compile Include="Migrations\201805281924501_initial.Designer.cs">
+      <DependentUpon>201805281924501_initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805281926122_rating-subscription.cs" />
+    <Compile Include="Migrations\201805281926122_rating-subscription.Designer.cs">
+      <DependentUpon>201805281926122_rating-subscription.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository.cs" />
   </ItemGroup>
@@ -63,6 +72,14 @@
     <None Include="App.config" />
     <Content Include="Connections.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201805281924501_initial.resx">
+      <DependentUpon>201805281924501_initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805281926122_rating-subscription.resx">
+      <DependentUpon>201805281926122_rating-subscription.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
