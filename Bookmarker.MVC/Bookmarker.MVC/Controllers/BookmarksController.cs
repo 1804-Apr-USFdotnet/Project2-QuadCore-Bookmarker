@@ -18,7 +18,7 @@ namespace Bookmarker.MVC.Controllers
         {
             var user = await WhoAmI();
             BookmarkViewModel bm = new BookmarkViewModel();
-            await bm.InitCollectionAsync(collectionId);
+            bm.CollectionId = collectionId;
             return View(bm);
         }
 
@@ -81,7 +81,27 @@ namespace Bookmarker.MVC.Controllers
             }
 
             PassCookiesToClient(apiResponse);
-            return View(bm);
+            var user = await WhoAmI();
+            
+            if(bm.Collection.Private && (user == null || bm.Collection.OwnerId != user.Id))
+            {
+                TempData["Message"] = "Please log in.";
+                return RedirectToAction("Login", "Accounts");
+            }
+
+            if(user == null)
+            {
+                return View(bm);
+            }
+
+            if(bm.Collection.OwnerId == user.Id)
+            {
+                return View("MyDetails", bm);
+            }
+            else
+            {
+                return View(bm);
+            }
         }
     }
 }
