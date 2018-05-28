@@ -14,14 +14,25 @@ namespace Bookmarker.MVC.Controllers
     public class AccountsController : AServiceController
     {
         // GET: Accounts/Login
-        public ActionResult Login()
+        public async Task<ActionResult> Login()
         {
+            UserAPI user = await WhoAmI();
+            if(user != null)
+            {
+                TempData["Message"] = "Already logged in.";
+                return RedirectToAction("UserDetails", "Accounts");
+            }
             return View();
         }
 
         // GET: Accounts/Register
-        public ActionResult Register()
+        public async Task<ActionResult> Register()
         {
+            UserAPI user = await WhoAmI();
+            if(user != null)
+            {
+                TempData["Message"] = "Do you really want another account?";
+            }
             return View();
         }
 
