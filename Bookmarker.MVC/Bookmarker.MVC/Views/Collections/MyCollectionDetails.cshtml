@@ -1,91 +1,82 @@
 ﻿@model Bookmarker.MVC.Models.CollectionViewModel
 
-<!DOCTYPE html>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>My Collection Details</title>
-</head>
-<body>
-    <div class="row">
-        <div class="col-sm-6">
-            <h4>@Model.Name</h4>
-            <hr />
-            <dl class="dl-horizontal">
-                <dt>
-                    @Html.DisplayNameFor(model => model.Description)
-                </dt>
+<div class="row">
+    <div class="col-sm-6">
+        <h4>@Model.Name</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Description)
+            </dt>
 
-                <dd>
-                    @Html.DisplayFor(model => model.Description)
-                </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Description)
+            </dd>
 
-                <dt>
-                    @Html.DisplayNameFor(model => model.Created)
-                </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Created)
+            </dt>
 
-                <dd>
-                    @Html.DisplayFor(model => model.Created)
-                </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Created)
+            </dd>
 
-                <dt>
-                    @Html.DisplayNameFor(model => model.Modified)
-                </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Modified)
+            </dt>
 
-                <dd>
-                    @Html.DisplayFor(model => model.Modified)
-                </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Modified)
+            </dd>
 
 
-                <dt>
-                    @Html.DisplayNameFor(model => model.Rating)
-                </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Rating)
+            </dt>
 
-                <dd>
-                    @Html.DisplayFor(model => model.Rating)
-                </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Rating)
+            </dd>
 
-                <dt>
-                    @Html.DisplayNameFor(model => model.Private)
-                </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Private)
+            </dt>
 
-                <dd>
-                    @Html.DisplayFor(model => model.Private)
-                </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Private)
+            </dd>
 
-            </dl>
-        </div>
-        <div class="col-sm-6">
-            <h4>Bookmarks</h4>
-            <hr />
-
-            @if (Model.Bookmarks != null)
-            {
-                <div style="margin-left: 15px;">
-                    @Html.Partial("_Bookmarks", Model.Bookmarks)
-                </div>
-            }
-            <hr />
-
-            @Html.ActionLink("Add Bookmark", "New", "Bookmarks", new { collectionId = Model.Id }, new { @class = "btn btn-dark" })
-
-            <hr />
-        </div>
+        </dl>
     </div>
+    <div class="col-sm-6">
+        <h4>Bookmarks</h4>
+        <hr />
 
-    <hr />
-    <span>
-        @Html.ActionLink("Edit", "EditCollection", "Collections", new { id = Model.Id }, new { @class = "btn btn-dark" })
-    </span>
-    <span>
-        @Html.ActionLink("My Collections", "MyCollections", "Collections", null, new { @class = "btn btn-dark" })
-    </span>
-    <span>
-        @Html.ActionLink("Collections", "PublicCollections", "Collections", null, new { @class = "btn btn-dark" })
-    </span>
-    <span>
-        @Html.RouteLink("Delete", new { action = "DeleteCollection", controller = "Collections", id = Model.Id }, new { @class = "btn btn-dark" })
-    </span>
-</body>
-</html>
+        @if (Model.Bookmarks != null)
+        {
+            <div style="margin-left: 15px;">
+                @Html.Partial("_Bookmarks", Model.Bookmarks)
+            </div>
+        }
+        <hr />
+
+        @Html.ActionLink("Add Bookmark", "New", "Bookmarks", new { collectionId = Model.Id }, new { @class = "btn btn-dark" })
+
+        <hr />
+    </div>
+</div>
+
+<hr />
+<span>
+    @Html.ActionLink("Edit", "EditCollection", "Collections", new { id = Model.Id }, new { @class = "btn btn-dark" })
+</span>
+<span>
+    @Html.ActionLink("My Collections", "MyCollections", "Collections", null, new { @class = "btn btn-dark" })
+</span>
+<span>
+    @Html.ActionLink("Collections", "PublicCollections", "Collections", null, new { @class = "btn btn-dark" })
+</span>
+<span>
+    @Html.RouteLink("Delete", new { action = "DeleteCollection", controller = "Collections", id = Model.Id }, new { @class = "btn btn-dark" })
+</span>

@@ -1,37 +1,29 @@
 ﻿@model IEnumerable<Bookmarker.MVC.Models.AccountViewModel>
 
-<!DOCTYPE html>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>User List</title>
-</head>
-<body>
-    <div class="search-bar" style="position: fixed; background-color: #343a40; color: white; z-index: 100;">
-        @using (Html.BeginForm("UsersList", "Home", FormMethod.Get))
-        {
-            @Html.TextBox("search")
+<div class="search-bar" style="position: fixed; background-color: #343a40; color: white; z-index: 100;">
+    @using (Html.BeginForm("UsersList", "Home", FormMethod.Get))
+    {
+        @Html.TextBox("search")
 
-            List<object> options = new List<object>();
-            options.Add(new { name = "Name asc.", value = "name:asc" });
-            options.Add(new { name = "Name desc.", value = "name:desc" });
+        List<object> options = new List<object>();
+        options.Add(new { name = "Name asc.", value = "name:asc" });
+        options.Add(new { name = "Name desc.", value = "name:desc" });
 
-            <span style="margin-left: 5px;"/>
+        <span style="margin-left: 5px;">
 
-            @Html.DropDownList("sort", new SelectList(options, "value", "name"))
+        @Html.DropDownList("sort", new SelectList(options, "value", "name"))
 
-            <input type="submit" value="search" class="btn btn-dark"/>
-        }
-    </div>
-    <br />
-    <br />
-    <br />
-    @{
-        foreach (var user in Model)
-        {
-            @Html.Partial("_User", user)
-        }
-     }
-</body>
-</html>
+        <input type="submit" value="search" class="btn btn-dark"/>
+        </span>
+    }
+</div>
+<br />
+<br />
+<br />
+@{
+    foreach (var user in Model)
+    {
+        @Html.Partial("_User", user)
+    }
+}

@@ -1,77 +1,68 @@
 ﻿@model Bookmarker.MVC.Models.BookmarkViewModel
 
-<!DOCTYPE html>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Details</title>
-</head>
-<body>
-    <div>
-        <h4>Bookmark Details</h4>
-        <hr />
-        <dl class="dl-horizontal">
+<div>
+    <h4>Bookmark Details</h4>
+    <hr />
+    <dl class="dl-horizontal">
     
-            <dt>
-                @Html.DisplayNameFor(model => model.Name)
-            </dt>
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
     
-            <dd>
-                @Html.DisplayFor(model => model.Name)
-            </dd>
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
     
-            <dt>
-                @Html.DisplayNameFor(model => model.URL)
-            </dt>
+        <dt>
+            @Html.DisplayNameFor(model => model.URL)
+        </dt>
     
-            <dd>
-                @Html.DisplayFor(model => model.URL)
-            </dd>
+        <dd>
+            @Html.DisplayFor(model => model.URL)
+        </dd>
     
-            <dt>
-                @Html.DisplayNameFor(model => model.Rating)
-            </dt>
+        <dt>
+            @Html.DisplayNameFor(model => model.Rating)
+        </dt>
     
-            <dd>
-                @Html.DisplayFor(model => model.Rating)
-            </dd>
+        <dd>
+            @Html.DisplayFor(model => model.Rating)
+        </dd>
     
-            <dt>
-                Collection Name
-            </dt>
+        <dt>
+            Collection Name
+        </dt>
     
-            <dd>
-                @Html.DisplayFor(model => model.Collection.Name)
-            </dd>
+        <dd>
+            @Html.DisplayFor(model => model.Collection.Name)
+        </dd>
     
-            <dt>
-                @Html.DisplayNameFor(model => model.Created)
-            </dt>
+        <dt>
+            @Html.DisplayNameFor(model => model.Created)
+        </dt>
     
-            <dd>
-                @Html.DisplayFor(model => model.Created)
-            </dd>
+        <dd>
+            @Html.DisplayFor(model => model.Created)
+        </dd>
     
-            <dt>
-                @Html.DisplayNameFor(model => model.Modified)
-            </dt>
+        <dt>
+            @Html.DisplayNameFor(model => model.Modified)
+        </dt>
     
-            <dd>
-                @Html.DisplayFor(model => model.Modified)
-            </dd>
-        </dl>
-    </div>
-    <div>
-        <span>
-            @Html.ActionLink("Edit", "Edit", "Bookmarks", new { id = Model.Id }, new { @class = "btn btn-dark" })
-        </span>
-        <span>
-            @Html.ActionLink("Delete", "Delete", "Bookmarks", new { id = Model.Id }, new { @class = "btn btn-dark" })
-        </span>
-        <span>
-            @Html.ActionLink("Back to Safety", "CollectionDetails", "Collections", new { id = Model.CollectionId }, new { @class = "btn btn-dark" })
-        </span>
-    </div>
-</body>
-</html>
+        <dd>
+            @Html.DisplayFor(model => model.Modified)
+        </dd>
+    </dl>
+</div>
+<div>
+    <span>
+        @Html.ActionLink("Edit", "Edit", "Bookmarks", new { id = Model.Id }, new { @class = "btn btn-dark" })
+    </span>
+    <span>
+        @Html.ActionLink("Delete", "Delete", "Bookmarks", new { id = Model.Id }, new { @class = "btn btn-dark" })
+    </span>
+    <span>
+        @Html.ActionLink("Back", "CollectionDetails", "Collections", new { id = Model.CollectionId }, new { @class = "btn btn-dark" })
+    </span>
+</div>

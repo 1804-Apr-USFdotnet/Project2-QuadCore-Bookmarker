@@ -1,35 +1,27 @@
 ﻿@model IEnumerable<Bookmarker.MVC.Models.BookmarkViewModel>
 
-<!DOCTYPE html>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Search</title>
-</head>
-<body>
-    <div class="search-bar" style="position: fixed; background-color: #343a40; color: white; z-index: 100;">
-        @using (Html.BeginForm("List", "Bookmarks", FormMethod.Get))
-        {
-            @Html.TextBox("search")
+<div class="search-bar" style="position: fixed; background-color: #343a40; color: white; z-index: 100;">
+    @using (Html.BeginForm("List", "Bookmarks", FormMethod.Get))
+    {
+        @Html.TextBox("search")
 
-            List<object> options = new List<object>();
-            options.Add(new { name = "Name", value = "name:asc" });
-            options.Add(new { name = "Rating", value = "rating:desc" });
-            options.Add(new { name = "Collection", value = "collection" });
-            options.Add(new { name = "URL", value = "url" });
+        List<object> options = new List<object>();
+        options.Add(new { name = "Name", value = "name:asc" });
+        options.Add(new { name = "Rating", value = "rating:desc" });
+        options.Add(new { name = "Collection", value = "collection" });
+        options.Add(new { name = "URL", value = "url" });
 
-            <span style="margin-left: 5px;"/>
+        <span style="margin-left: 5px;">
 
-            @Html.DropDownList("sort", new SelectList(options, "value", "name"))
+        @Html.DropDownList("sort", new SelectList(options, "value", "name"))
 
-            <input type="submit" value="search" class="btn btn-dark"/>
-        }
-    </div>
-    <br />
-    <br />
-    <br />
+        <input type="submit" value="search" class="btn btn-dark"/>
+        </span>
+    }
+</div>
+<br />
+<br />
+<br />
 
-    @Html.Partial("_Bookmarks", Model)
-</body>
-</html>
+@Html.Partial("_Bookmarks", Model)

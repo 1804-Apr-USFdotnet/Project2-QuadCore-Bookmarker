@@ -1,30 +1,18 @@
 ﻿@model Bookmarker.MVC.Models.AccountViewModel
 
-<!DOCTYPE html>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>User Profile</title>
-</head>
-<body>
-    <div>
-        <h4>@Model.Username</h4>
-        <hr />
+<div>
+    <h4>@Model.Username</h4>
+    <hr />
 
-        <div class="search-bar" style="position: fixed; background-color: #343a40; color: white; z-index: 100;">
-            @using (Html.BeginForm("UserProfile", "Home", Model.Id, FormMethod.Get))
-            {
-                @Html.Partial("_CollectionSearch")
-            }
-        </div>
-    <br />
-    <br />
-    <br />
-
-        @Html.Partial("_CollectionCards", Model.Collections)
-    
-    
+    <div class="search-bar" style="position: fixed; background-color: #343a40; color: white; z-index: 100;">
+        @using (Html.BeginForm("UserProfile", "Home", Model.Id, FormMethod.Get))
+        {
+            @Html.Partial("_CollectionSearch")
+        }
     </div>
-</body>
-</html>
+<br />
+<br />
+<br />
+    @Html.Partial("_CollectionCards", Model.Collections)
+</div>

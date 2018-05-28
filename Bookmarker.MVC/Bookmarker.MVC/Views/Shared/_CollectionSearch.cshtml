@@ -1,14 +1,16 @@
 ﻿@{ 
     @Html.TextBox("search")
-
-    List<object> options = new List<object>();
+    
+    List<object> options = new List<object>
+    ();
     options.Add(new { name = "Name", value = "name:asc" });
     options.Add(new { name = "Rating", value = "rating:desc" });
     options.Add(new { name = "Size", value = "bookmarks:desc" });
 
-    <span style="margin-left: 5px;"/>
 
-    @Html.DropDownList("sort", new SelectList(options, "value", "name"))
+    <span style="margin-left: 5px;">
+        @Html.DropDownList("sort", new SelectList(options, "value", "name"))
 
-    <input type="submit" value="search" class="btn btn-dark"/>
+        <input type="submit" value="search" class="btn btn-dark" />
+    </span>
 }
