@@ -211,8 +211,8 @@ namespace Bookmarker.Logic
             if (list == null || sort == null) { return list; };
             List<User> output = new List<User>();
             output.AddRange(list.FindAll(
-                x => (x.Username?.ToLower() ?? "").Contains(sort.ToLower()) ||
-                (x.Email?.ToLower() ?? "").Contains(sort.ToLower())
+                x => (x.Username?.ToLower() ?? "").Contains(sort.ToLower())// ||
+                //(x.Email?.ToLower() ?? "").Contains(sort.ToLower())
             ));
 
             return output;
