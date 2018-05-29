@@ -58,7 +58,10 @@ namespace Bookmarker.API.Controllers
                 var collApiList = new List<CollectionAPI>();
                 foreach(var collection in collectionsList)
                 {
-                    collApiList.Add(new CollectionAPI(collection));
+                    if (!collection.Private)
+                    {
+                        collApiList.Add(new CollectionAPI(collection));
+                    }
                 }
                 return Ok(collApiList);
             }
