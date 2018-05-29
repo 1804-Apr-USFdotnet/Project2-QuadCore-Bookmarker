@@ -53,15 +53,12 @@ namespace Bookmarker.API.Controllers
                 }
                 if (sort != null)
                 {
-                    Logic.Library.Sort(ref collectionsList, sort); 
+                    Logic.Library.Sort(ref collectionsList, sort);
                 }
                 var collApiList = new List<CollectionAPI>();
-                foreach(var collection in collectionsList)
+                foreach (var collection in collectionsList)
                 {
-                    if (!collection.Private)
-                    {
-                        collApiList.Add(new CollectionAPI(collection));
-                    }
+                    collApiList.Add(new CollectionAPI(collection));
                 }
                 return Ok(collApiList);
             }
