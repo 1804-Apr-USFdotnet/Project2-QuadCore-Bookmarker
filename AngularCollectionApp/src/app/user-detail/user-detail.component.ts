@@ -56,6 +56,7 @@ export class UserDetailComponent implements OnInit {
         group = [];
       }
     });
+    this.collectionGroups.push(group);
   }
 
   goBack(): void {
