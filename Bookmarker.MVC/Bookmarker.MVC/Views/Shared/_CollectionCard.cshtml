@@ -5,12 +5,19 @@
         @Html.RouteLink(Model.Name, new { action = "CollectionDetails", controller = "Collections", id = Model.Id }, new { @class = "btn btn-dark", target = "_blank" })
         <span style="float: right;"><img src="~/favicon.ico" /> @Model.Bookmarks.Count()</span>
     </div>
-    <div class="card-body">
+    <div class="card-body" style="padding-bottom: 0">
         @if(Model.Bookmarks != null)
         {
             @Html.Partial("_FiveBookmarks", Model.Bookmarks)
         }
-        <p class="card-text text-muted">Created: @Model.Created</p>
+        <p class="card-text text-muted float-right" style="font-size:12px;margin-top:1.25rem;text-align:right;">
+            Created: @Model.Created<br />
+            @if (Model.Modified != null)
+            {
+                <text>Modified:</text> @Model.Modified
+            }
+
+        </p>
     </div>
     <div class="card-footer">
         <div class="card-text">
