@@ -4,4 +4,5 @@ export class Collection {
     links: Object;
     id: String;
     created: String;
+    private: boolean;
 }
