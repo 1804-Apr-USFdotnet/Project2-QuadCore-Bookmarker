@@ -13,34 +13,34 @@ namespace Bookmarker.MVC.Controllers
     public class CollectionsController : AServiceController
     {
         // GET: Collections/TopCollections
-        public async Task<ActionResult> TopCollections()
-        {
-            HttpRequestMessage apiRequest = CreateRequestToService(HttpMethod.Get, "Collections?sort=rating:desc");
+        //public async Task<ActionResult> TopCollections()
+        //{
+        //    HttpRequestMessage apiRequest = CreateRequestToService(HttpMethod.Get, "Collections?sort=rating:desc");
 
-            HttpResponseMessage apiResponse;
-            try
-            {
-                apiResponse = await HttpClient.SendAsync(apiRequest);
-            }
-            catch
-            {
-                return View("Error");
-            }
+        //    HttpResponseMessage apiResponse;
+        //    try
+        //    {
+        //        apiResponse = await HttpClient.SendAsync(apiRequest);
+        //    }
+        //    catch
+        //    {
+        //        return View("Error");
+        //    }
 
-            PassCookiesToClient(apiResponse);
+        //    PassCookiesToClient(apiResponse);
 
-            var collections = await apiResponse.Content.ReadAsAsync<IEnumerable<CollectionViewModel>>();
+        //    var collections = await apiResponse.Content.ReadAsAsync<IEnumerable<CollectionViewModel>>();
 
-            collections = collections.Take(9);            
+        //    collections = collections.Take(9);            
 
-            foreach (var collection in collections)
-            {
-                await collection.InitBookmarksAsync();
-            }
-            var user = await WhoAmI();
-            ViewBag.UserId = user?.Id;
-            return View("Trending", collections);
-        }
+        //    foreach (var collection in collections)
+        //    {
+        //        await collection.InitBookmarksAsync();
+        //    }
+        //    var user = await WhoAmI();
+        //    ViewBag.UserId = user?.Id;
+        //    return View("Trending", collections);
+        //}
 
         // GET: Collections/PublicCollections
         public async Task<ActionResult> PublicCollections(string search, string sort = "name")
