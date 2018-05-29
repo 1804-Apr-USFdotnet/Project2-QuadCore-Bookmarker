@@ -37,11 +37,14 @@ export class CollectionComponent implements OnInit {
     this.collectionGroups = [];
     var group: object[] = [];
     collectionList.forEach(eachObject => {
-      group.push(eachObject);
-      if (group.length === 3) {
-        this.collectionGroups.push(group);
-        group = [];
+      if (!eachObject.private) {
+        group.push(eachObject);
+        if (group.length === 3) {
+          this.collectionGroups.push(group);
+          group = [];
+        }
       }
     });
+    this.collectionGroups.push(group);
   }
 }
