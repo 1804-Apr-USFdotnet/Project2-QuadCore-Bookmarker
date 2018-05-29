@@ -1,0 +1,4 @@
+.card:hover {
+    background-color:ghostwhite;
+    box-shadow: 0 4px 10px 0;
+}
