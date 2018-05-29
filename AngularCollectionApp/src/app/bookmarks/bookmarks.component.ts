@@ -18,7 +18,7 @@ export class BookmarksComponent implements OnInit {
   }
 
   getBookmarks(): void {
-    this.httpClient.get(this.url).subscribe(
+    this.httpClient.get(this.url + "?sort=name").subscribe(
       response => this.bookmarks = response,
       errors => console.log(errors)
     );

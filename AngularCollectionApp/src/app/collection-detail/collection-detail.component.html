@@ -8,9 +8,10 @@
     <div>
       <app-bookmarks [url]="collection.links.my_bookmarks"></app-bookmarks>
     </div>
+
+    <hr>
+    <div class="text-muted">Created on: {{collection.created | date:'longDate'}}</div>
+    <hr>
+    <button (click)="goBack()" class="btn btn-dark">go back</button>
   </div>
-  <hr>
-  <div class="text-muted">Created on: {{collection.created | date:'longDate'}}</div>
-  <hr>
-  <button (click)="goBack()" class="btn btn-dark">go back</button>
 </div>

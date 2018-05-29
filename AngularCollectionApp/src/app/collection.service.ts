@@ -44,7 +44,7 @@ export class CollectionService {
   }
 
   getCollectionsByUserId(id : string): Observable<Collection[]> {
-    var url = `${this.usersUrl}/${id}/collections`;
+    var url = `${this.usersUrl}/${id}/collections?sort=name`;
 
     var x = this.http.get<Collection[]>(url).pipe(
       tap(_ => this.messageSvc.add(`CollectionSvc: fetched collections for user id=${id}`))
